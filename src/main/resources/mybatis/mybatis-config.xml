@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<!-- 
+			mybatis를 이용해서 실행하는 작업이 log4j2 로깅라이브러리를 사용해서 출력되게 한다.
+		 -->
+		<setting name="logImpl" value="LOG4J2"/>
+		<!-- 
+			null값이 허용된 컬럼에 null값을 입력할 때, 컬럼 타입 상관없이 null 값이 저장되게 한다.
+		 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+</configuration>

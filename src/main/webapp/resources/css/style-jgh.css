@@ -2,9 +2,9 @@
 #navbar-container{box-shadow:0 2px 4px 0 hsl(0deg 0% 81% / 50%);}
 .category-menu{position:relative;}
 .navbar-nav.is-boxed{opacity:0; display:none; position:absolute; top:40px; width:180px; height:410px; background:#fff; box-shadow:8px 5px 8px 1px rgb(0 10 18 / 10%), 0 0 0 1px rgb(0 10 18 / 10%); }
-.category-menu:hover .is-boxed.depth1{opacity:1; display:block;}
-.depth1 > .nav-item:hover .is-boxed.depth2{opacity:1; display:block; top:0; left:180px;}
-.depth2 > .nav-item:hover .is-boxed.depth3{opacity:1; display:block; top:0; left:180px;}
+.category-menu:hover .is-boxed.depth1{opacity:1; display:block; z-index:20;}
+.depth1 > .nav-item:hover .is-boxed.depth2{opacity:1; display:block; top:0; left:180px; z-index:20;}
+.depth2 > .nav-item:hover .is-boxed.depth3{opacity:1; display:block; top:0; left:180px; z-index:20;}
 
 .navbar-light .navbar-nav .nav-link.btn-login:hover{color:#fff;}
 .navbar-light .navbar-nav .nav-link.btn-recent, .navbar-light .navbar-nav .nav-link.btn-recent:hover{color:#fff;}

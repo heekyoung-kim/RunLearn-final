@@ -6,7 +6,7 @@
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="resources/css/style-jgh.css" />
+     <link rel="stylesheet" href="/resources/css/style-jgh.css" />
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	 <script src="https://kit.fontawesome.com/067cf61548.js" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
 <div class="container-fluid" id="navbar-container">
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container">
-			<a class="navbar-brand" href="#"><img width="140" src="resources/images/logo.png"></a>
+			<a class="navbar-brand" href="#"><img width="140" src="/resources/images/logo.png"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -88,7 +88,7 @@
 					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a></li>
 					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bell"></i></a></li>
 					<li class="nav-item">
-						<a class="nav-link profile-cover p-0" href="#"><img src="resources/images/default_profile.png"></a>
+						<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
 					</li>
 					<!--// 로그인시 -->
 					<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm btn-login" href="#">로그인</a></li>

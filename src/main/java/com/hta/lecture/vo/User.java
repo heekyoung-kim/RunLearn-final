@@ -19,13 +19,16 @@ import lombok.ToString;
 public class User {
 
 	private int no;
-	private String title;
-	private String author;
-	private String publisher;
-	private Date pubDate;
-	private int price;
-	private int discountPrice;
-	private int stock;
-	private Date updatedDate;
+	private String email;
+	private String password;
+	private String name;
+	private String tel;
+	private int point;
+	private String intro;
+	private String img;
+	private String teacherStatus;
+	private String managerStatus;
+	private String deletedStatus;
 	private Date createdDate;
+	private Date deletedDate;
 }

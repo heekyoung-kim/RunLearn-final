@@ -66,6 +66,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+         <groupId>com.oracle.database.security</groupId>
+         <artifactId>oraclepki</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.oracle.database.security</groupId>
+         <artifactId>osdt_core</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>com.oracle.database.security</groupId>
+         <artifactId>osdt_cert</artifactId>
+      </dependency>
 	</dependencies>
 
 	<build>

@@ -79,7 +79,7 @@ public class ExceptionHandlerControllerAdvice {
 	public String handleLoginErrorException(LoginErrorException e, Model model){
 		e.printStackTrace();
 		model.addAttribute("error", e.getMessage());
-		return "loginform.jsp";
+		return "loginform";
 	}
 	
 	@ExceptionHandler(CustomException.class) 

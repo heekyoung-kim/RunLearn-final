@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hta.lecture.mapper.UserMapper">
+	
+	<select id="getUserByEmail" parameterType="string" resultType="com.hta.lecture.vo.User">
+	select 
+		user_no				no,
+		user_email			email,
+		user_password		password,
+		user_name			name,
+		user_tel			tel,
+		user_point      	point,
+		user_intro			intro,
+		user_img			img,
+		teacher_yn			teacherStatus,
+		manager_yn			managerStatus,
+		user_deleted_yn		deletedStatus,
+		user_created_date	createdDate,
+		user_deleted_date	deletedDate
+	from 
+		final_user_tb
+	where
+		user_email = #{value}
+	</select>
+</mapper>

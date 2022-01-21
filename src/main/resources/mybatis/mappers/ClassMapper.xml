@@ -40,13 +40,19 @@
 			C.class_price 				as price,
 			C.class_discountprice 		as discountPrice,
 			C.class_image 				as image,
-			S.cnt 						as studentCount
+			S.cnt 						as studentCount,
+			R.cnt 						as reviewGrade
 		from
-			final_class_tb C, final_teacher_tb T, (select class_no, count(*) cnt
-													from final_progress_tb
-													group by class_no) S
+			final_class_tb C, final_teacher_tb T,
+			(select class_no, count(*) cnt
+			from final_progress_tb
+			group by class_no) S,
+			(select R.class_no, ceil(AVG(R.review_grade)) cnt
+			from final_review_tb R, final_class_tb C
+			where R.class_no = C.class_no
+			group by R.class_no) R
 		where
-			C.teacher_no = T.teacher_no and C.class_no = S.class_no
+			C.teacher_no = T.teacher_no and C.class_no = S.class_no and C.class_no = R.class_no
 	</select>
 	
 	<select id="countAllClassStudent" parameterType="int" resultType="int">

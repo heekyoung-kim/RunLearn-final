@@ -21,7 +21,7 @@ public class ClassCourseDto {
 	private int price;
 	private int discountPrice;
 	private String image;
-	//private String favorite;
+	private int reviewGrade;
 	//private int favoriteCount;
 	private int studentCount;
 }

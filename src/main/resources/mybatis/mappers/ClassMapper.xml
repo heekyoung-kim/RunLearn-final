@@ -57,12 +57,22 @@
 		where
 			P.class_no = C.class_no and C.class_no = #{value}
 	</select>
+	<!-- 강의글 리뷰 점수의 평균을 계산하여 구함
 	<select id="">
 		select
-		    R.review_grade * G.cnt
-		from final_review_tb R, final_class_tb C, (select count(*) cnt
-		                                            from final_review_tb
-		                                            where review_grade = 5) G
-		where R.class_no = C.class_no and review_grade = 5 and rownum = 1;
+		    R.class_no, ceil(AVG(R.review_grade))
+		from final_review_tb R, final_class_tb C
+		where R.class_no = C.class_no
+		group by R.class_no;
 	</select>
+	 -->
+	<!-- 강의글에 리뷰가 작성된 양을 찾음
+	<select id="">
+	select
+	    count(R.class_no)
+	from final_review_tb R, final_class_tb C
+	where R.class_no = C.class_no
+	group by R.class_no;
+	</select>
+	 -->
 </mapper>

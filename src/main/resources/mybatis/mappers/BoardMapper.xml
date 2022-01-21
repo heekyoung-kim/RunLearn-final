@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hta.lecture.mapper.BoardMapper">
+	
+	<select id="getBoardListByCategory" parameterType="string" resultType="com.hta.lecture.vo.Board">
+	select 
+		board_no					boardNo
+		board_category				category
+		board_title					title
+		board_content				content
+		board_resolve_status		resolveStatus
+		board_recruitment_status	recruitmentStatus
+		board_registration_date		registrationDate
+		board_update_date			updateDate
+		board_delete_date			deleteDate
+		board_like_cnt				likeCnt
+		
+	from 
+		final_board_tb
+	where
+		board_category = #{value}
+	</select>
+</mapper>

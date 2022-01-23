@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hta.lecture.mapper.ClassMapper">
 
-	<select id="getAllClasses" resultType="com.hta.lecture.vo.Classes">
+	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.vo.Classes">
 		select
 			class_no				as no,
 			class_title				as title,
@@ -28,57 +28,114 @@
 			category_no				as categoryNo
 		from
 			final_class_tb
-		order by
-			class_no desc
+		where
+			class_no = #{value}
 	</select>
 	
-	<select id="getAllCourseInfo" resultType="com.hta.lecture.dto.ClassCourseDto">
+	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.ClassCourseDto">
 		select
-			C.class_no 					as no,
-			C.class_title 				as title,
-			T.teacher_name				as name,
-			C.class_price 				as price,
-			C.class_discountprice 		as discountPrice,
-			C.class_image 				as image,
-			S.cnt 						as studentCount,
-			R.cnt 						as reviewGrade
-		from
-			final_class_tb C, final_teacher_tb T,
-			(select class_no, count(*) cnt
-			from final_progress_tb
-			group by class_no) S,
-			(select R.class_no, ceil(AVG(R.review_grade)) cnt
-			from final_review_tb R, final_class_tb C
-			where R.class_no = C.class_no
-			group by R.class_no) R
-		where
-			C.teacher_no = T.teacher_no and C.class_no = S.class_no and C.class_no = R.class_no
+			class_no 					as no,
+			class_title 				as title,
+			teacher_name				as name,
+			class_price 				as price,
+			class_discountprice 		as discountPrice,
+			class_image 				as image
+		from 
+         (
+         select 
+            row_number() over (order by class_no desc) rn, 
+            A.*, B.*
+         from
+            final_class_tb A, final_teacher_tb B
+         where
+			A.teacher_no = B.teacher_no and (class_title like '%' || #{value} || '%')
+         )
+      where
+         rn between #{beginIndex} and #{endIndex}
+			
 	</select>
 	
-	<select id="countAllClassStudent" parameterType="int" resultType="int">
+	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.vo.Classes">
 		select
-			count(*)
-		from
-			final_progress_tb P, final_class_tb C
-		where
-			P.class_no = C.class_no and C.class_no = #{value}
+			class_no				as no,
+			class_title				as title,
+			class_content			as content,
+			class_difficultly		as difficultly,
+			class_image				as image,
+			class_video				as video,
+			class_income			as income,
+			class_period			as period,
+			class_price				as price,
+			class_discountprice		as discountPrice,
+			class_permission		as permission,
+			class_filter			as filter,
+			class_status			as status,
+			class_application_date	as applicationDate,
+			class_open_date			as openDate,
+			class_updated_date		as updatedDate,
+			class_deleted_date		as deletedDate,
+			class_total_count		as totalCount,
+			class_total_time		as totalTime,
+			class_isdeleted			as isDeleted,
+			teacher_no				as teacherNo,
+			category_no				as categoryNo
+		from 
+         (
+         select 
+            row_number() over (order by class_no desc) rn, 
+            A.*
+         from
+            final_class_tb A
+         <where>
+            <if test="value != null">
+				class_title like '%' || #{value} || '%'
+            </if>
+         </where>
+         )
+      where
+         rn between #{beginIndex} and #{endIndex}
 	</select>
-	<!-- 강의글 리뷰 점수의 평균을 계산하여 구함
-	<select id="">
+	
+	<select id="getClassesTotalRows" parameterType="com.hta.lecture.web.form.Criteria" resultType="int">
+		select count(*)
+		from final_class_tb
+		<where>
+			<if test="value != null">
+				class_title like '%' || #{value} || '%'
+			</if>
+		</where>			
+	</select>
+	
+	<!-- 카테고리 분류는 가능하지만, 이걸 가지고 어떻게 category분류 navbar링크에 대입할지..
+	<select id="getClassCategoryByNo" parameterType="int" resultType="com.hta.lecture.Category">
 		select
-		    R.class_no, ceil(AVG(R.review_grade))
-		from final_review_tb R, final_class_tb C
-		where R.class_no = C.class_no
-		group by R.class_no;
+		    level as lvl,
+		    category_no,
+		    LPAD('  ',3 * (level - 1)) || category_no 카테고리번호,
+		    category_name,
+		    substr(sys_connect_by_path(category_name, '>'), 2) category_path,
+		    category_par_no
+		from final_category_tb
+		start with category_par_no is null
+		connect by prior category_no = category_par_no
+		order by category_no asc;
 	</select>
 	 -->
-	<!-- 강의글에 리뷰가 작성된 양을 찾음
-	<select id="">
-	select
-	    count(R.class_no)
-	from final_review_tb R, final_class_tb C
-	where R.class_no = C.class_no
-	group by R.class_no;
-	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 
+		(select class_no, count(*) cnt
+		from final_progress_tb
+		group by class_no) S,
+		(select class_no, ceil(AVG(review_grade)) cnt
+		from final_review_tb
+		group by class_no) R,
+		(select class_no, count(*) cnt
+		from final_review_tb
+		group by class_no) RC
 	 -->
 </mapper>

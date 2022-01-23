@@ -1,4 +1,4 @@
-package com.hta.lecture.dto;
+package com.hta.lecture.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,15 +13,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ClassCourseDto {
+public class Category {
 
 	private int no;
-	private String title;
-	private String name;
-	private int price;
-	private int discountPrice;
-	private String image;
-	private int studentCount;
-	private int reviewGrade;
-	private int reviewCount;
+	private int parentNo;
+	private String name; 
 }

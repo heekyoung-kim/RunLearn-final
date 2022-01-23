@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Classes;
+import com.hta.lecture.web.form.Criteria;
 
 @Service
 public class ClassService {
@@ -19,14 +20,28 @@ public class ClassService {
 	@Autowired
 	private ClassMapper classMapper;
 	
-	public List<Classes> getAllClasses(){
-		List<Classes> classes = classMapper.getAllClasses();
-		return classes;
+	public int getTotalRows(Criteria criteria) {
+		logger.info("검색조건: " + criteria);
+		return classMapper.getClassesTotalRows(criteria);
 	}
 	
-	public List<ClassCourseDto> getAllCourseInfo(){
-		List<ClassCourseDto> classCourse = classMapper.getAllCourseInfo();
+	public List<ClassCourseDto> getAllCourseInfo(Criteria criteria){
+		List<ClassCourseDto> classCourse = classMapper.getAllCourseInfo(criteria);
 		return classCourse;
+	}
+	
+	public List<Classes> getClassSearch(Criteria criteria){
+		List<Classes> classSearch = classMapper.getClassSearch(criteria);
+		
+		return classSearch;
+	}
+	
+	public int getClassesTotalRows(Criteria criteria) {
+		return classMapper.getClassesTotalRows(criteria);
+	}
+	
+	public Classes getClassDetail(int no) {
+		return classMapper.getClassDetail(no);
 	}
 	
 	public int countAllClassStudent(int no) {

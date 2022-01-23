@@ -12,42 +12,72 @@ import com.hta.lecture.exception.LoginErrorException;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.User;
+import com.hta.lecture.web.form.KakaoLoginForm;
+import com.hta.lecture.web.form.UserRegisterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
-@RequestMapping("/test")
 public class HomeController {
-
-	@Autowired
-	UserService userService;
 	
-	@GetMapping("/home")
+	private static final String KAKAO_LOGIN_TYPE = "kakao";
+	
+	@Autowired
+	private UserService userService;
+	
+	// 홈
+	@RequestMapping("/")
 	public String home(Model model) {
 		model.addAttribute("message", "홈페이지 방문을 환영합니다.");
 		
 		return "home";	// prefix="/WEB-INF/views/" viewName="home" suffix=".jsp"
 	}
 
-	@GetMapping("/login")
-	public String loginform() {
-		
-		return "loginform";	
-	}
-	
-	@PostMapping("/login")
-	public String login(String email, String password, Model model) {
-		if(!StringUtils.hasText(email) || !StringUtils.hasText(password)) {
-			throw new LoginErrorException("아이디와 비밀번호는 필수 입력값입니다.");
-		}
-		User user = userService.login(email, password);
-		SessionUtils.addAttribute("LOGIN_USER", user);
-		
-		return "redirect:home";
-	}
-	
+	// 로그아웃
 	@GetMapping("/logout")
 	public String logout() {
 		SessionUtils.removeAttribute("LOGIN_USER");
 		
-		return "redirect:home";
+		return "redirect:/";
 	}
+	
+	// 회원가입 폼
+	@GetMapping("/registerUser")
+	public String registerForm() {
+		return "register";
+	}
+	
+	// 회원정보 수정.
+	@PostMapping("/updateUser")
+	public String updateUser(User user) {
+		userService.updateUser(user);
+		return "profile";
+	}
+	
+	// kakao로그인 요청을 처리한다.
+	@PostMapping("/kakao-login")
+	public String loginWithKakao(KakaoLoginForm form){
+		log.info("카카오 로그인 인증정보:"+ form);
+		
+		User user = User.builder()
+					.email(form.getEmail())
+					.name(form.getName())
+					.img(form.getImg())
+					.loginType(KAKAO_LOGIN_TYPE)
+					.build();
+		
+		User savedUser = userService.loginWithKakao(user);
+		
+		// 저장된 회원정보가 없으면 전달받은 회원정보를 세션에 저장, 있으면 기존 정보 저장.
+		if(savedUser != null) {
+			SessionUtils.addAttribute("LOGIN_USER", savedUser);
+		}else {
+			SessionUtils.addAttribute("LOGIN_USER", user);
+		}
+		
+		return "redirect:/";
+	}
+
+	
 }

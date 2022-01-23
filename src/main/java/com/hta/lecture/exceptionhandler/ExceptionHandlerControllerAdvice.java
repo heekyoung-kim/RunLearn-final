@@ -70,7 +70,7 @@ public class ExceptionHandlerControllerAdvice {
 		
 		ResponseDto<?> response = new ResponseDto<>();
 		response.setStatus("FAIL");
-		response.setError("로그인 후 사용가능한 서비스 입니다.");
+		response.setError(e.getMessage());
 		
 		return response;
 	}
@@ -79,7 +79,7 @@ public class ExceptionHandlerControllerAdvice {
 	public String handleLoginErrorException(LoginErrorException e, Model model){
 		e.printStackTrace();
 		model.addAttribute("error", e.getMessage());
-		return "loginform";
+		return "home";
 	}
 	
 	@ExceptionHandler(CustomException.class) 

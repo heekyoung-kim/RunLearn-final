@@ -5,12 +5,14 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.hta.lecture.vo.User;
+import com.hta.lecture.web.form.UserRegisterForm;
 
 @Mapper
 public interface UserMapper {
 
 	//User getUser(Map<String, Object> map);
-	//User getUserByNo(int no);
+	User getUserByNo(int no);
 	User getUserByEmail(String email);
-	//void updateUser(User user);
+	void addUser(User user);
+	void updateUser(User user);
 }

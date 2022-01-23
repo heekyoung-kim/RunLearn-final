@@ -3,23 +3,71 @@
 <mapper namespace="com.hta.lecture.mapper.UserMapper">
 	
 	<select id="getUserByEmail" parameterType="string" resultType="com.hta.lecture.vo.User">
-	select 
-		user_no				no,
-		user_email			email,
-		user_password		password,
-		user_name			name,
-		user_tel			tel,
-		user_point      	point,
-		user_intro			intro,
-		user_img			img,
-		teacher_yn			teacherStatus,
-		manager_yn			managerStatus,
-		user_deleted_yn		deletedStatus,
-		user_created_date	createdDate,
-		user_deleted_date	deletedDate
-	from 
-		final_user_tb
-	where
-		user_email = #{value}
+		select 
+			user_no				no,
+			user_email			email,
+			user_password		password,
+			user_name			name,
+			user_tel			tel,
+			user_point      	point,
+			user_intro			intro,
+			user_img			img,
+			user_login_type     loginType,
+			teacher_yn			teacherStatus,
+			manager_yn			managerStatus,
+			user_deleted_yn		deletedStatus,
+			user_created_date	createdDate,
+			user_updated_date	updatedDate
+		from 
+			final_user_tb
+		where
+			user_email = #{value}
 	</select>
+	<select id="getUserByNo" parameterType="string" resultType="com.hta.lecture.vo.User">
+		select 
+			user_no				no,
+			user_email			email,
+			user_password		password,
+			user_name			name,
+			user_tel			tel,
+			user_point      	point,
+			user_intro			intro,
+			user_img			img,
+			user_login_type 	loginType,
+			teacher_yn			teacherStatus,
+			manager_yn			managerStatus,
+			user_deleted_yn		deletedStatus,
+			user_created_date	createdDate,
+			user_updated_date	updatedDate
+		from 
+			final_user_tb
+		where
+			user_no = #{value}
+	</select>
+	
+	<update id="updateUser" parameterType="com.hta.lecture.vo.User">
+		update 
+			final_user_tb
+		set	
+			user_password = #{password}
+			,user_tel = #{tel}
+			,user_name = #{name}			
+			,user_point = #{point}      	
+			,user_intro = #{intro}			
+			,user_img = #{img}
+			,user_login_type = #{loginType}			
+			,teacher_yn = #{teacherStatus}			
+			,manager_yn = #{managerStatus}			
+			,user_deleted_yn = #{deletedStatus}		
+		where
+			user_no = #{no}		
+	</update>
+	
+	<insert id="addUser" parameterType="com.hta.lecture.web.form.UserRegisterForm">
+		insert into final_user_tb
+			(user_no, user_email, user_password, user_name, user_tel, user_img, user_login_type)	
+		values	
+			(#{user_no_seq.nextval},#{email},#{password}, #{name}, #{tel}, #{img}, #{loginType})
+	</insert>
+	
 </mapper>

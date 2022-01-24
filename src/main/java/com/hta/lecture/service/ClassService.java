@@ -15,7 +15,7 @@ import com.hta.lecture.web.form.Criteria;
 @Service
 public class ClassService {
 
-	static final Logger logger = LogManager.getLogger(BookService.class);
+	static final Logger logger = LogManager.getLogger(ClassService.class);
 	
 	@Autowired
 	private ClassMapper classMapper;

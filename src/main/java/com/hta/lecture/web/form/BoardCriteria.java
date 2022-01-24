@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class Criteria {
+public class BoardCriteria {
 
 	private String category;
 	private String qnaStatus;

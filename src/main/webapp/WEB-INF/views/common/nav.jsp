@@ -91,6 +91,7 @@
 							<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
 						</li>
 						<li class="nav-item mx-1">
+						
 							<a class="nav-link btn btn-outline-secondary btn-sm btn-login" href="logout">로그아웃</a>
 						</li>
 						<li class="nav-item">
@@ -137,7 +138,7 @@
 			    		 --%>
 			    		<div class="alert alert-danger d-none" id="alert-kakao-login">오류 메세지</div>
 						    		
-		    			<a id="btn-kakao-login" href="">
+		    			<a id="btn-kakao-login" href="kakao/login">
 		  					<img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="200" alt="카카오 로그인 버튼"/>
 						</a>
 		    		</div>
@@ -186,7 +187,7 @@ $(function(){
 	})
 // 카카오로그인
 $(function(){
-	$("btn-kakao-login").click(function(event){
+	$("#btn-kakao-login").click(function(event){
 		// a태그 기능 실행멈춤.
 		event.preventDefault();
 		// 카카오 로그인 실행시 오류메시지를 표시하는 경고창을 화면에 보이지 않게 한다.

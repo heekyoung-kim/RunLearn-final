@@ -67,7 +67,7 @@
 		insert into final_user_tb
 			(user_no, user_email, user_password, user_name, user_tel, user_img, user_login_type)	
 		values	
-			(#{user_no_seq.nextval},#{email},#{password}, #{name}, #{tel}, #{img}, #{loginType})
+			(user_no_seq.nextval,#{email},#{password}, #{name}, #{tel}, #{img}, #{loginType})
 	</insert>
 	
 </mapper>

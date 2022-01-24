@@ -67,8 +67,9 @@
 								</ul></li>
 						</ul></li>
 				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<form id="form-search-class" class="d-flex" method="get" action="/course">
+					<input type="hidden" name="page" value="1" />
+					<input class="form-control" name="value" value="${classSearch.value }" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
 				<ul class="navbar-nav" id="navbar-right">
@@ -222,6 +223,33 @@ $(function(){
 		}); // 로그인 인증.
 	}) // 클릭이벤트
 })// 카카오로그인 끝.
+
+//검색버튼을 클릭했을 때 실행될 이벤트핸들러 함수를 등록한다.
+$("#btn-search-class").click(function() {
+	// 입력값을 조회한다.
+	var value = $.trim($(":input[name=value]").val());
+	
+	// 입력값이 존재하면 페이지번호를 1로 설정하고 폼에서 onsubmit 이벤트를 발생시켜서 폼 입력값이 서버로 제출되게 한다.
+	if(value)
+		$(":input[name=page]").val("1");
+		$("#form-search-book").trigger("submit");
+	} else {
+		alert("검색조건 혹은 검색어를 입력하세요");					
+	}
+	
+});
+
+// 페이지내비게이션의 링크를 클릭했을 때 실행될 이벤트핸들러 함수를 등록한다.
+$(".pagination a").click(function(event) {
+	event.preventDefault();
+	// 클릭한 페이지내비게이션의 페이지번호 조회하기
+	var pageNo = $(this).attr("data-page");
+	// 검색폼의 히든필드에 클릭한 페이지내비게이션의 페이지번호 설정
+	$(":input[name=page]").val(pageNo);
+	
+	// 검색폼에 onsubmit 이벤트 발생시키기
+	$("#form-search-class").trigger("submit");
+})
 </script>
 </body>
 </html>

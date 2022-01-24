@@ -1,18 +1,17 @@
 package com.hta.lecture.web.form;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@NoArgsConstructor
 @ToString
+@Setter
+@Getter
 public class Criteria {
 
-	private int page;
-	private String opt;
-	private String value;
-	private int beginIndex;
-	private int endIndex;
-	
+	private String category;
+	private String qnaStatus;
+	private String recruitStatus;
 }

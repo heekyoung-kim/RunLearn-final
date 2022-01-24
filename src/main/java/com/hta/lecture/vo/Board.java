@@ -27,4 +27,5 @@ public class Board {
 	private Date updateDate;
 	private Date deleteDate;
 	private int likeCnt;
+	private int commentCnt;
 }

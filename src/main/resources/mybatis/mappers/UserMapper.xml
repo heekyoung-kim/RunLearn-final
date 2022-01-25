@@ -45,6 +45,17 @@
 			user_no = #{value}
 	</select>
 	
+	<select id="getUserByTel" parameterType="string" resultType="com.hta.lecture.vo.User">
+		select 
+			user_no				no,
+			user_email			email
+		from 
+			final_user_tb
+		where
+			user_tel = #{value}
+	</select>
+	
+	
 	<update id="updateUser" parameterType="com.hta.lecture.vo.User">
 		update 
 			final_user_tb

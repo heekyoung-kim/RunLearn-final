@@ -13,6 +13,7 @@ public interface UserMapper {
 	//User getUser(Map<String, Object> map);
 	User getUserByNo(int no);
 	User getUserByEmail(String email);
+	User getUserByTel(String tel);
 	void addUser(User user);
 	void updateUser(User user);
 }

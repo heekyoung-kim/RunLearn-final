@@ -2,27 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hta.lecture.mapper.BoardMapper">
 	
-	<!-- <select id="getBoardByCriteria" parameterType="com.hta.lecture.web.form.Criteria" resultType>
+	
+
+	 <select id="getBoardByCriteria" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.BoardDto">
 	select 
-		board_no					boardNo
-		board_category				category
-		board_title					title
-		board_content				content
-		board_resolve_status		resolveStatus
-		board_recruitment_status	recruitmentStatus
-		board_registration_date		registrationDate
-		board_update_date			updateDate
-		board_delete_date			deleteDate
-		board_like_cnt				likeCnt
+		A.board_no					boardNo
+		A.board_category			category
+		A.board_title				title
+		A.board_content				content
+		A.board_status				Status
+		A.board_registration_date	createdDate
+		A.board_update_date			updateDate
+		A.board_delete_date			deleteDate
+		A.board_like_cnt			likeCnt
+		A.board_class_title			classTitle
+		A.board_comment_cnt			commentCnt
+		B.user_name					name
 		
 	from 
-		final_board_tb
-	where
-		board_category = #{value}
+		final_board_tb A, final_user_tb B, final_tag_tb C
+	where 
+		A.user_no = B.user_no
+		and A.board_no = C.board_no 
+		and category = #{category}
+		<if test="status != null">
+		   and status = #{status}
+		</if>
+		<if test="search != null">
+		   and (title like '%' ||  #{search} || '%' or content like '%' ||  #{search} || '%')
+		</if>
+		<if test="tags != null">
+		and boardNo in (select boardNo
+		             from final_tag_tb
+		             where tagName in (
+							      <foreach index="index"  item="tag" collection="tags" separator=", ">
+							         #{tag}
+							      </foreach>
+							     )
+		)
+		</if> 
 	</select>
-	 -->
 	
 	
+
 	<!-- 
 		List<Book> searchBooks(Criteria criteria); 메소드와 매핑되는 SQL 구문 정의
 		

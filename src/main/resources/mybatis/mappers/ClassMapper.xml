@@ -25,11 +25,11 @@
 			class_total_time		as totalTime,
 			class_isdeleted			as isDeleted,
 			teacher_no				as teacherNo,
-			category_no				as categoryNo
+			b.category_no			as categoryNo
 		from
-			final_class_tb
+			final_class_tb a, final_category_tb b
 		where
-			class_no = #{value}
+			a.category_no = b.category_no and class_no = #{value}
 	</select>
 	
 	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.ClassCourseDto">
@@ -39,7 +39,10 @@
 			teacher_name				as name,
 			class_price 				as price,
 			class_discountprice 		as discountPrice,
-			class_image 				as image
+			class_image 				as image,
+			b.category_no				as categoryNo,
+			b.category_name				as categoryName,
+			b.category_par_no			as categoryParNo
 		from 
          (
          select 
@@ -48,10 +51,12 @@
          from
             final_class_tb A, final_teacher_tb B
          where
-			A.teacher_no = B.teacher_no and (class_title like '%' || #{value} || '%')
-         )
+			A.teacher_no = B.teacher_no
+			and (class_title like '%' || #{value} || '%')
+         ) a, final_category_tb b
       where
-         rn between #{beginIndex} and #{endIndex}
+         a.category_no = b.category_no
+         and rn between #{beginIndex} and #{endIndex}
 			
 	</select>
 	
@@ -106,21 +111,25 @@
 		</where>			
 	</select>
 	
-	<!-- 카테고리 분류는 가능하지만, 이걸 가지고 어떻게 category분류 navbar링크에 대입할지..
-	<select id="getClassCategoryByNo" parameterType="int" resultType="com.hta.lecture.Category">
+	<select id="getAllClassCategories" resultType="com.hta.lecture.vo.Category">
 		select
-		    level as lvl,
-		    category_no,
-		    LPAD('  ',3 * (level - 1)) || category_no 카테고리번호,
-		    category_name,
-		    substr(sys_connect_by_path(category_name, '>'), 2) category_path,
-		    category_par_no
+		    category_no 										as no,
+		    category_name 										as name,
+		    category_par_no 									as parentNo,
+		    category_grade 										as grade
 		from final_category_tb
-		start with category_par_no is null
-		connect by prior category_no = category_par_no
-		order by category_no asc;
+		where category_par_no is null
 	</select>
-	 -->
+	
+	<select id="getAllSubCategories" parameterType="int" resultType="com.hta.lecture.vo.Category">
+		select
+		    category_no 										as no,
+		    category_name 										as name,
+		    category_par_no 									as parentNo,
+		    category_grade 										as grade
+		from final_category_tb
+		where category_par_no = #{value}
+	</select>
 	
 	
 	

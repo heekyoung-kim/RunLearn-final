@@ -6,17 +6,17 @@
 
 	 <select id="getBoardByCriteria" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.BoardDto">
 	select 
-		A.board_no					boardNo
-		A.board_category			category
-		A.board_title				title
-		A.board_content				content
-		A.board_status				Status
-		A.board_registration_date	createdDate
-		A.board_update_date			updateDate
-		A.board_delete_date			deleteDate
-		A.board_like_cnt			likeCnt
-		A.board_class_title			classTitle
-		A.board_comment_cnt			commentCnt
+		A.board_no					boardNo,
+		A.board_category			category,
+		A.board_title				title,
+		A.board_content				content,
+		A.board_status				Status,
+		A.board_created_date 		createdDate,
+		A.board_update_date			updateDate,
+		A.board_delete_date			deleteDate,
+		A.board_like_cnt			likeCnt,
+		A.board_class_title			classTitle,
+		A.board_comment_cnt			commentCnt,
 		B.user_name					name
 		
 	from 
@@ -24,17 +24,17 @@
 	where 
 		A.user_no = B.user_no
 		and A.board_no = C.board_no 
-		and category = #{category}
+		and A.board_category = #{category}
 		<if test="status != null">
-		   and status = #{status}
+		   and A.board_status = #{status}
 		</if>
 		<if test="search != null">
-		   and (title like '%' ||  #{search} || '%' or content like '%' ||  #{search} || '%')
+		   and (A.board_title like '%' ||  #{search} || '%' or content like '%' ||  #{search} || '%')
 		</if>
 		<if test="tags != null">
-		and boardNo in (select boardNo
+		and A.board_no in (select A.board_no
 		             from final_tag_tb
-		             where tagName in (
+		             where C.tag_name in (
 							      <foreach index="index"  item="tag" collection="tags" separator=", ">
 							         #{tag}
 							      </foreach>

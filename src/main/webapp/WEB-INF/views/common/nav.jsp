@@ -47,6 +47,13 @@
 							 --%>
 						</ul>
 					</li>
+					<li class="nav-item category-menu"><a class="nav-link" href="/community/questions">커뮤니티</a>
+						<ul class="navbar-nav is-boxed depth1">
+							<li class="nav-item"><a class="nav-link" href="/community/list/questions">질문&답변</a></li>
+							<li class="nav-item"><a class="nav-link" href="/community/list/chats">자유주제</a></li>
+							<li class="nav-item"><a class="nav-link" href="/community/list/studies">스터디</a></li>
+						</ul>
+					</li>
 				</ul>
 				<form id="form-search-class" class="d-flex" method="get" action="/course">
 					<input type="hidden" name="page" value="1" />

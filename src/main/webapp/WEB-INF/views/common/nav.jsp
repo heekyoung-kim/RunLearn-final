@@ -28,50 +28,25 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item category-menu"><a class="nav-link" href="">강의</a>
-						<ul class="navbar-nav is-boxed depth1">
-							<li class="nav-item"><a class="nav-link" href="">개발&middot;프로그래밍</a>
-								<ul class="navbar-nav is-boxed depth2">
-									<li class="nav-item"><a class="nav-link" href="#">웹개발</a>
+					<li class="nav-item category-menu"><a class="nav-link" href="/course">강의</a>
+						<ul class="navbar-nav is-boxed depth1" id="menu-1">
+							<%-- 
+							<li class="nav-item" id="sub-nav-item-${category.no }"><a class="nav-link" href="/course?no=${category.no }" data-menu-1="${category.no }">${category.name }</a>
+								<ul class="navbar-nav is-boxed depth2" id="menu-2">
+									<li class="nav-item"><a class="nav-link" href="/course" data-menu-2="${category.name }">개발</a>
 										<ul class="navbar-nav is-boxed depth3">
 											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
+											<li class="nav-item"><a class="nav-link" href="#">Front-End</a></li>
+											<li class="nav-item"><a class="nav-link" href="#">JavaScript</a></li>
 											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
 											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-										</ul></li>
-									<li class="nav-item"><a class="nav-link" href="#">웹개발</a>
-										<ul class="navbar-nav is-boxed depth3">
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-										</ul></li>
-									<li class="nav-item"><a class="nav-link" href="#">웹개발</a>
-										<ul class="navbar-nav is-boxed depth3">
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-										</ul></li>
-									<li class="nav-item"><a class="nav-link" href="#">웹개발</a>
-										<ul class="navbar-nav is-boxed depth3">
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-											<li class="nav-item"><a class="nav-link" href="#">HTML/CSS</a></li>
-										</ul></li>
-								</ul></li>
-						</ul></li>
-					<li class="nav-item category-menu"><a class="nav-link" href="/community/questions">커뮤니티</a>
-						<ul class="navbar-nav is-boxed depth1">
-							<li class="nav-item"><a class="nav-link" href="/community/list/questions">질문&답변</a></li>
-							<li class="nav-item"><a class="nav-link" href="/community/list/chats">자유주제</a></li>
-							<li class="nav-item"><a class="nav-link" href="/community/list/studies">스터디</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							 --%>
 						</ul>
+					</li>
 				</ul>
 				<form id="form-search-class" class="d-flex" method="get" action="/course">
 					<input type="hidden" name="page" value="1" />
@@ -194,6 +169,9 @@ $(function(){
 	})
 // 카카오로그인
 $(function(){
+	
+	// 
+	
 	$("#btn-kakao-login").click(function(event){
 		// a태그 기능 실행멈춤.
 		event.preventDefault();
@@ -256,6 +234,41 @@ $(".pagination a").click(function(event) {
 	// 검색폼에 onsubmit 이벤트 발생시키기
 	$("#form-search-class").trigger("submit");
 })
+
+$(function(){
+	$.getJSON("/rest/topCategoryList.do", function(categoryList) {
+		let $categoryUl = $("#menu-1")
+		
+		$.each(categoryList, function(index, category){
+			let no = category.no;
+			let name = category.name;
+			let parentNo = category.parentNo;
+			let li = '<li class="nav-item" id="sub-nav-item-'+no+'"><a class="nav-link" href="/course?no='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2" id="menu-2"></ul></li>';
+			$categoryUl.append(li);
+			
+			$.getJSON("/rest/subCategoryList.do", {no:no}, function(subCategoryList){
+				let $subcategoryUl = $("#menu-2")
+				// subCategory 정보를 읽어와야하는데 topCategory정보를 읽어오는거 같다..
+				// topCategory no정보를 가져온 상태로 해당 정보를 가져와야하는데 그게 안되는듯?
+				// 불러올떄 순서가 들쭉날쭉함..
+				let subNo = category.no;
+				let subName = category.name;
+				let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3" id="menu-3"></ul></li>';
+				$subcategoryUl.append(subLi);
+				
+				$.getJSON('/rest/subCategoryList.do', {no:no}, function(subCategoryList) {
+					let $subcategoryUl = $("#menu-3")
+					
+		            let subNo = category.no;
+		            let subName = category.name;
+		            let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-3="'+subNo+'">'+subName+'</a></li>';   
+		            $subcategoryUl.append(subLi);
+
+		         })
+			})
+		})
+	})
+});
 </script>
 </body>
 </html>

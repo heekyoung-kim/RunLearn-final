@@ -17,5 +17,6 @@ public class Category {
 
 	private int no;
 	private int parentNo;
-	private String name; 
+	private String name;
+	private int grade;
 }

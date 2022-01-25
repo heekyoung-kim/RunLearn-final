@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.Pagination;
 import com.hta.lecture.service.ClassService;
+import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.Criteria;
 
@@ -51,17 +52,21 @@ public class ClassController {
 		
 		model.addAttribute("classes", classes);		
 		model.addAttribute("pagination", pagination);
+
 		
 		return "/courses/list";
 	}
 	
 	// depth1 페이지 이동
-	@GetMapping("/it-programming")
-	public String depth1(Model model){
+	@GetMapping("/course/{no}")
+	public String depth1(@PathVariable(name = "no") int no, Model model){
 		
-
+		log.info("조회할 카테고리번호: " + no);
+		List<Category> categoryList = classService.getAllClassCategories();
 		
-		return "/courses/list";
+		model.addAttribute("categoryList", categoryList);
+		
+		return "/courses/list" + no;
 	}
 	
 	// 상세페이지 이동

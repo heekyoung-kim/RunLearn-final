@@ -1,4 +1,6 @@
-package com.hta.lecture.restController;
+package com.hta.lecture.web.restController;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 // import com.hta.lecture.vo.Book;
 import com.hta.lecture.service.ClassService;
+import com.hta.lecture.vo.Category;
 
 /*
  * @RestController
@@ -38,19 +41,24 @@ import com.hta.lecture.service.ClassService;
  *      	
  */
 @RestController
-@RequestMapping("/rest/classDetail")
+@RequestMapping("/rest")
 public class ClassRestController {
 	
 	@Autowired
 	private ClassService classService;
 	
-	/*
-	@GetMapping("/detail.do")
-	public ClassDetailDto detail(int no) {
-		ClassDeatilDto classDetail = bookService.getClassDetail(no);
-		return classDetail;
+	@GetMapping("/topCategoryList.do")
+	public List<Category> topList() {
+		List<Category> category = classService.getAllClassCategories();
+		return category;
 	}
-	*/	
+	
+	@GetMapping("/subCategoryList.do")
+	public List<Category> subList(int no) {
+		List<Category> category = classService.getAllSubCategories(no);
+		return category;
+	}	
+	
 }
 
 

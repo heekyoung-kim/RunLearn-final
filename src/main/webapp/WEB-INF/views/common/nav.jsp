@@ -66,6 +66,12 @@
 										</ul></li>
 								</ul></li>
 						</ul></li>
+					<li class="nav-item category-menu"><a class="nav-link" href="/community/questions">커뮤니티</a>
+						<ul class="navbar-nav is-boxed depth1">
+							<li class="nav-item"><a class="nav-link" href="/community/list/questions">질문&답변</a></li>
+							<li class="nav-item"><a class="nav-link" href="/community/list/chats">자유주제</a></li>
+							<li class="nav-item"><a class="nav-link" href="/community/list/studies">스터디</a></li>
+						</ul>
 				</ul>
 				<form id="form-search-class" class="d-flex" method="get" action="/course">
 					<input type="hidden" name="page" value="1" />
@@ -230,7 +236,7 @@ $("#btn-search-class").click(function() {
 	var value = $.trim($(":input[name=value]").val());
 	
 	// 입력값이 존재하면 페이지번호를 1로 설정하고 폼에서 onsubmit 이벤트를 발생시켜서 폼 입력값이 서버로 제출되게 한다.
-	if(value)
+	if(value){
 		$(":input[name=page]").val("1");
 		$("#form-search-book").trigger("submit");
 	} else {

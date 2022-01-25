@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.Pagination;
 import com.hta.lecture.service.ClassService;
-import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.Criteria;
 
@@ -31,6 +30,7 @@ public class ClassController {
 	@Autowired
 	ClassService classService;
 	
+	// 사이트 경로를 인프런처럼 구현할때 slug 에 관련된 플러그인? 이 있는 것 같다.
 	@GetMapping
 	public String list(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			Criteria criteria, Model model) {
@@ -52,25 +52,12 @@ public class ClassController {
 		
 		model.addAttribute("classes", classes);		
 		model.addAttribute("pagination", pagination);
-
 		
-		return "/courses/list";
-	}
-	
-	// depth1 페이지 이동
-	@GetMapping("/course/{no}")
-	public String depth1(@PathVariable(name = "no") int no, Model model){
-		
-		log.info("조회할 카테고리번호: " + no);
-		List<Category> categoryList = classService.getAllClassCategories();
-		
-		model.addAttribute("categoryList", categoryList);
-		
-		return "/courses/list" + no;
+		return "/courses/list"; // list.jsp
 	}
 	
 	// 상세페이지 이동
-	@GetMapping("/{no}")
+	@GetMapping("/detail/{no}")
 	public String detail(@PathVariable(name = "no") int no, Model model){
 		
 		log.info("조회할 강의번호: " + no);

@@ -57,7 +57,7 @@ public class ClassRestController {
 	public List<Category> subList(int no) {
 		List<Category> category = classService.getAllSubCategories(no);
 		return category;
-	}	
+	}
 	
 }
 

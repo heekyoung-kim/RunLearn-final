@@ -250,29 +250,37 @@ $(function(){
 			let no = category.no;
 			let name = category.name;
 			let parentNo = category.parentNo;
-			let li = '<li class="nav-item" id="sub-nav-item-'+no+'"><a class="nav-link" href="/course?no='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2" id="menu-2"></ul></li>';
-			$categoryUl.append(li);
+			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?no='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
+			$categoryUl.append($li);
 			
 			$.getJSON("/rest/subCategoryList.do", {no:no}, function(subCategoryList){
-				let $subcategoryUl = $("#menu-2")
-				// subCategory 정보를 읽어와야하는데 topCategory정보를 읽어오는거 같다..
-				// topCategory no정보를 가져온 상태로 해당 정보를 가져와야하는데 그게 안되는듯?
-				// 불러올떄 순서가 들쭉날쭉함..
-				let subNo = category.no;
-				let subName = category.name;
-				let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3" id="menu-3"></ul></li>';
-				$subcategoryUl.append(subLi);
+				let $subcategoryUl = $li.find('ul');
 				
-				$.getJSON('/rest/subCategoryList.do', {no:no}, function(subCategoryList) {
-					let $subcategoryUl = $("#menu-3")
+				$.each(subCategoryList, function(index, subCategory) {
+					let subNo = subCategory.no;
+					let subName = subCategory.name;
+					let $subLi = $('<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3"></ul></li>');
+					$subcategoryUl.append($subLi);
 					
-		            let subNo = category.no;
-		            let subName = category.name;
-		            let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-3="'+subNo+'">'+subName+'</a></li>';   
-		            $subcategoryUl.append(subLi);
+					$.getJSON('/rest/subCategoryList.do', {no:subNo}, function(secondSubCategoryList) {
+						
+						if (secondSubCategoryList.length) {
+							let $secondSubcategoryUl =  $subcategoryUl.find("ul").eq(index);
+						
+							$.each(secondSubCategoryList, function(index, secondSubCategory) {
+				           	 	let secondSubNo = secondSubCategory.no;
+					            let secondSubName = secondSubCategory.name;
+					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?no='+secondSubNo+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
+					            $secondSubcategoryUl.append(secondSubLi);
+								
+							})
+						
+							
+						} 
 
-		         })
-			})
+			         })	
+				})
+			});
 		})
 	})
 });

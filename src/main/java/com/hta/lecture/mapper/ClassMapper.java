@@ -23,7 +23,7 @@ public interface ClassMapper {
 	// 카테고리 리스트를 불러옴
 	List<Category> getAllClassCategories();
 	
-	// 카테고리 번호로 카테고리 정보를 조회
+	// 카테고리 번호로 카테고리 리스트 정보를 조회(계층형 메뉴 관련)
 	List<Category> getAllSubCategories(int no);
 	
 	// 강의를 수강하는 학생의 숫자를 가져옴

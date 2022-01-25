@@ -116,10 +116,10 @@
 					<div id="alert-error-login" class="alert alert-danger" style="display: none;"></div>
 					<form id="form-login" method="post" action="/rest/login">
 						<div class="mb-3">
-							<input type="text" class="form-control" id="email_id" placeholder="이메일을 입력하세요">
+							<input type="text" class="form-control" id="login_email" placeholder="이메일을 입력하세요">
 						</div>
 						<div class="mb-3">
-							<input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요"></input>
+							<input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력하세요"></input>
 						</div>
 						<button type="button" class="btn btn-primary" id="btn-login">로그인</button>
 					</form>
@@ -158,8 +158,8 @@ $(function(){
 	$("#btn-login") .click(function() {
 			$("#alert-error-login").hide();
 			
-			var email = $("#email_id").val()
-			var password = $("#password").val()
+			var email = $("#login_email").val()
+			var password = $("#login_password").val()
 			if (email == "" || password == "") {
 				$("#alert-error-login").show().text('이메일과 비밀번호를 입력해주세요');
 				return;

@@ -46,11 +46,13 @@ public class UserService {
 	// 일반 회원가입
 	public User registerUser(User user) {
 		// 기존에 가입된 정보인지 확인.
-		User usercheck = userMapper.getUserByEmail(user.getEmail());
-		if(usercheck != null) {
+		User emailCheck = userMapper.getUserByEmail(user.getEmail());
+		if(emailCheck != null) {
 			throw new RuntimeException("이미 가입한 이메일입니다.");
 		}
-		if(user.getTel().equals(usercheck.getTel())) {
+		
+		User telCheck = userMapper.getUserByTel(user.getTel());
+		if(telCheck != null) {
 			throw new RuntimeException("이미 존재하는 전화번호입니다.");
 		}
 		userMapper.addUser(user);
@@ -62,6 +64,9 @@ public class UserService {
 		User usercheck = userMapper.getUserByEmail(user.getEmail());
 		if(usercheck != null) {
 			throw new RuntimeException("이미 가입한 이메일입니다.");
+		}
+		if(usercheck.getTel().equals(user.getTel())) {
+			throw new RuntimeException("이미 존재하는 전화번호입니다.");
 		}
 		userMapper.updateUser(user);
 	}

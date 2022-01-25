@@ -21,8 +21,8 @@ public class RegisterRestController {
 	UserService userService;
 	
 	// 일반 비동기(AJAX) 회원가입
-	@PostMapping("/register")
-	public ResponseDto<?> registerUser(UserRegisterForm form, RedirectAttributes redirectAttributes) {
+	@PostMapping("/registerUser")
+	public ResponseDto<?> registerUser(UserRegisterForm form) {
 		ResponseDto<?> response = new ResponseDto<>();
 		User user = User.builder()
 				.email(form.getEmail())

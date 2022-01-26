@@ -70,4 +70,9 @@ public class UserService {
 		}
 		userMapper.updateUser(user);
 	}
+	
+	public User getUserByEmail(String email) {
+		User user = userMapper.getUserByEmail(email);
+		return user;
+	}
 }

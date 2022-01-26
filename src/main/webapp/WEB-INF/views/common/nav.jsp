@@ -176,9 +176,7 @@ $(function(){
 	})
 // 카카오로그인
 $(function(){
-	
-	// 
-	
+
 	$("#btn-kakao-login").click(function(event){
 		// a태그 기능 실행멈춤.
 		event.preventDefault();
@@ -200,6 +198,8 @@ $(function(){
 						$('#form-kakao-login input[name=img]').val(account.profile.img);
 						// 사용자 정보가 포함된 폼을 서버로 제출한다.
 						document.querySelector('#form-kakao-login').submit();
+						// 로그인 성공시
+						location.reload(true);
 					},
 					fail: function(error){
 						// 경고창에 에러메시지 표시

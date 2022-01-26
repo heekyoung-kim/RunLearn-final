@@ -24,7 +24,7 @@ public class BoardController {
 	
 	@GetMapping("/questions")
 	public String qnaCriteriaList(BoardCriteria criteria, Model model) {
-		criteria.setCategory("질문");
+		criteria.setCategory("질문답변");
 		List<BoardDto> boards = boardService.getBoardListByCriteria(criteria);
 		model.addAttribute("boardLists", boards);
 		
@@ -33,7 +33,7 @@ public class BoardController {
 	
 	@GetMapping("/chats")
 	public String freeList(BoardCriteria criteria, Model model) {
-		criteria.setCategory("질문");
+		criteria.setCategory("자유주제");
 		List<BoardDto> boards = boardService.getBoardListByCriteria(criteria);
 		
 		model.addAttribute("boardLists", boards);
@@ -43,7 +43,7 @@ public class BoardController {
 
 	@GetMapping("/studies")
 	public String studyList(BoardCriteria criteria, Model model) {
-		criteria.setCategory("질문");
+		criteria.setCategory("스터디");
 		List<BoardDto> boards = boardService.getBoardListByCriteria(criteria);
 		
 		model.addAttribute("boardLists", boards);

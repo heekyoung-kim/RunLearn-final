@@ -25,7 +25,7 @@
 		
 		and A.board_category = #{category}
 		<if test="status != null">
-		   and status = #{status}
+		   and A.board_status = #{status}
 		</if>
 		<if test="search != null">
 		   and (A.board_title like '%' ||  #{search} || '%' or A.board_content like '%' ||  #{search} || '%')

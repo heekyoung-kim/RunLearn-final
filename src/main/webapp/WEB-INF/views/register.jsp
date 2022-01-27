@@ -30,7 +30,7 @@
 	      <div class="mb-3">
 	      	<label class="form-label text-danger" id="label_email">*이메일</label>
 	        <input type="text" class="form-control" name="email"  placeholder="example@gmail.com"/>
-    	    <p><small>이메일 형식에 맞춰서 작성해주세요.</small></p>
+    	    <p><small class="form-text">이메일 형식에 맞춰서 작성해주세요.</small></p>
 	      </div>
 	      <div class="mb-3">
 	      	<label class="form-label text-danger" id="label_email_check">*이메일 확인</label>
@@ -39,7 +39,7 @@
 	      <div class="mb-3">
 	      	<label class="form-label text-danger" id="label_pwd">*비밀번호</label>
 	        <input type="password" class="form-control" name="pwd"  placeholder="****"/>
-    	    <p><small>[비밀번호 조건] <br>특수문자/ 문자 / 숫자 포함 8~20자리 이내의 암호를 입력해주세요.</small></p>
+    	    <p><small class="form-text">[비밀번호 조건] <br>특수문자/ 문자 / 숫자 포함 8~20자리 이내의 암호를 입력해주세요.</small></p>
 	      </div>
 	      <div class="mb-3">
 	      	<label class="form-label text-danger" id="label_pwd_check">*비밀번호 확인</label>

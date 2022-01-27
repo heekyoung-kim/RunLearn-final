@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import com.hta.lecture.dto.CartDto;
 import com.hta.lecture.mapper.CartMapper;
 import com.hta.lecture.vo.Carts;
 
@@ -14,9 +16,14 @@ public class CartService {
 	@Autowired
 	private CartMapper cartMapper;
 	
-	
-	public List<Carts> getCartItemsByNo(int no){
-		List<Carts> carts = cartMapper.getCartByUserNo(no);
+	public List<CartDto> getCartItemsByNo(int no){
+		List<CartDto> carts = cartMapper.getCartByUserNo(no);
 		return carts;
 	}
+	
+	public void deleteItem(int no) {
+		cartMapper.deleteItem(no);
+	}
+	
+
 }

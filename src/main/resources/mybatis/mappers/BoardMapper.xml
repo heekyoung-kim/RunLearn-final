@@ -11,28 +11,27 @@
 		A.board_title				title,
 		A.board_content				content,
 		A.board_status				Status,
-		A.board_created_date 		createdDate,
+		A.board_created_date		createdDate,
 		A.board_update_date			updateDate,
 		A.board_delete_date			deleteDate,
 		A.board_like_cnt			likeCnt,
 		A.board_class_title			classTitle,
 		A.board_comment_cnt			commentCnt,
-		B.user_name					name
-		
+		B.user_name					name	
 	from 
-		final_board_tb A, final_user_tb B, final_tag_tb C
+		final_board_tb A, final_user_tb B
 	where 
 		A.user_no = B.user_no
-		and A.board_no = C.board_no 
+		
 		and A.board_category = #{category}
 		<if test="status != null">
 		   and A.board_status = #{status}
 		</if>
 		<if test="search != null">
-		   and (A.board_title like '%' ||  #{search} || '%' or content like '%' ||  #{search} || '%')
+		   and (A.board_title like '%' ||  #{search} || '%' or A.board_content like '%' ||  #{search} || '%')
 		</if>
-		<if test="tags != null">
-		and A.board_no in (select A.board_no
+		<!--  <if test="tags != null">
+		and A.board_boardNo in (select A.board_boardNo
 		             from final_tag_tb
 		             where C.tag_name in (
 							      <foreach index="index"  item="tag" collection="tags" separator=", ">
@@ -40,7 +39,7 @@
 							      </foreach>
 							     )
 		)
-		</if> 
+		</if> -->
 	</select>
 	
 	

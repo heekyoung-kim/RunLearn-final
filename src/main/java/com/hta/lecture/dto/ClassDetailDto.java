@@ -2,8 +2,6 @@ package com.hta.lecture.dto;
 
 import java.util.Date;
 
-import com.hta.lecture.vo.Classes;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +24,7 @@ public class ClassDetailDto {
 	private String image;
 	private String video;
 	private int income;
+	private int period;
 	private int price;
 	private int discountPrice;
 	private String permission;
@@ -39,7 +38,8 @@ public class ClassDetailDto {
 	private int totalTime;
 	private String isDeleted;
 	private int teacherNo;
+	private String teacherName;
 	private int categoryNo;
 	private String categoryName;
-	private int categoryGrade;
+	private int categoryParNo;
 }

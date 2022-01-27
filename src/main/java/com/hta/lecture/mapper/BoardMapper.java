@@ -12,6 +12,7 @@ import com.hta.lecture.web.form.Criteria;
 @Mapper
 public interface BoardMapper {
 
+	
 	List<BoardDto> getBoardByCriteria(BoardCriteria criteria);
 }
 

@@ -56,45 +56,51 @@
 					</li>
 				</ul>
 				<form id="form-search-class" class="d-flex" method="get" action="/course">
-					<input type="hidden" name="page" value="1" />
-					<input class="form-control" name="value" value="${classSearch.value }" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+
+					<input type="hidden" name="category" value="${param.category }" />
+					<input type="hidden" name="page" value="${param.page }" />
+					<input class="form-control" name="value" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit" id="btn-search-class">Search</button>
+
 				</form>
 				<ul class="navbar-nav" id="navbar-right">
 					<!-- 미로그인/지식공유미참여자 -->
-					<li class="nav-item"><a class="nav-link btn btn-sm" href="#">지식공유참여</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-sm  m-1" href="#">지식공유참여</a></li>
 					<!--// 미로그인/지식공유미참여자 -->
 					<!-- 로그인시 -->
 					<!-- 로그인/지식공유참여자 -->
-					<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent" href="#">최근강의</a></li>
 					<!--// 로그인/지식공유참여자 -->
-					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bell"></i></a></li>
-					<!--// 로그인시 -->
-					<c:if test="${empty LOGIN_USER}">
-						<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>
-						<li class="nav-item"><a class="nav-link btn btn-primary btn-sm btn-join" href="registerUser">회원가입</a></li>
-					</c:if>
-					<c:if test="${not empty LOGIN_USER}">
-						<li class="nav-item">
-							<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
-						</li>
-						<li class="nav-item mx-1">
-						
-							<a class="nav-link btn btn-outline-secondary btn-sm btn-login" href="logout">로그아웃</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-primary btn-sm" href="#">학생</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-success btn-sm" href="#">지식공유자</a>
-						</li>
-					</c:if>
+					<c:choose>
+						<c:when test="${not empty LOGIN_USER}">
+							<li class="nav-item">
+								<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
+							</li>
+							<li class="nav-item mx-1">
+							<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent m-1" href="">최근강의</a></li>
+							<li class="nav-item"><a class="nav-link" href="carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
+							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
+							<li class="nav-item">	
+								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="logout">로그아웃</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="#">학생</a>
+							</li>							
+							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
+								<li class="nav-item">
+									<a class="nav-link btn btn-success btn-sm" href="#">지식공유자</a>
+								</li>							
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm  m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>
+							<li class="nav-item"><a class="nav-link btn btn-primary btn-sm btn-join  m-1" href="registerUser">회원가입</a></li>						
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
 	</nav>
-
+<!-- 로그인 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
@@ -176,9 +182,7 @@ $(function(){
 	})
 // 카카오로그인
 $(function(){
-	
-	// 
-	
+
 	$("#btn-kakao-login").click(function(event){
 		// a태그 기능 실행멈춤.
 		event.preventDefault();
@@ -215,6 +219,50 @@ $(function(){
 	}) // 클릭이벤트
 })// 카카오로그인 끝.
 
+// 강의 메뉴를 생성하는 함수
+$(function(){
+	$.getJSON("/rest/topCategoryList.do", function(categoryList) {
+		let $categoryUl = $("#menu-1")
+		
+		$.each(categoryList, function(index, category){
+			let no = category.no;
+			let name = category.name;
+			let parentNo = category.parentNo;
+			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?category='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
+			$categoryUl.append($li);
+			
+			$.getJSON("/rest/subCategoryList.do", {no:no}, function(subCategoryList){
+				let $subcategoryUl = $li.find('ul');
+				
+				$.each(subCategoryList, function(index, subCategory) {
+					let subNo = subCategory.no;
+					let subName = subCategory.name;
+					let $subLi = $('<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?category='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3"></ul></li>');
+					$subcategoryUl.append($subLi);
+					
+					$.getJSON('/rest/subCategoryList.do', {no:subNo}, function(secondSubCategoryList) {
+						
+						if (secondSubCategoryList.length) {
+							let $secondSubcategoryUl =  $subcategoryUl.find("ul").eq(index);
+						
+							$.each(secondSubCategoryList, function(index, secondSubCategory) {
+				           	 	let secondSubNo = secondSubCategory.no;
+					            let secondSubName = secondSubCategory.name;
+					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?category='+secondSubNo+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
+					            $secondSubcategoryUl.append(secondSubLi);
+								
+							})
+						
+							
+						} 
+
+			         })	
+				})
+			});
+		})
+	})
+});
+
 //검색버튼을 클릭했을 때 실행될 이벤트핸들러 함수를 등록한다.
 $("#btn-search-class").click(function() {
 	// 입력값을 조회한다.
@@ -228,53 +276,6 @@ $("#btn-search-class").click(function() {
 		alert("검색조건 혹은 검색어를 입력하세요");					
 	}
 	
-});
-
-// 페이지내비게이션의 링크를 클릭했을 때 실행될 이벤트핸들러 함수를 등록한다.
-$(".pagination a").click(function(event) {
-	event.preventDefault();
-	// 클릭한 페이지내비게이션의 페이지번호 조회하기
-	var pageNo = $(this).attr("data-page");
-	// 검색폼의 히든필드에 클릭한 페이지내비게이션의 페이지번호 설정
-	$(":input[name=page]").val(pageNo);
-	
-	// 검색폼에 onsubmit 이벤트 발생시키기
-	$("#form-search-class").trigger("submit");
-})
-
-$(function(){
-	$.getJSON("/rest/topCategoryList.do", function(categoryList) {
-		let $categoryUl = $("#menu-1")
-		
-		$.each(categoryList, function(index, category){
-			let no = category.no;
-			let name = category.name;
-			let parentNo = category.parentNo;
-			let li = '<li class="nav-item" id="sub-nav-item-'+no+'"><a class="nav-link" href="/course?no='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2" id="menu-2"></ul></li>';
-			$categoryUl.append(li);
-			
-			$.getJSON("/rest/subCategoryList.do", {no:no}, function(subCategoryList){
-				let $subcategoryUl = $("#menu-2")
-				// subCategory 정보를 읽어와야하는데 topCategory정보를 읽어오는거 같다..
-				// topCategory no정보를 가져온 상태로 해당 정보를 가져와야하는데 그게 안되는듯?
-				// 불러올떄 순서가 들쭉날쭉함..
-				let subNo = category.no;
-				let subName = category.name;
-				let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3" id="menu-3"></ul></li>';
-				$subcategoryUl.append(subLi);
-				
-				$.getJSON('/rest/subCategoryList.do', {no:no}, function(subCategoryList) {
-					let $subcategoryUl = $("#menu-3")
-					
-		            let subNo = category.no;
-		            let subName = category.name;
-		            let subLi = '<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?no='+subNo+'" data-menu-3="'+subNo+'">'+subName+'</a></li>';   
-		            $subcategoryUl.append(subLi);
-
-		         })
-			})
-		})
-	})
 });
 </script>
 </body>

@@ -28,10 +28,13 @@ public class HomeController {
 	
 	// 홈
 	@RequestMapping("/")
-	public String home(Model model) {
-		model.addAttribute("message", "홈페이지 방문을 환영합니다.");
+	public String home() {
 		
-		return "home";	// prefix="/WEB-INF/views/" viewName="home" suffix=".jsp"
+		return "home";
+	}
+	@RequestMapping("/hello")
+	public String hello() {
+		return "hello";	
 	}
 
 	// 로그아웃

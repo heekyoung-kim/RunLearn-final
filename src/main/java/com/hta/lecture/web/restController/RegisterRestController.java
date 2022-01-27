@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hta.lecture.dto.ResponseDto;
 import com.hta.lecture.service.UserService;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.UserRegisterForm;
 
@@ -28,12 +28,13 @@ public class RegisterRestController {
 				.email(form.getEmail())
 				.password(form.getPassword())
 				.name(form.getName())
-				.tel(form.getTel())
 				.loginType(NORMAL_LOGIN_TYPE)
 				.build();
 		try {
 			userService.registerUser(user);
 			response.setStatus("OK");
+			User registerUser = userService.getUserByEmail(form.getEmail());
+			SessionUtils.addAttribute("LOGIN_USER", registerUser);
 			return response;
 		} catch (RuntimeException e) {
 			response.setStatus("FAIL");

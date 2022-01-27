@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hta.lecture.dto.ClassCourseDto;
+import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.Classes;
-import com.hta.lecture.web.form.Criteria;
+import com.hta.lecture.web.form.ClassCriteria;
 
 @Service
 public class ClassService {
@@ -21,23 +22,23 @@ public class ClassService {
 	@Autowired
 	private ClassMapper classMapper;
 	
-	public int getTotalRows(Criteria criteria) {
+	public int getTotalRows(ClassCriteria criteria) {
 		logger.info("검색조건: " + criteria);
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	
-	public List<ClassCourseDto> getAllCourseInfo(Criteria criteria){
+	public List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria){
 		List<ClassCourseDto> classCourse = classMapper.getAllCourseInfo(criteria);
 		return classCourse;
 	}
 	
-	public List<Classes> getClassSearch(Criteria criteria){
-		List<Classes> classSearch = classMapper.getClassSearch(criteria);
+	public List<ClassDetailDto> getClassSearch(ClassCriteria criteria){
+		List<ClassDetailDto> classSearch = classMapper.getClassSearch(criteria);
 		
 		return classSearch;
 	}
 	
-	public int getClassesTotalRows(Criteria criteria) {
+	public int getClassesTotalRows(ClassCriteria criteria) {
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	

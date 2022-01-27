@@ -32,35 +32,51 @@
 			a.category_no = b.category_no and class_no = #{value}
 	</select>
 	
-	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.ClassCourseDto">
+	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassCourseDto">
 		select
-			class_no 					as no,
-			class_title 				as title,
-			teacher_name				as name,
-			class_price 				as price,
-			class_discountprice 		as discountPrice,
-			class_image 				as image,
-			b.category_no				as categoryNo,
-			b.category_name				as categoryName,
-			b.category_par_no			as categoryParNo
-		from 
-         (
-         select 
-            row_number() over (order by class_no desc) rn, 
-            A.*, B.*
-         from
-            final_class_tb A, final_teacher_tb B
-         where
-			A.teacher_no = B.teacher_no
-			and (class_title like '%' || #{value} || '%')
-         ) a, final_category_tb b
-      where
-         a.category_no = b.category_no
-         and rn between #{beginIndex} and #{endIndex}
-			
+			class_no as no,
+			class_title as title,
+			teacher_name as name,
+			class_price as price,
+			class_discountprice as discountPrice,
+			class_image as image,
+			category_no as categoryNo,
+			category_name as categoryName,
+			category_par_no as categoryParNo
+		from
+			(
+			select
+				row_number() over (order by class_no desc) rn,
+                A.*
+			from
+				(select
+                    distinct A.class_no,
+                    A.class_title,
+                    B.teacher_name,
+                    A.class_price,
+                    A.class_discountprice,
+                    A.class_image,
+                    C.category_no,
+                    C.category_name,
+                    C.category_par_no
+                from
+                    final_class_tb A, final_teacher_tb B, final_category_tb C
+                where
+                    A.teacher_no = B.teacher_no and A.category_no = C.category_no
+                    <if test="category != null">
+		                start with C.category_no = #{category}
+		                connect by prior C.category_no = C.category_par_no
+                    </if>
+                ) A	
+			where
+				class_title like '%' || #{value} || '%' OR
+				teacher_name like '%' || #{value} || '%'
+			)
+		where
+			rn between #{beginIndex} and #{endIndex}
 	</select>
 	
-	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.vo.Classes">
+	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassDetailDto">
 		select
 			class_no				as no,
 			class_title				as title,
@@ -83,30 +99,100 @@
 			class_total_time		as totalTime,
 			class_isdeleted			as isDeleted,
 			teacher_no				as teacherNo,
-			category_no				as categoryNo
+			teacher_name 			as teacherName,
+			category_no				as categoryNo,
+			category_name 			as categoryName,
+			category_par_no 		as categoryParNo
 		from 
          (
-         select 
-            row_number() over (order by class_no desc) rn, 
-            A.*
-         from
-            final_class_tb A
-         <where>
-            <if test="value != null">
-				class_title like '%' || #{value} || '%'
-            </if>
-         </where>
+			select
+				row_number() over (order by class_no desc) rn,
+                A.*
+			from
+				(select
+                    distinct A.class_no,
+					A.class_title,
+					A.class_content,
+					A.class_difficultly,
+					A.class_image,	
+					A.class_video,
+					A.class_income,
+					A.class_period,
+					A.class_price,
+					A.class_discountprice,
+					A.class_permission,
+					A.class_filter,
+					A.class_status,
+					A.class_application_date,
+					A.class_open_date,
+					A.class_updated_date,
+					A.class_deleted_date,
+					A.class_total_count,
+					A.class_total_time,
+					A.class_isdeleted,
+					B.teacher_no,
+					B.teacher_name,
+					C.category_no,
+					C.category_name,
+					C.category_par_no
+                from
+                    final_class_tb A, final_teacher_tb B, final_category_tb C
+				where
+                    A.teacher_no = B.teacher_no and A.category_no = C.category_no
+                    <if test="category != null">
+		                start with C.category_no = #{category}
+		                connect by prior C.category_no = C.category_par_no
+                    </if>
+                ) A
+			where
+				class_title like '%' || #{value} || '%' OR
+				teacher_name like '%' || #{value} || '%'
          )
       where
          rn between #{beginIndex} and #{endIndex}
 	</select>
 	
-	<select id="getClassesTotalRows" parameterType="com.hta.lecture.web.form.Criteria" resultType="int">
+	<select id="getClassesTotalRows" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="int">
 		select count(*)
-		from final_class_tb
+		from
+		(
+			select
+                distinct A.class_no,
+				A.class_title,
+				A.class_content,
+				A.class_difficultly,
+				A.class_image,	
+				A.class_video,
+				A.class_income,
+				A.class_period,
+				A.class_price,
+				A.class_discountprice,
+				A.class_permission,
+				A.class_filter,
+				A.class_status,
+				A.class_application_date,
+				A.class_open_date,
+				A.class_updated_date,
+				A.class_deleted_date,
+				A.class_total_count,
+				A.class_total_time,
+				A.class_isdeleted,
+				B.teacher_no,
+				B.teacher_name,
+				C.category_no,
+				C.category_name,
+				C.category_par_no
+		    from final_class_tb A, final_teacher_tb B, final_category_tb C
+		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
+		    <if test="category != null">
+				start with C.category_no = #{category}
+				connect by prior C.category_no = C.category_par_no
+			</if>
+		) A
 		<where>
 			<if test="value != null">
-				class_title like '%' || #{value} || '%'
+				class_title like '%' || #{value} || '%' OR
+				teacher_name like '%' || #{value} || '%'
 			</if>
 		</where>			
 	</select>

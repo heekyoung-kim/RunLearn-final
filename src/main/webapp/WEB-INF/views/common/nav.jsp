@@ -56,46 +56,51 @@
 					</li>
 				</ul>
 				<form id="form-search-class" class="d-flex" method="get" action="/course">
+
 					<input type="hidden" name="category" value="${param.category }" />
 					<input type="hidden" name="page" value="${param.page }" />
 					<input class="form-control" name="value" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit" id="btn-search-class">Search</button>
+
 				</form>
 				<ul class="navbar-nav" id="navbar-right">
 					<!-- 미로그인/지식공유미참여자 -->
-					<li class="nav-item"><a class="nav-link btn btn-sm" href="#">지식공유참여</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-sm  m-1" href="#">지식공유참여</a></li>
 					<!--// 미로그인/지식공유미참여자 -->
 					<!-- 로그인시 -->
 					<!-- 로그인/지식공유참여자 -->
-					<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent" href="#">최근강의</a></li>
 					<!--// 로그인/지식공유참여자 -->
-					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bell"></i></a></li>
-					<!--// 로그인시 -->
-					<c:if test="${empty LOGIN_USER}">
-						<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>
-						<li class="nav-item"><a class="nav-link btn btn-primary btn-sm btn-join" href="registerUser">회원가입</a></li>
-					</c:if>
-					<c:if test="${not empty LOGIN_USER}">
-						<li class="nav-item">
-							<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
-						</li>
-						<li class="nav-item mx-1">
-						
-							<a class="nav-link btn btn-outline-secondary btn-sm btn-login" href="logout">로그아웃</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-primary btn-sm" href="#">학생</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-success btn-sm" href="#">지식공유자</a>
-						</li>
-					</c:if>
+					<c:choose>
+						<c:when test="${not empty LOGIN_USER}">
+							<li class="nav-item">
+								<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
+							</li>
+							<li class="nav-item mx-1">
+							<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent m-1" href="">최근강의</a></li>
+							<li class="nav-item"><a class="nav-link" href="carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
+							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
+							<li class="nav-item">	
+								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="logout">로그아웃</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="#">학생</a>
+							</li>							
+							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
+								<li class="nav-item">
+									<a class="nav-link btn btn-success btn-sm" href="#">지식공유자</a>
+								</li>							
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm  m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>
+							<li class="nav-item"><a class="nav-link btn btn-primary btn-sm btn-join  m-1" href="registerUser">회원가입</a></li>						
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
 	</nav>
-
+<!-- 로그인 모달창 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
@@ -199,8 +204,6 @@ $(function(){
 						$('#form-kakao-login input[name=img]').val(account.profile.img);
 						// 사용자 정보가 포함된 폼을 서버로 제출한다.
 						document.querySelector('#form-kakao-login').submit();
-						// 로그인 성공시
-						location.reload(true);
 					},
 					fail: function(error){
 						// 경고창에 에러메시지 표시

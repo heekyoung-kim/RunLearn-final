@@ -76,6 +76,7 @@
 			rn between #{beginIndex} and #{endIndex}
 	</select>
 	
+	<!-- criteria 정보로 class 검색 결과를 조회 -->
 	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassDetailDto">
 		select
 			class_no				as no,
@@ -152,6 +153,7 @@
          rn between #{beginIndex} and #{endIndex}
 	</select>
 	
+	<!-- 전체 데이터 수를 조회 / value 대입시 해당 조건에 맞는 데이터 수 조회 -->
 	<select id="getClassesTotalRows" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="int">
 		select count(*)
 		from
@@ -197,6 +199,7 @@
 		</where>			
 	</select>
 	
+	<!-- 최상위 카테고리 정보를 조회하는 쿼리 -->
 	<select id="getAllClassCategories" resultType="com.hta.lecture.vo.Category">
 		select
 		    category_no 										as no,
@@ -207,6 +210,7 @@
 		where category_par_no is null
 	</select>
 	
+	<!-- 계층별 카테고리 정보를 조회하는 쿼리 -->
 	<select id="getAllSubCategories" parameterType="int" resultType="com.hta.lecture.vo.Category">
 		select
 		    category_no 										as no,
@@ -217,7 +221,79 @@
 		where category_par_no = #{value}
 	</select>
 	
-	
+	<!-- criteria 정보로 class 검색 결과를 조회 -->
+	<select id="getClassByCategory" parameterType="String" resultType="com.hta.lecture.dto.ClassDetailDto">
+		select
+			class_no				as no,
+			class_title				as title,
+			class_content			as content,
+			class_difficultly		as difficultly,
+			class_image				as image,
+			class_video				as video,
+			class_income			as income,
+			class_period			as period,
+			class_price				as price,
+			class_discountprice		as discountPrice,
+			class_permission		as permission,
+			class_filter			as filter,
+			class_status			as status,
+			class_application_date	as applicationDate,
+			class_open_date			as openDate,
+			class_updated_date		as updatedDate,
+			class_deleted_date		as deletedDate,
+			class_total_count		as totalCount,
+			class_total_time		as totalTime,
+			class_isdeleted			as isDeleted,
+			teacher_no				as teacherNo,
+			teacher_name 			as teacherName,
+			category_no				as categoryNo,
+			category_name 			as categoryName,
+			category_par_no 		as categoryParNo
+		from 
+	         (
+				select
+					row_number() over (order by class_no desc) rn,
+	                A.*
+				from
+					(
+					select
+	                    distinct A.class_no,
+						A.class_title,
+						A.class_content,
+						A.class_difficultly,
+						A.class_image,	
+						A.class_video,
+						A.class_income,
+						A.class_period,
+						A.class_price,
+						A.class_discountprice,
+						A.class_permission,
+						A.class_filter,
+						A.class_status,
+						A.class_application_date,
+						A.class_open_date,
+						A.class_updated_date,
+						A.class_deleted_date,
+						A.class_total_count,
+						A.class_total_time,
+						A.class_isdeleted,
+						B.teacher_no,
+						B.teacher_name,
+						C.category_no,
+						C.category_name,
+						C.category_par_no
+	                from
+	                    final_class_tb A, final_teacher_tb B, final_category_tb C
+					where
+	                    A.teacher_no = B.teacher_no and A.category_no = C.category_no
+	                    <if test="category != null">
+			                start with C.category_no = #{category}
+			                connect by prior C.category_no = C.category_par_no
+	                    </if>
+	                ) A
+	         )
+		order by class_no asc
+	</select>
 	
 	
 	

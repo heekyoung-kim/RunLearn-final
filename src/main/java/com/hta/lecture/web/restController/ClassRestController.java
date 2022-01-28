@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hta.lecture.dto.ClassDetailDto;
 // import com.hta.lecture.vo.Book;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.vo.Category;
@@ -57,6 +58,13 @@ public class ClassRestController {
 	public List<Category> subList(int no) {
 		List<Category> category = classService.getAllSubCategories(no);
 		return category;
+	}
+	
+	// 카테고리별 강의 상세정보를 조회하고 싶음
+	@GetMapping("ClassDetailList")
+	public List<ClassDetailDto> categoryList(String category){
+		List<ClassDetailDto> categoryList = classService.getClassByCategory(category);
+		return categoryList;
 	}
 	
 }

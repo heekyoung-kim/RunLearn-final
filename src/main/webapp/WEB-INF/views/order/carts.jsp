@@ -37,7 +37,8 @@
 		<div class="col-5 mt-3">
 			<label id="">사용할 포인트</label>
 			<div class="mt-1">
-				<input class="form-control" type="number" id="point-use" placeholder="사용가능포인트 5000" min="0" max="5000" />
+				<input type="hidden" name="user_point" value="${LOGIN_USER.point}"/>
+				<input class="form-control" type="number" id="point-use"  placeholder="사용가능포인트 ${LOGIN_USER.point}" min="0" max="5000" />
 				<button class="btn btn-success">포인트적용</button>
 			</div>
 		</div>
@@ -48,34 +49,37 @@
 				<h3><strong>강의 정보</strong></h3>
 				<a href="" class="mt-2 text-black" id="cart-delete">전체삭제</a>
 			</div>
-			<div class="row mt-3 border-top border-1">
-				<div class="col-3 mt-3">
-					<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/sample10.png" style="width:120px; height:120px;">
+			<c:forEach var="cart" items="${carts}">
+				<div class="row mt-3 border-top border-1">
+					<div class="col-3 mt-3">
+						<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/${cart.img}" style="width:120px; height:120px;">
+					</div>
+					<div class="col-7 mt-4">
+						<h5> ${cart.classTitle}</h5>
+						<c:choose>
+							<c:when test="${not empty cart.period }">
+								<p>(수강기한: <strong>${cart.period}</strong>)</p>
+							</c:when>
+							<c:otherwise>
+								<p>(수강기한: <strong>무제한</strong>)</p>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="col-2 mt-4">
+					<c:choose>
+						<c:when test="${cart.discountPrice gt 0}">
+							<h5><del>&#8361;  ${cart.price}</del></h5>
+							<h5><strong>&#8361;${cart.discountPrice}</strong></h5>
+						</c:when>
+						<c:otherwise>
+							<h5><strong>&#8361; ${cart.price}</strong></h5>
+						</c:otherwise>
+					</c:choose>
+						<button class="btn btn-outline-secondary btn-sm">위시리스트로 이동</button>
+						<button class="btn btn-outline-secondary btn-sm mt-1">장바구니삭제</button>
+					</div>
 				</div>
-				<div class="col-7 mt-4">
-					<h5>스위프트 1편 - 백엔드 어플개발 핵심기술</h5>
-					<p>(수강기한: <strong>무제한</strong>)</p>
-				</div>
-				<div class="col-2 mt-4">
-					<h5><strong>&#8361; 99,000</strong></h5>
-					<button class="btn btn-outline-secondary btn-sm">위시리스트로 이동</button>
-					<button class="btn btn-outline-secondary btn-sm mt-1">장바구니삭제</button>
-				</div>
-			</div>
-			<div class="row mt-3 border-top border-1">
-				<div class="col-3 mt-3">
-					<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/sample10.png" style="width:120px; height:120px;">
-				</div>
-				<div class="col-7 mt-4">
-					<h5>스위프트 1편 - 백엔드 어플개발 핵심기술</h5>
-					<p>(수강기한: <strong>무제한</strong>)</p>
-				</div>
-				<div class="col-2 mt-4">
-					<h5><strong>&#8361; 99,000</strong></h5>
-					<button class="btn btn-outline-secondary btn-sm">위시리스트로 이동</button>
-					<button class="btn btn-outline-secondary btn-sm mt-1">장바구니삭제</button>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 		<div class="col-5 mt-3 ">
 			<div class="border p-3">
@@ -88,11 +92,11 @@
 						<h4><strong>&#8361; 99,000</strong></h4>
 					</div>
 					<label class="form-label mt-2">이름</label>
-					<input class="form-control" type="text" placeholder="이름을 적어주세요"/>
+					<input class="form-control" type="text" name="name" value="${LOGIN_USER.name}" placeholder="dddd"/>
 					<label class="form-label mt-2">휴대폰 번호</label>
-					<input class="form-control" type="number" placeholder="01011112222"/>
+					<input class="form-control" type="number" name="tel" value="${LOGIN_USER.tel}" placeholder="01012345678"/>
 					<label class="form-label mt-2">이메일주소</label>
-					<input class="form-control" type="text" placeholder="example@naver.com"/>
+					<input class="form-control" type="text" name="email" value="${LOGIN_USER.email}"/>
 					<label class="form-label mt-2">결제수단</label>
 					<button class="form-control btn btn-outline-secondary" id="btn-kakao-pay">카카오페이로 결제하기</button>
 				</form>
@@ -113,7 +117,7 @@
 			</div>
 		</div>
 	</div>	
-<!-- 쿠폰함 모달창 -->
+<!-- 위시리스트 모달창 -->
 	<div class="modal fade" id="withList" tabindex="-1" aria-labelledby="withListModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">

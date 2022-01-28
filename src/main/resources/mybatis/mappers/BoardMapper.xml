@@ -28,7 +28,16 @@
 		   and A.board_status = #{status}
 		</if>
 		<if test="search != null">
-		   and (A.board_title like '%' ||  #{search} || '%' or A.board_content like '%' ||  #{search} || '%')
+		   and (A.board_title like '%' ||  #{search} || '%')
+		</if>
+		<if test="sort == 'date'">
+		 order by A.board_no desc
+		</if>
+		<if test="sort == 'like'">
+		 order by A.board_like_cnt desc
+		</if>
+		<if test="sort == 'reply'">
+		 order by A.board_comment_cnt desc
 		</if>
 		<!--  <if test="tags != null">
 		and A.board_boardNo in (select A.board_boardNo

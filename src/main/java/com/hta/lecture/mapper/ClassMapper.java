@@ -27,6 +27,9 @@ public interface ClassMapper {
 	// 카테고리 번호로 카테고리 리스트 정보를 조회(계층형 메뉴 관련)
 	List<Category> getAllSubCategories(int no);
 	
+	// 카테고리 번호로 해당 카테고리 전체 강의상세정보를 조회
+	List<ClassDetailDto> getClassByCategory(String category);
+	
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
 	

@@ -58,6 +58,11 @@ public class ClassService {
 		return category;
 	}
 	
+	public List<ClassDetailDto> getClassByCategory(String category) {
+		List<ClassDetailDto> categoryList = classMapper.getClassByCategory(category);
+		return categoryList;
+	}
+	
 	// 강의를 수강하는 학생의 숫자를 가져온다
 	public int countAllClassStudent(int no) {
 		return classMapper.countAllClassStudent(no);

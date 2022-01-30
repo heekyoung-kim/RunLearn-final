@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hta.lecture.dto.CartDto;
 import com.hta.lecture.mapper.CartMapper;
 import com.hta.lecture.vo.Carts;
 
 @Service
+@Transactional
 public class CartService {
 
 	@Autowired
@@ -22,8 +23,11 @@ public class CartService {
 	}
 	
 	public void deleteItem(int no) {
-		cartMapper.deleteItem(no);
+		cartMapper.deleteItemByNo(no);
 	}
 	
+	public void addCart(Carts cart) {
+		cartMapper.addCart(cart);
+	}
 
 }

@@ -61,7 +61,6 @@
 					<input type="hidden" name="page" value="${param.page }" />
 					<input class="form-control" name="value" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit" id="btn-search-class">Search</button>
-
 				</form>
 				<ul class="navbar-nav" id="navbar-right">
 					<!-- 미로그인/지식공유미참여자 -->

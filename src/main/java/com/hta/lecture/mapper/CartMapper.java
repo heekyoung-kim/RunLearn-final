@@ -10,6 +10,6 @@ import com.hta.lecture.vo.Carts;
 @Mapper
 public interface CartMapper {
 	void addCart(Carts cart);
-	void deleteItem(int cartNo);
+	void deleteItemByNo(int cartNo);
 	List<CartDto> getCartByUserNo(int no);
 }

@@ -16,5 +16,6 @@ public class BoardCriteria {
 	private String category;
 	private String status;
 	private String search;
+	private String sort;
 	private List<String> tags;
 }

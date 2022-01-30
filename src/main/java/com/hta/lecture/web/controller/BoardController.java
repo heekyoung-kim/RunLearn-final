@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class BoardController {
 	@GetMapping("/questions")
 	public String qnaCriteriaList(BoardCriteria criteria, Model model) {
 		criteria.setCategory("질문답변");
+		if (!StringUtils.hasText(criteria.getStatus())) {
+			criteria.setStatus(null);
+		}
 		List<BoardDto> boards = boardService.getBoardListByCriteria(criteria);
 		model.addAttribute("boardLists", boards);
 		

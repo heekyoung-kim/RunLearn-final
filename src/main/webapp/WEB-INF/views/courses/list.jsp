@@ -7,7 +7,21 @@
 <body>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
-	<div class="row row-cols-1 row-cols-md-4 mt-3 g-4">
+	<div class="row">
+		<div class="col">
+			<div class="input-group">
+				<form id="form-search-category" class="d-flex" method="get" action="/course">
+					<input class="form-control" name="value" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit" id="btn-search-class">Search</button>
+				</form>
+			</div>
+			<div class="d-inline">
+				<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+				<label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label>
+			</div>
+		</div>
+	</div>
+	<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mt-3 g-4">
 		<input type="hidden" value="${param.category }" name="category" />
 		<c:forEach var="course" items="${classes }">					
 			<div class="col">
@@ -71,6 +85,21 @@ $(".pagination a").click(function(event) {
 	// 검색폼에 onsubmit 이벤트 발생시키기
 	$("#form-search-class").trigger("submit");
 })
+
+// json 정보를 호출해서 해당 데이터로 카테고리 검색과 토글 버튼이 생성되도록 한다.
+/* $(function(){
+	$.getJSON("/rest/ClassDetailList.do", function(categoryList) {
+		let $categoryUl = $("#menu-1")
+		
+		$.each(categoryList, function(index, category){
+			let no = category.no;
+			let name = category.name;
+			let parentNo = category.parentNo;
+			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?category='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
+			$categoryUl.append($li);
+		})
+	})
+}) */
 </script>
 </body>
 </html>

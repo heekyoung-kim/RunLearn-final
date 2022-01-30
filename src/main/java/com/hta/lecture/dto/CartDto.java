@@ -11,6 +11,7 @@ public class CartDto {
 
 	private int cartNo;
 	private String classTitle;
+	private String img;
 	private String period;
 	private int price;
 	private int discountPrice;

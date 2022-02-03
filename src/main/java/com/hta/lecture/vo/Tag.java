@@ -14,7 +14,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@ToString
+@ToString 
 public class Tag {
 
 	private int tagNo;

@@ -8,5 +8,5 @@ public class Coupon {
 	private String name;
 	private int discountRate;
 	private int discountPrice;
-	private Date period;
+	private Date period; 
 }

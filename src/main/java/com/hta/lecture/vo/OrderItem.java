@@ -23,3 +23,4 @@ public class OrderItem {
 	private Date orderItemDeletedDate;
 	private String deletedStatus;
 }
+ 

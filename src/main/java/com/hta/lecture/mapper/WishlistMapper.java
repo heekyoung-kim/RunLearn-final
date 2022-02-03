@@ -13,3 +13,4 @@ public interface WishlistMapper {
 	void deleteWishListByNo(int wishNo);
 	List<WishlistDto> getWishClasstByUserNo(int no);
 }
+ 

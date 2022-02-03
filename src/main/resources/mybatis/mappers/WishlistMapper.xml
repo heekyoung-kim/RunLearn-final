@@ -28,7 +28,7 @@
              from
                  final_class_tb A, final_teacher_tb B, final_wishlist_tb C
              where
-                 A.teacher_no = B.teacher_no and A.class_no = C.class_no
+                 A.teacher_no = B.teacher_no and A.class_no = C.class_no 
                  and user_no = #{value}
 	</select>
 </mapper>

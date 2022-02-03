@@ -38,7 +38,7 @@ public class RegisterRestController {
 			return response;
 		} catch (RuntimeException e) {
 			response.setStatus("FAIL");
-			response.setError(e.getMessage());
+			response.setError(e.getMessage()); 
 			return response;
 		}
 	}

@@ -20,7 +20,7 @@ public class WishlistDto {
 	private int classNo;
 	private String title;
 	private String teacherName;
-	private int price;
+	private int price; 
 	private int discountPrice;
 	private String image;
 	

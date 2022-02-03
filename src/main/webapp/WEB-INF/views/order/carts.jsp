@@ -132,7 +132,7 @@
 		</div>
 	</div>	
 </div>
-<%@ include file="../common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %> 
 <script type="text/javascript">
 	
 	$(function(){

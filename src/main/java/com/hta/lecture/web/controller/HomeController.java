@@ -52,13 +52,13 @@ public class HomeController {
 	}
 	
 	// 회원정보 수정.
-	@PostMapping("/updateUser")
+	@PostMapping("/updateUser") 
 	public String updateUser(User user) {
 		userService.updateUser(user);
 		return "profile";
 	}
 	
-	// kakao로그인 요청을 처리한다.
+	// kakao로그인 요청을 처리한다. 
 	@PostMapping("/kakao-login")
 	public String loginWithKakao(KakaoLoginForm form){
 		log.info("카카오 로그인 인증정보:"+ form);

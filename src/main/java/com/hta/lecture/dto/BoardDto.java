@@ -1,12 +1,19 @@
 package com.hta.lecture.dto;
 
 import java.util.Date;
+import java.util.List;
 
+import com.hta.lecture.vo.Tag;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 	
+	@Builder
+	@AllArgsConstructor
 	@NoArgsConstructor
 	@ToString
 	@Setter
@@ -22,7 +29,7 @@ import lombok.ToString;
 		private Date createdDate;
 		private int likeCnt;
 		private int commentCnt;
-		private String tagName;
+		private List<String> tagName;
 	
 	}	
 	

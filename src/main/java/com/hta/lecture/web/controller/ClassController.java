@@ -57,6 +57,8 @@ public class ClassController {
 		return "/courses/list"; // list.jsp
 	}
 	
+	
+	
 	// 상세페이지 이동
 	@GetMapping("/detail/{no}")
 	public String detail(@PathVariable(name = "no") int no, Model model){

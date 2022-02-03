@@ -51,53 +51,32 @@
 		</if> -->
 	</select>
 	
+	<insert id="addBoard" parameterType="com.hta.lecture.vo.Board" >
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select board_no_seq.nextval
+			from dual
+		</selectKey>
+		insert into final_board_tb
+		(board_no, board_category, board_title, board_content, board_status)
+		values
+		(#{no}, #{category}, #{title}, #{content}, #{status})
+	</insert>
 	
+	<insert id="addTag" parameterType="com.hta.lecture.vo.Tag" >
+		insert into final_tag_tb
+		(board_no, tag_no, tag_name)
+		values
+		(#{boardNo}, tag_no_seq.nextval, #{tagName})
+	</insert>
 
-	<!-- 
-		List<Book> searchBooks(Criteria criteria); 메소드와 매핑되는 SQL 구문 정의
-		
-		<where 태그>
-			+ <where> 태그안에 sql문이 포함되면 where 키워드로 변경된다.
-			+ <where> 태그안에 sql문중에서 첫번째 sql문이 "and 컬럼명 = 값" 의 형태면 and를 제거한다. 
-	 -->
-	
-	
-	<!-- <select id="searchBooks" parameterType="com.sample.form.Criteria" resultType="BoardDto">
-		select *
-		from (
-			select A.*, row_number() over (order by book_no desc) rn
-			from sample_spring_books A
-			<where>
-				<if test="opt != null and value != null">
-					<choose>
-						<when test="category == '제목'">
-							book_title like '%' || #{value} || '%'
-						</when>
-						<when test="opt == '저자'">
-							book_author = #{value}
-						</when>
-						<when test="opt == '출판사'">
-							book_publisher = #{value}
-						</when>
-						<when test="opt == '최소가격'">
-							book_price >= to_number(#{value})
-						</when>
-						<when test="opt == '최대가격'">
-							book_price &lt;= to_number(#{value})
-						</when>
-					</choose>
-				</if>
-			</where>			
-		)
-		where rn between #{beginIndex} and #{endIndex}
-	</select> 
-		
-	
-		<select id="getAllBoardByLatestOrder" parameterType="string" resultType="">
-	select 
-	from final_board_tb, final_user_tb, final_class_tb, final_tag_tb
-	where 
 
-		</select>
--->	
+<!-- 
+	<update id="updateBoardByCriteria" parameterType="com.hta.lecture.web.form.BoardCriteria" >
+	</update>
+	
+	<delete id="deleteBoardByCriteria" parameterType="int">\
+	
+	</delete>
+ -->	
+
 </mapper>

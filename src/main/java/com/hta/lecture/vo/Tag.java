@@ -16,7 +16,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Tag {
-
+	
+	private int boardNo;
 	private int tagNo;
 	private String tagName;
 }

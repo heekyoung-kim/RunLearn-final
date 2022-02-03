@@ -21,8 +21,7 @@ public class Board {
 	private String category;
 	private String title;
 	private String content;
-	private String resolveStatus;
-	private String recruitmentStatus;
+	private String status;
 	private Date registrationDate;
 	private Date updateDate;
 	private Date deleteDate;

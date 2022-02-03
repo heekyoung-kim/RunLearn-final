@@ -1,0 +1,492 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!doctype html>
+<html lang="ko">
+<style>
+
+	.card-wrapper{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    padding: .5rem;
+	    height: 182px;
+	    width: 33.33%;		
+	}
+	.card{
+		-webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    display: flex;
+	    flex-direction: column;
+	    border-radius: 6px;
+	    width: 100%;
+	    height: 100%;
+	    box-shadow: 2px 2px 4px 0 rgba(20,20,20,.1);
+	    background-color: #fff;
+	}
+	.card-header{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    display: flex;
+	    align-items: start;
+	    padding: 8px;
+	    width: 100%;
+	    border-bottom: 1px solid #dbdbdb;
+	}
+	
+	.card-title{
+		-webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    margin: 0;
+	    padding: 0;
+	    line-height: 1.5;
+	    letter-spacing: -.3px;
+	    font-size: 16px;
+	    font-weight: 700;
+	}
+	
+	.move-button{
+		-webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    box-sizing: inherit;
+	    text-decoration: none;
+	    cursor: pointer;
+	    display: flex;
+	    align-items: center;
+	    margin-left: auto;
+	    color: #495057;
+	    font-weight: 700;
+	    font-size: 14px;
+	}
+	
+	.move-button-text{
+		-webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    cursor: pointer;
+	    color: #495057;
+	    box-sizing: inherit;
+	    padding: 0;
+	    margin: 0;
+	    line-height: 1.43;
+	    letter-spacing: -.3px;
+	    font-size: 14px;
+	    display: inline-block;
+	    margin-right: 5px;
+	    font-weight: 700;
+	}
+	
+	.move-button-icon{
+		-webkit-font-smoothing: antialiased;
+    	-webkit-tap-highlight-color: transparent;
+    	--swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    cursor: pointer;
+	    color: #495057;
+	    font-weight: 700;
+	    font-size: 14px;
+	    fill: none;
+	    width: 14;
+	    box-sizing: inherit;
+	    display: inline-block;
+	    height: 15px;
+	}
+	
+	.card-body{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    position: relative;
+	    width: 100%;
+	    height: 100%;
+	}
+	
+	.card-summary-body{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    color: #000a12;
+	    box-sizing: inherit;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    flex-direction: column;
+	    width: 100%;
+	    height: 100%;
+	}
+
+	.card-body-content{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    box-sizing: inherit;
+	    padding: 0;
+	    margin: 0;
+	    color: #adb5bd;
+	    text-align: center;
+	    font-weight: 700;
+	    line-height: 1.25;
+	    letter-spacing: -.3px;
+	    font-size: 24px;
+	}
+	
+	.process-card-body-content{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    box-sizing: border;
+	    width : 100%;,
+	    padding: 0;
+	    margin: 0;
+	    color: black;
+	    text-align: center;
+	    font-weight: 700;
+	    line-height: 1.25;
+	    letter-spacing: -.3px;
+	    font-size: 24px;
+	}
+    
+    {
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    display: flex;
+    padding: 20px;
+    background-color: #f7f7f7;
+    }
+    
+
+    .mainApp{
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    width: 100%;
+    }
+    
+    .dashboard-summary{
+    	    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 20px 0;
+    width: 100%;
+    }
+    
+    .dashboard-title{
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    margin-left: 8px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.3px;
+    font-size: 24px;
+    }
+</style>
+<head>
+	<title>인프런 홈페이지</title>
+</head>
+<body>
+<%@ include file="../common/nav.jsp" %>
+	<div class="body">
+<!-- left bar -->	
+<%@ include file="../admin/adminLeftBar.jsp" %>
+<!-- 시작 -->
+		<div class="mainApp">
+		
+			<h3 class="dashboard-title ms-4">전체</h3>
+			<section class="dashboard-summary">
+			 	<div class="card-wrapper">
+		              <div class="card">
+			               <div class="card-header">
+			               		<h3 class="card-title">총 수강생 수</h3>
+			               		<a href="" class="move-button">
+			               			<p class="move-button-text">더보기</p>
+			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+			               		</a>
+			               	</div>
+			                
+			                <div class="card-body d-flex flex-column justify-content-end">
+			                  <div class="card-summary-body">
+			                    <div class="card-body-content">
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.totalUserCount }명</p>
+			                    </div>
+			                  </div>
+			                </div>
+			           </div>
+			           
+			      </div>
+			      <div class="card-wrapper">
+		              <div class="card">
+			               <div class="card-header">
+			               		<h3 class="card-title">총 강의 수</h3>
+			               		<a href="" class="move-button">
+			               			<p class="move-button-text">더보기</p>
+			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+			               		</a>
+			               	</div>
+			                
+			                <div class="card-body d-flex flex-column justify-content-end">
+			                  <div class="card-summary-body">
+			                    <div class="card-body-content">
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.totalClassCount }개</p>
+			                    </div>
+			                  </div>
+			                </div>
+			           </div>
+			      </div>
+			      <div class="card-wrapper">
+		              <div class="card">
+			               <div class="card-header">
+			               		<h3 class="card-title">평점</h3>
+			               		<a href="" class="move-button">
+			               			<p class="move-button-text">더보기</p>
+			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+			               		</a>
+			               	</div>
+			                
+			                <div class="card-body d-flex flex-column justify-content-end">
+			                  <div class="card-summary-body">
+			                    <div class="card-body-content">
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4"></p>
+			                    </div>
+			                  </div>
+			                </div>
+			           </div>
+			      </div>
+			      <div class="card-wrapper">
+		              <div class="card">
+			               <div class="card-header">
+			               		<h3 class="card-title">총 결제 건수</h3>
+			               		<a href="" class="move-button">
+			               			<p class="move-button-text">더보기</p>
+			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+			               		</a>
+			               	</div>
+			                
+			                <div class="card-body d-flex flex-column justify-content-end">
+			                  <div class="card-summary-body">
+			                    <div class="card-body-content">
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.totalOrderCount }건</p>
+			                    </div>
+			                  </div>
+			                </div>
+			           </div>
+			      </div>
+			      <div class="card-wrapper" style="width: 66.6%">
+		              <div class="card">
+			               <div class="card-header">
+			               		<h3 class="card-title">강의 총 수익</h3>
+			               		<a href="" class="move-button">
+			               			<p class="move-button-text">더보기</p>
+			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+			               		</a>
+			               	</div>
+			                
+			                <div class="card-body d-flex flex-column justify-content-end">
+			                  <div class="card-summary-body">
+			                    <div class="card-body-content">
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4"><fmt:formatNumber value="${adminPage.totalIncome}" type="number"/>원</p>
+			                    </div>
+			                  </div>
+			                </div>
+			           </div>
+			      </div>
+		      </section>
+		      
+		      <h3 class="dashboard-title ms-4 mt-4">처리</h3>
+			      <section class="dashboard-summary">
+			      		<div class="card-wrapper" style="width: 25%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">강의 개설 요청</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                
+					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="card-summary-body">
+					                   <div class="row" style="width: 100%;">
+							                    <div class="process-card-body-content col-6">
+							                    		<h5>미처리</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
+							                    </div>
+							                    <div class="process-card-body-content col-6">
+								                    	<h5>전체</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
+							                    </div>
+							                 </div>
+					                  </div>
+					                </div>
+					           </div>
+			      		</div>
+					    <div class="card-wrapper" style="width: 25%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">결제 요청</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                
+					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="card-summary-body">
+											<div class="row" style="width: 100%;">
+							                    <div class="process-card-body-content col-6">
+							                    		<h5>미처리</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
+							                    </div>
+							                    <div class="process-card-body-content col-6">
+								                    	<h5>전체</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
+							                    </div>
+							                 </div>
+					                  </div>
+					                </div>
+					           </div>
+					     </div>
+					    <div class="card-wrapper"  style="width: 25%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">환불 요청</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                <div class="card-body d-flex flex-column justify-content-end">
+						                  <div class="card-summary-body">
+						                  	<div class="row" style="width: 100%;">
+							                    <div class="process-card-body-content col-6">
+							                    		<h5>미처리</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
+							                    </div>
+							                    <div class="process-card-body-content col-6">
+								                    	<h5>전체</h5>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
+							                    </div>
+							                 </div>
+						                  </div>
+					                </div>
+					           </div>
+					     </div>
+					    <div class="card-wrapper" style="width: 25%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">미답변 질문 리스트</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                
+					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="card-summary-body">
+					                    <div class="card-body-content">
+					                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.totalClassCount }개</p>
+					                    </div>
+					                  </div>
+					                </div>
+					           </div>
+					     </div>
+			      </section>
+		</div>
+</body>
+</html>

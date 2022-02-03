@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hta.lecture.mapper.AdminMapper">
+	
+	<select id="getTotalUserCount" resultType="int">
+		select count(*)
+		from FINAL_USER_TB
+	</select>
+	
+	<select id="getTotalClassCount" resultType="int">
+		select count(*)
+		from FINAL_CLASS_TB
+	</select>
+	
+	<select id="getTotalReviewCount" resultType="int">
+		select count(*)
+		from FINAL_REVIEW_TB
+	</select>
+	
+	<select id="getTotalOrderCount" resultType="int">
+		select count(*)
+		from FINAL_PAYMENT_TB
+	</select>
+	
+	<select id="getTotalClassGrade" resultType="int">
+		select REVIEW_GRADE
+		from FINAL_REVIEW_TB
+	</select>
+	
+	
+	
+</mapper>

@@ -29,4 +29,4 @@
                  A.class_no = B.class_no
                  and user_no = #{value}		
 </select>
-</mapper>
+</mapper> 

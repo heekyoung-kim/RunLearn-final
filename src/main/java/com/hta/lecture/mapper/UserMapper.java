@@ -17,3 +17,4 @@ public interface UserMapper {
 	void addUser(User user);
 	void updateUser(User user);
 }
+ 

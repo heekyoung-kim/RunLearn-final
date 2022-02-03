@@ -26,7 +26,7 @@ public class User {
 	private String tel;
 	private int point;
 	private String intro;
-	private String img;
+	private String img; 
 	private String loginType;
 	private String teacherStatus;
 	private String managerStatus;

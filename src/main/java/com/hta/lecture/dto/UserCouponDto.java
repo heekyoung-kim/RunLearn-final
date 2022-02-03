@@ -16,7 +16,7 @@ public class UserCouponDto {
 	private int couponNo;
 	private String useStatus;
 	private Date useDate;
-	private String periodStatus;
+	private String periodStatus; 
 	private Date pubDate;
 }
 

@@ -8,9 +8,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="/resources/css/style-jgh.css" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/067cf61548.js" ></script>
 <!-- 카카오 로그인지원 자바스크립트 라이브러리를 포함시킨다. -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -270,7 +272,7 @@ $("#btn-search-class").click(function() {
 	// 입력값이 존재하면 페이지번호를 1로 설정하고 폼에서 onsubmit 이벤트를 발생시켜서 폼 입력값이 서버로 제출되게 한다.
 	if(value){
 		$(":input[name=page]").val("1");
-		$("#form-search-book").trigger("submit");
+		$("#form-search-class").trigger("submit");
 	} else {
 		alert("검색조건 혹은 검색어를 입력하세요");					
 	}

@@ -53,6 +53,13 @@ public class ClassService {
 		return categoryList;
 	}
 	
+	// 최상위 강의 카테고리 리스트를 가져온다
+	public List<Category> getTopClassCategories() {
+		List<Category> categoryList = classMapper.getTopClassCategories();
+		
+		return categoryList;
+	}
+	
 	public List<Category> getAllSubCategories(int no) {		
 		List<Category> category = classMapper.getAllSubCategories(no); 
 		return category;

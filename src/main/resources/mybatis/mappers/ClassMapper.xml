@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hta.lecture.mapper.ClassMapper">
 
+	<!-- 강의번호로 강의정보를 조회 -->
 	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.vo.Classes">
 		select
 			class_no				as no,
@@ -32,6 +33,7 @@
 			a.category_no = b.category_no and class_no = #{value}
 	</select>
 	
+	<!-- 카테고리 번호로 강의정보를 조회 -->
 	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassCourseDto">
 		select
 			class_no as no,
@@ -199,8 +201,18 @@
 		</where>			
 	</select>
 	
-	<!-- 최상위 카테고리 정보를 조회하는 쿼리 -->
+	<!-- 모든 카테고리 정보를 조회하는 쿼리 -->
 	<select id="getAllClassCategories" resultType="com.hta.lecture.vo.Category">
+		select
+		    category_no 										as no,
+		    category_name 										as name,
+		    category_par_no 									as parentNo,
+		    category_grade 										as grade
+		from final_category_tb
+	</select>
+	
+	<!-- 최상위 카테고리 정보를 조회하는 쿼리 -->
+	<select id="getTopClassCategories" resultType="com.hta.lecture.vo.Category">
 		select
 		    category_no 										as no,
 		    category_name 										as name,

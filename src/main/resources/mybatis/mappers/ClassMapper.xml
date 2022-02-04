@@ -43,6 +43,8 @@
 			class_price as price,
 			class_discountprice as discountPrice,
 			class_image as image,
+			class_total_student as studentCount,
+			class_review_score_count as reviewCount,
 			category_no as categoryNo,
 			category_name as categoryName,
 			category_par_no as categoryParNo
@@ -59,6 +61,8 @@
                     A.class_price,
                     A.class_discountprice,
                     A.class_image,
+                    A.class_total_student,
+                    A.class_review_score_count,
                     C.category_no,
                     C.category_name,
                     C.category_par_no
@@ -74,9 +78,19 @@
 			where
 				class_title like '%' || #{value} || '%' OR
 				teacher_name like '%' || #{value} || '%'
+			<if test="sort == 'price'">
+			order by class_price asc
+			</if>
+			<if test="sort == 'studentCount'">
+			order by class_total_student desc
+			</if>
+			<if test="sort == 'grade'">
+			order by class_review_score_count desc
+			</if>
 			)
 		where
 			rn between #{beginIndex} and #{endIndex}
+		
 	</select>
 	
 	<!-- criteria 정보로 class 검색 결과를 조회 -->
@@ -334,16 +348,6 @@
 		from 
 	        final_class_tb A
         order by A.class_no asc
-	</select>	
-	<!-- 
-		(select class_no, count(*) cnt
-		from final_progress_tb
-		group by class_no) S,
-		(select class_no, ceil(AVG(review_grade)) cnt
-		from final_review_tb
-		group by class_no) R,
-		(select class_no, count(*) cnt
-		from final_review_tb
-		group by class_no) RC
-	 -->
+	</select>
+	
 </mapper>

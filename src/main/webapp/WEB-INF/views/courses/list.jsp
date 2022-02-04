@@ -55,14 +55,17 @@
 				</form>
 			</div>
 		</div>
-		<div class="col col-md-4 text-end">
-			<select class="form-select-sm" aria-label="Default select example">
-				<option selected>추천순</option>
-				<option value="1">인기순</option>
-				<option value="2">최신순</option>
-				<option value="3">평점순</option>
-				<option value="3">학생수순</option>
-			</select>
+		<div class="col col-md-4 text-end" id="sort-form">
+			<form id=form-sort-filter class="" method="get" action="/course">
+				<input type="hidden" value="${param.sort }" name="sort" />
+				<select class="form-select-sm" aria-label="Default select example">
+					<option selected>추천순</option>
+					<option value="likely">인기순</option>
+					<option value="recently">최신순</option>
+					<option value="grade">평점순</option>
+					<option value="studentCount">학생수순</option>
+				</select>
+			</form>
 		</div>
 		</div>
 	</div>
@@ -161,6 +164,13 @@ $("#filter-btn-group input[type=checkbox]").click(function(){
 		$("#filter-btn-group label[for='"+id+"']").removeClass("checked");
 	}
 	
+})
+
+// sort 정보를 서버에 전달
+$("#sort-form select").on("change", function(){
+	var sortValue = $(this).val();
+	$("#sort-form input[name=sort]").val(sortValue);
+	$("#form-sort-filter").trigger("submit");
 })
 
 </script>

@@ -19,20 +19,39 @@
 				<li class="nav-item"><a class="m-1 text-black" data-bs-toggle="modal" data-bs-target="#couponBox">내 쿠폰함 > </a></li>					
 				<li class="nav-item"><a class="m-1 text-black" data-bs-toggle="modal" data-bs-target="#withList">내 위시리스트🤍</a></li>	
 			</ul>
-			<table class="table table-hover mt-3">
-				<tr>
-					<th>사용가능한 쿠폰 : 3개</th>
-				</tr>
-				<tr>
-					<td><a href="" id="coupon-check">20% | 가입환영20%할인 쿠폰</a></td>
-				</tr>
-				<tr>
-					<td><a href="">20% | 가입환영20%할인 쿠폰</a></td>
-				</tr>
-				<tr>
-					<td><a href="">20% | 가입환영20%할인 쿠폰</a></td>
-				</tr>
-			</table>
+			<div class="mt-3 border-bottom border-1">
+				<h6>사용가능한 쿠폰 : ${couponTotal} 개</h6>
+			</div>
+			<div id="user-coupon-box">
+				<div class="form-check mt-3">
+				  <input class="form-check-input" type="radio" name="userCoupon" id="not-use" value="-1" checked>
+				  <label class="form-check-label" for="not-use">
+				    쿠폰사용안함
+				  </label>
+				</div>
+				<c:forEach var="coupon" items="${coupons}">	
+					<c:choose>
+						<c:when test="${coupon.discountRate eq 0}">					
+							<c:if test="${coupon.useStatus eq 'N'}">
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="price" data-discount="${coupon.discountPrice}" value="${coupon.userCouponNo}">
+							  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
+							    ${coupon.couponName}
+							  </label>
+							</div>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+						<div class="form-check">
+						  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="rate"data-discount="${coupon.discountRate}" value="${coupon.userCouponNo}">
+						  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
+						    ${coupon.discountRate} % | ${coupon.couponName}
+						  </label>
+						</div>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>	
 		</div>
 		<div class="col-5 mt-3">
 			<label id="">사용할 포인트</label>
@@ -50,15 +69,15 @@
 				<a href="" class="mt-2 text-black" id="cart-delete">전체삭제</a>
 			</div>
 			<c:forEach var="cart" items="${carts}">
-				<div class="row mt-3 border-top border-1">
-					<div class="col-3 mt-3">
+				<div class="row mt-3 border-top border-1" id="cart-item-${cart.cartNo}">
+					<div class="col-3 mt-3" >
 						<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/${cart.img}" style="width:120px; height:120px;">
 					</div>
 					<div class="col-7 mt-4">
 						<h5> ${cart.classTitle}</h5>
 						<c:choose>
 							<c:when test="${not empty cart.period }">
-								<p>(수강기한: <strong>${cart.period}</strong>)</p>
+								<p>(수강기한: <strong>${cart.period}개월</strong>)</p>
 							</c:when>
 							<c:otherwise>
 								<p>(수강기한: <strong>무제한</strong>)</p>
@@ -68,15 +87,15 @@
 					<div class="col-2 mt-4">
 					<c:choose>
 						<c:when test="${cart.discountPrice gt 0}">
-							<h5><del>&#8361;  ${cart.price}</del></h5>
-							<h5><strong>&#8361;${cart.discountPrice}</strong></h5>
+							<h5><del>&#8361;<fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></del></h5>
+							<h5 data-price="${cart.discountPrice}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.discountPrice}</fmt:formatNumber></strong></h5>
 						</c:when>
 						<c:otherwise>
-							<h5><strong>&#8361; ${cart.price}</strong></h5>
+							<h5 data-price="${cart.price}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></strong></h5>
 						</c:otherwise>
 					</c:choose>
-						<button class="btn btn-outline-secondary btn-sm">위시리스트로 이동</button>
-						<button class="btn btn-outline-secondary btn-sm mt-1">장바구니삭제</button>
+						<button class="btn btn-outline-secondary btn-sm" id="go-wishList" data-no="${cart.cartNo}" data-class-no="${cart.classNo}">위시리스트로 이동</button>
+						<button class="btn btn-outline-secondary btn-sm mt-1 "id="delete-cartItem" data-no="${cart.cartNo}">장바구니삭제</button>
 					</div>
 				</div>
 			</c:forEach>
@@ -89,7 +108,7 @@
 					<input type="hidden" name="classTitle" value="">
 					<div class=" d-flex justify-content-between">
 						<h4><strong>총계</strong></h4>
-						<h4><strong>&#8361; 99,000</strong></h4>
+						<h4 id="total-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h4>
 					</div>
 					<label class="form-label mt-2">이름</label>
 					<input class="form-control" type="text" name="name" value="${LOGIN_USER.name}" placeholder="dddd"/>
@@ -155,7 +174,71 @@
 	    });
 	
 	});
-
+	
+	// 가격에 쿠폰적용하기.
+	$('input[name="userCoupon"]').change(function(){
+		var value = $(this).val();  // 쿠폰번호 -> 결제시 넘기기.
+		var couponType = $(this).data("coupon-type");
+		var amount = $(this).data("discount");
+		var totalPrice = parseInt($("#total-price strong").text().trim().replace(/,/g, ''));
+		
+		if(couponType == 'price'){
+			totalPrice -= amount
+		} else if (couponType == "rate"){
+			totalPrice -= (totalPrice*amount/100)
+		}
+		 $("#total-price strong").text(totalPrice.toLocaleString());
+	})	
+	
+	// 위시리스트로 이동
+	$(function(){
+		$("#go-wishList").click(function(){
+			var no = $(this).data("no"); //cartNo 값 넘기기 => cart삭제.
+			var classNo = $(this).data("class-no");
+			$("#cart-item-"+no).remove;
+		$.ajax({
+			type: "Post"
+			,url:"/rest/addWishList"
+			,dataType:"json"
+			,data: {
+				classNo: classNo
+			},
+			success:function(response){
+				if(response.status=="OK"){
+					location.reload(true);
+				}else{
+					alert(response.error);
+				}
+			}
+		
+		})
+		})
+	})
+	
+	// 장바구니삭제
+	$(function(){
+		$("#delete-cartItem").click(function(){
+			var no = $(this).data("no"); // cartNo로 삭제하기.
+			$("#cart-item-"+no).remove;
+			$.ajax({
+				type:"Post"
+				,url:"/rest/deleteCart"
+				,dataType:"json"
+				,data:{
+					cartNo: no
+				},
+				success: function(response){
+					if(response.status == "OK"){
+						location.reload(true);
+					}else{
+						alert(response.error);
+					}
+				}
+			})
+			
+		})
+	})
+	
 </script>
 </body>
 </html>

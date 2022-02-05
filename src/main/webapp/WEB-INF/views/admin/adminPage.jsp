@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
+
 <html lang="ko">
 <style>
 
@@ -208,23 +209,6 @@
 	    font-size: 24px;
 	}
     
-    {
-    -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: transparent;
-    --swiper-theme-color: #007aff;
-    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    text-rendering: optimizeSpeed;
-    text-size-adjust: 100%;
-    color: #000a12;
-    box-sizing: inherit;
-    display: flex;
-    padding: 20px;
-    background-color: #f7f7f7;
-    }
-    
 
     .mainApp{
     -webkit-font-smoothing: antialiased;
@@ -276,9 +260,88 @@
     letter-spacing: -.3px;
     font-size: 24px;
     }
+    
+    .chart-container{
+        -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    display: flex;
+    flex-direction: row;
+    max-height: 350px;
+    padding-bottom: 30px;
+    }
+    
+    .chart-wrapper{
+        -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    position: relative;
+    margin: auto;
+    padding-top: min(100%,320px);
+    max-width: 600px;
+    width: 100%;
+    }
+    
+    .dashboard-revenue__chart{
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    aspect-ratio: auto 240 / 240;
+    position: absolute;
+    top: 0;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    box-sizing: border-box;
+    height: 320px;
+    width: 320px;
+    }
+    
+  	.graph-wrapper{
+  	-webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    --swiper-theme-color: #007aff;
+    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+    text-size-adjust: 100%;
+    color: #000a12;
+    box-sizing: inherit;
+    width: 50%;
+    padding: 8px;
+    }
 </style>
 <head>
 	<title>인프런 홈페이지</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
@@ -342,7 +405,7 @@
 			                <div class="card-body d-flex flex-column justify-content-end">
 			                  <div class="card-summary-body">
 			                    <div class="card-body-content">
-			                      <p class="font-sans-serif lh-1 mb-1 fs-4"></p>
+			                      <p class="font-sans-serif lh-1 mb-1 fs-4">﻿<fmt:formatNumber value="  ${adminPage.totalClassGradeAvr }" pattern=".00"/>점</p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -405,10 +468,10 @@
 					                   <div class="row" style="width: 100%;">
 							                    <div class="process-card-body-content col-6">
 							                    		<h5>미처리</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">${adminPage.submitClassCount }건</p>
 							                    </div>
 							                    <div class="process-card-body-content col-6">
-								                    	<h5>전체</h5>
+								                    	<h5>중지</h5>
 								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
 							                    </div>
 							                 </div>
@@ -486,7 +549,95 @@
 					                </div>
 					           </div>
 					     </div>
+					    
 			      </section>
+<!-- 강의 수익 시작 -->
+			      <h3 class="dashboard-title ms-4 mt-4">강의 수익</h3>
+			      <section class="dashboard-summary">
+			      		<div class="graph-wrapper" style="width: 50%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">이번달 현황</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                
+					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="card-summary-body">
+					                    <div style="width: 50%; height: 100%;">
+			   								<canvas id="myChart"></canvas>
+			      						</div>
+					                  </div>
+					                </div>
+					           </div>
+					     </div>
+			      		<div class="graph-wrapper" style="width: 50%">
+				              <div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">강의 수익 분포</h3>
+					               		<a href="" class="move-button">
+					               			<p class="move-button-text">더보기</p>
+					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
+					               		</a>
+					               	</div>
+					                
+					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="card-summary-body">
+					                    <div style="width: 50%; height: 100%;">
+			   								<canvas id="myChart2"></canvas>
+			      						</div>
+					                  </div>
+					                </div>
+					           </div>
+					     </div>
+					</section>
 		</div>
+
+<script type="text/javascript">
+const labels = [
+	
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+    }]
+  };
+
+  const config = {
+    type: 'doughnut',
+    data: data,
+    options: {}
+  };
+  
+  const config2 = {
+    type: 'bar',
+    data: data,
+    options: {}
+  };
+
+  const myChart = new Chart(
+	document.getElementById('myChart'),
+	config
+	);
+  
+  const myChart2 = new Chart(
+	document.getElementById('myChart2'),
+	config2
+	);
+
+</script>
 </body>
 </html>

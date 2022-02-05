@@ -14,7 +14,7 @@ public class AdminPageDto {
 	private int totalIncome;
 	
 	private int totalClassCount;
-	private int totalClassGrade;
+	private double totalClassGradeAvr;
 	
 	private int thisMonthTotalIncome;
 	private int totalIncomeByCategory;
@@ -25,4 +25,6 @@ public class AdminPageDto {
 	private int totalUserCount;
 	
 	private int totalOrderCount;
+	
+	private int submitClassCount;
 }

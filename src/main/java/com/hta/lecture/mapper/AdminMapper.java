@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.ReviewDto;
+
 @Mapper
 public interface AdminMapper {
 	
@@ -23,9 +26,17 @@ public interface AdminMapper {
 	// 전체 리뷰수
 	int getTotalReviewCount();
 	
+	// 전체 강의 리스트
+	List<ClassListDto> getAllClass();
+	
+	List<ReviewDto> getTotalReview();
+	
 	// 전체 회원 수 출력
 	int getTotalUserCount();
 	
 	// 전체 결제 건수 출력
 	int getTotalOrderCount();
+	
+	// 개설 제출된 강의의 수
+	int getSubmitClassCount();
 }

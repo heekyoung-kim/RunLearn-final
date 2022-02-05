@@ -131,42 +131,42 @@
 					          <ul class="menu-list">
 					            
 					                <li>
-					                  <a class="btn_wrap"  href="/instructor/courses" >
+					                  <a class="btn_wrap"  href="/admin/classList" >
 					                    <span>강의 관리</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/mentorings" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>멘토링 관리</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/questions" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>질문 리스트</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/reviews" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>수강평 리스트</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/news" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>강의소식 관리</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/incomes" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>수익 확인</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/coupons" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>쿠폰 관리</span> 
 					                  </a>
 					                </li>
 					                <li>
-					                  <a class="btn_wrap  " href="/instructor/inquiries" >
+					                  <a class="btn_wrap  " href="" >
 					                    <span>문의 리스트</span> 
 					                  </a>
 					                </li>

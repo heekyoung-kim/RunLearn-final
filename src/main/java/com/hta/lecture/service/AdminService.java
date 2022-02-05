@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.ReviewDto;
 import com.hta.lecture.mapper.AdminMapper;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
@@ -42,23 +43,36 @@ public class AdminService {
 		return adminMapper.getTotalClassGrade();
 	}
 	
-
-	// 강의 전체 리스트를 가져온다
-	public List<ClassListDto> getAllClass(){
-		List<ClassListDto> categoryList = classMapper.getAllClass();
-		return categoryList;
+	
+	// 개설 제출된 강의의 수
+	public int getSubmitClassCount(){
+		return  adminMapper.getSubmitClassCount();
 	}
 	
-	// 강의 전체 리스트를 가져온다
-	public int getIncomeAvr(){
-		int avr=0;
-		List<ClassListDto> categoryList = classMapper.getAllClass();
+	// 강의 수익 합을 가져온다
+	public int getTotalIncome(){
+		int total=0;
+		List<ClassListDto> categoryList = adminMapper.getAllClass();
 		
 		for(ClassListDto classes : categoryList) {
-			avr+=classes.getIncome();
+			total+=classes.getIncome();
 		}
 		
-		return avr;
+		return total;
+	}
+	
+	
+	// 강의 평점 평균을 가져온다
+	public double getGradeAvr() {
+		
+		int avr = 0;
+		List<ReviewDto> reviewList = adminMapper.getTotalReview();
+		int reviewCount = adminMapper.getTotalReviewCount();
+		
+		for(ReviewDto reviews : reviewList) {
+			avr+= Integer.parseInt(reviews.getGrade());
+		}
+		return (double)avr/reviewCount;
 	}
 
 	

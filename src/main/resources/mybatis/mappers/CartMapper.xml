@@ -14,6 +14,11 @@
 	   WHERE cart_no = #{value}
 	</delete>
 	
+	<delete id="deleteCartByUserNo" parameterType="int">
+	   DELETE FROM final_cart_tb
+	   WHERE user_no = #{value}
+	</delete>
+	
 	<delete id="deleteItemByUserNoClassNo" parameterType="com.hta.lecture.vo.Carts">
 	   DELETE FROM final_cart_tb
 	   WHERE class_no = #{classNo}

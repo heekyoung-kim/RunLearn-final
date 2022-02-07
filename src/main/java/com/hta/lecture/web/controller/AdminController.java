@@ -43,13 +43,11 @@ public class AdminController {
 		adminPage.setTotalUserCount(adminService.getTotalUserCount());
 		adminPage.setTotalClassCount(adminService.getTotalClassCount());
 		adminPage.setTotalOrderCount(adminService.getTotalOrderCount());
-		adminPage.setTotalIncome(adminService.getIncomeAvr());
-		
-		List<ClassListDto> classes = adminService.getAllClass();
+		adminPage.setTotalIncome(adminService.getTotalIncome());
+		adminPage.setTotalClassGradeAvr(adminService.getGradeAvr());
+		adminPage.setSubmitClassCount(adminService.getSubmitClassCount());
 		
 		model.addAttribute("adminPage",adminPage);
-		model.addAttribute("classes",classes);
-		
 		
 		return "/admin/adminPage";
 	}

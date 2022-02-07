@@ -37,8 +37,6 @@ public interface ClassMapper {
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
 	
-	// 전체 강의 리스트
-	List<ClassListDto> getAllClass();
 	
 	
 }

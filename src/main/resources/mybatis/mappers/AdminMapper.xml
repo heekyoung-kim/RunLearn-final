@@ -17,14 +17,59 @@
 		from FINAL_REVIEW_TB
 	</select>
 	
+	<select id="getTotalReview" resultType="com.hta.lecture.dto.ReviewDto">
+		select 
+			review_no 		as reviewNo, 
+			review_content 	as content, 
+			review_grade 	as grade,
+			user_no			as userNo,
+			class_no		as classNo
+		from
+		 	FINAL_REVIEW_TB
+	</select>	
+	
 	<select id="getTotalOrderCount" resultType="int">
 		select count(*)
 		from FINAL_PAYMENT_TB
 	</select>
 	
-	<select id="getTotalClassGrade" resultType="int">
-		select REVIEW_GRADE
-		from FINAL_REVIEW_TB
+	<!-- 전체 강의 리스트 -->
+	<select id="getAllClass" resultType="com.hta.lecture.dto.ClassListDto">
+		select
+			A.class_no				as no,
+			A.class_title				as title,
+			A.class_content			as content,
+			A.class_difficultly		as difficultly,
+			A.class_image				as image,
+			A.class_video				as video,
+			A.class_income			as income,
+			A.class_period			as period,
+			A.class_price				as price,
+			A.class_discountprice		as discountPrice,
+			A.class_permission		as permission,
+			A.class_filter			as filter,
+			A.class_status			as status,
+			A.class_application_date	as applicationDate,
+			A.class_open_date			as openDate,
+			A.class_updated_date		as updatedDate,
+			A.class_deleted_date		as deletedDate,
+			A.class_total_count		as totalCount,
+			A.class_total_time		as totalTime,
+			A.class_isdeleted			as isDeleted
+		from 
+	        final_class_tb A
+        order by A.class_no asc
+	</select>	
+	
+	<!-- 개설 제출 된 강의 수 -->
+	<select  id="getSubmitClassCount" resultType="int">
+		select
+			count(*)
+		from 
+	        final_class_tb A
+        where 
+            A.class_status = '제출'
+        order by A.class_no asc
 	</select>
 	
 	

@@ -1,11 +1,15 @@
 package com.hta.lecture.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
+import com.hta.lecture.web.form.ClassCriteria;
 
 @Mapper
 public interface AdminMapper {
@@ -13,8 +17,6 @@ public interface AdminMapper {
 	
 	// 전체 강의 수 출력
 	int getTotalClassCount();
-	// 전체 강의의 평점
-	int getTotalClassGrade();
 	
 	// 이번달 전체 강의의 매출
 	//int getThisMonthTotalIncome();
@@ -23,13 +25,9 @@ public interface AdminMapper {
 	// 수강률 기간별 학생수
 	// int getClassRateBySection();
 	
-	// 전체 리뷰수
-	int getTotalReviewCount();
 	
 	// 전체 강의 리스트
 	List<ClassListDto> getAllClass();
-	
-	List<ReviewDto> getTotalReview();
 	
 	// 전체 회원 수 출력
 	int getTotalUserCount();
@@ -39,4 +37,29 @@ public interface AdminMapper {
 	
 	// 개설 제출된 강의의 수
 	int getSubmitClassCount();
+	
+	// 리뷰 평점
+	double getAvgReview();
+	
+	// 총 수익
+	int getTotalIncome();
+	
+	// 이번달 총 수익
+	int getIncomeForThisMonth();
+	
+	// 개발 카테고리 이번달 총 수익
+	String getDeveloperIncomeForThisMonth();
+	
+	// 보안 카테고리 이번달 총 수익
+	String getSecurityIncomeForThisMonth();
+	
+	// 데이터 사이언스 카테고리 이번달 총 수익
+	String getDataScienceIncomeForThisMonth();
+	  
+	List<MonthIncomeDto> getMonthIncome();
+	
+	// 유저 총 데이터 갯수 조회
+	//int getUsersTotalRows(ClassCriteria criteria);
+	
+	//List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria);
 }

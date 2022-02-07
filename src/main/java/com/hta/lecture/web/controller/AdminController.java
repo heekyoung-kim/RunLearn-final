@@ -16,6 +16,7 @@ import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
 import com.hta.lecture.dto.ClassPagination;
+import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.service.AdminService;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.web.form.ClassCriteria;
@@ -39,15 +40,23 @@ public class AdminController {
 	public String adminPage(Model model){
 		
 		AdminPageDto adminPage = new AdminPageDto();
-		
+				
 		adminPage.setTotalUserCount(adminService.getTotalUserCount());
 		adminPage.setTotalClassCount(adminService.getTotalClassCount());
 		adminPage.setTotalOrderCount(adminService.getTotalOrderCount());
 		adminPage.setTotalIncome(adminService.getTotalIncome());
 		adminPage.setTotalClassGradeAvr(adminService.getGradeAvr());
 		adminPage.setSubmitClassCount(adminService.getSubmitClassCount());
+		adminPage.setGetIncomeForThisMonth(adminService.getIncomeForThisMonth());
+
+		adminPage.setDeveloperIncomeForThisMonth(adminService.getDeveloperIncomeForThisMonth());
+		adminPage.setSecurityIncomeForThisMonth(adminService.getSecurityIncomeForThisMonth());
+		adminPage.setDataScienceIncomeForThisMonth(adminService.getDataScienceIncomeForThisMonth());
+		
+		List<MonthIncomeDto> monthIncome = adminService.getMonthIncome();
 		
 		model.addAttribute("adminPage",adminPage);
+		model.addAttribute("monthIncome",monthIncome);
 		
 		return "/admin/adminPage";
 	}

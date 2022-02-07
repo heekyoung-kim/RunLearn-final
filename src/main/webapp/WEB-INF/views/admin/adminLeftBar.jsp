@@ -137,11 +137,6 @@
 					                </li>
 					                <li>
 					                  <a class="btn_wrap  " href="" >
-					                    <span>멘토링 관리</span> 
-					                  </a>
-					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
 					                    <span>질문 리스트</span> 
 					                  </a>
 					                </li>

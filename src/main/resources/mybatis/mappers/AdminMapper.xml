@@ -2,32 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hta.lecture.mapper.AdminMapper">
 	
+	<!-- 전체 수강생 수 -->
 	<select id="getTotalUserCount" resultType="int">
 		select count(*)
 		from FINAL_USER_TB
 	</select>
 	
+	<!-- 전체 강의 갯수 -->
 	<select id="getTotalClassCount" resultType="int">
 		select count(*)
 		from FINAL_CLASS_TB
 	</select>
-	
-	<select id="getTotalReviewCount" resultType="int">
-		select count(*)
-		from FINAL_REVIEW_TB
-	</select>
-	
-	<select id="getTotalReview" resultType="com.hta.lecture.dto.ReviewDto">
+		
+	<!-- 리뷰 평점 평균 -->
+	<select id="getAvgReview" resultType="double">
 		select 
-			review_no 		as reviewNo, 
-			review_content 	as content, 
-			review_grade 	as grade,
-			user_no			as userNo,
-			class_no		as classNo
+			avg(review_grade)
 		from
 		 	FINAL_REVIEW_TB
 	</select>	
 	
+	<!-- 총 결제건수 -->
 	<select id="getTotalOrderCount" resultType="int">
 		select count(*)
 		from FINAL_PAYMENT_TB
@@ -72,6 +67,187 @@
         order by A.class_no asc
 	</select>
 	
+	<!-- 강의 총 수익 -->
+	<select id="getTotalIncome" resultType="int">
+		select sum(order_sum_price)
+		from final_order_tb
+		where ORDER_STATUS='결제완료'
+	</select>
 	
+	<!-- 이번달 강의 총 수익 -->
+	<select id="getIncomeForThisMonth" resultType="int">
+		select sum(order_sum_price)
+		from final_order_tb
+		where ORDER_STATUS='결제완료'
+		and order_no = any(
+		select order_no
+		from final_payment_tb
+		where TO_CHAR(payment_date, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM'))
+	</select>
+	
+	<!-- 개발 프로그래밍 하위 카테고리 이번달 수익  -->
+	<select id="getDeveloperIncomeForThisMonth" resultType="string">
+		select SUM(order_total_price)
+		from final_order_tb
+		where order_no=any(
+		select order_no
+		from final_order_items_tb
+		where class_no = any(
+		select class_no
+		from final_class_tb
+		where category_no= any(
+		select category_no
+		from final_category_tb
+		where category_no = 1
+		union                  
+		select category_no
+		from final_category_tb
+		where category_no = any (select category_no
+		                        from final_category_tb
+		                        where category_par_no = 1)
+		union                        
+		select category_no
+		from final_category_tb
+		where category_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = 1)))))
+		and order_no = any(
+		select order_no
+		from final_payment_tb
+		where TO_CHAR(payment_date, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM'))
+	</select>
+	
+	<!-- 보안 네트워크 하위 카테고리 이번달 수익  -->
+	<select id="getSecurityIncomeForThisMonth" resultType="string">
+		select SUM(order_total_price)
+		from final_order_tb
+		where order_no=any(
+		select order_no
+		from final_order_items_tb
+		where class_no = any(
+		select class_no
+		from final_class_tb
+		where category_no= any(
+		select category_no
+		from final_category_tb
+		where category_no = 2
+		union                  
+		select category_no
+		from final_category_tb
+		where category_no = any (select category_no
+		                        from final_category_tb
+		                        where category_par_no = 2)
+		union                        
+		select category_no
+		from final_category_tb
+		where category_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = 2)))))
+		and order_no = any(
+		select order_no
+		from final_payment_tb
+		where TO_CHAR(payment_date, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM'))
+	</select>
+	
+	<!-- 데이터사이언스 하위 카테고리 이번달 수익  -->
+	<select id="getDataScienceIncomeForThisMonth" resultType="string">
+		select SUM(order_total_price)
+		from final_order_tb
+		where order_no=any(
+		select order_no
+		from final_order_items_tb
+		where class_no = any(
+		select class_no
+		from final_class_tb
+		where category_no= any(
+		select category_no
+		from final_category_tb
+		where category_no = 3
+		union                  
+		select category_no
+		from final_category_tb
+		where category_no = any (select category_no
+		                        from final_category_tb
+		                        where category_par_no = 3)
+		union                        
+		select category_no
+		from final_category_tb
+		where category_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = any(select category_no
+		                        from final_category_tb
+		                        where category_par_no = 3)))))
+		and order_no = any(
+		select order_no
+		from final_payment_tb
+		where TO_CHAR(payment_date, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM'))
+	</select>
+	
+	<select id="getMonthIncome" resultType="com.hta.lecture.dto.MonthIncomeDto">
+		select 
+			TO_CHAR(payment_date, 'YYYY/MM') 	as payMonth, 
+			sum(order_total_price) 				as totalPrice
+		from(
+		select distinct o.order_no, o.order_total_price , p.payment_date, c.class_no , cg.category_no
+		from final_order_tb o, final_payment_tb p, final_order_items_tb oi,final_class_tb c,final_category_tb cg
+		where   p.order_no = o.order_no
+		and     o.order_no = oi.order_no
+		and     oi.class_no = c.class_no
+		and     c.category_no = cg.category_no)
+		group by TO_CHAR(payment_date, 'YYYY/MM')
+		having TO_CHAR(payment_date, 'YYYY/MM') >= TO_CHAR(ADD_MONTHS(SYSDATE,-6), 'YYYY/MM')
+		and TO_CHAR(payment_date, 'YYYY/MM') &lt;= TO_CHAR(ADD_MONTHS(SYSDATE,-1), 'YYYY/MM')
+		order by payMonth DESC
+	</select> 
+	
+	
+	<select id="getUsersTotalRows" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="int">
+		select count(*)
+		from
+		(
+			select
+                distinct A.class_no,
+				A.class_title,
+				A.class_content,
+				A.class_difficultly,
+				A.class_image,	
+				A.class_video,
+				A.class_income,
+				A.class_period,
+				A.class_price,
+				A.class_discountprice,
+				A.class_permission,
+				A.class_filter,
+				A.class_status,
+				A.class_application_date,
+				A.class_open_date,
+				A.class_updated_date,
+				A.class_deleted_date,
+				A.class_total_count,
+				A.class_total_time,
+				A.class_isdeleted,
+				B.teacher_no,
+				B.teacher_name,
+				C.category_no,
+				C.category_name,
+				C.category_par_no
+		    from final_class_tb A, final_teacher_tb B, final_category_tb C
+		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
+		    <if test="category != null">
+				start with C.category_no = #{category}
+				connect by prior C.category_no = C.category_par_no
+			</if>
+		) A
+		<where>
+			<if test="value != null">
+				class_title like '%' || #{value} || '%' OR
+				teacher_name like '%' || #{value} || '%'
+			</if>
+		</where>			
+	</select>
 	
 </mapper>

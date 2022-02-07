@@ -29,6 +29,8 @@
 		
 		.sub-slide .slick-slide{margin:0 4px;}
 		.sub-slide .slick-list{margin:0 -4px;}
+		
+		.section-end p span{color:#00c471;}
 	</style>
 </head>
 <body>
@@ -351,17 +353,62 @@
 				</div>
 			</div>
 		</div>
-		<div class="row my-4">
+		<div class="row my-4 section-end">
 			<div class="col-6">
-				<p class="fs-3"><span>813,481</span> 명이<br>인프런과 함께합니다.</p>
-				<span class="fs-6">
-					학교에서 배우기 어렵거나 큰 비용을<br>
-					지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>
-					오픈 플랫폼의 이점을 통해 다양성과 경제성을 모두 높입니다.
-				</span>				
+				<div class="py-3">
+					<p class="fs-3"><span>813,481</span> 명이<br>인프런과 함께합니다.</p>
+					<span class="fs-6">
+						학교에서 배우기 어렵거나 큰 비용을<br>
+						지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>
+						오픈 플랫폼의 이점을 통해 다양성과 경제성을 모두 높입니다.
+					</span>				
+				</div>
 			</div>
 			<div class="col-6">
-				
+				<div class="vertical-slide my-3">
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+					<div class="card my-2">
+						<div class="card-body" style="background:#e5e5e5;">
+							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
+							<p class="card-text">한정수</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -378,6 +425,13 @@
 			slidesToScroll: 4,
 			prevArrow:"<button type='button' class='slick-prev'>&#60;</button>",
 			nextArrow:"<button type='button' class='slick-next'>&#62;</button>"
+		});
+		$('.vertical-slide').slick({
+			slidesToShow: 3,
+			autoplay: true,
+			arrows: false,
+			centerMode: true,
+			vertical: true
 		});
 	})
 </script>

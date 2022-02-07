@@ -63,7 +63,7 @@ public class ClassController {
 	
 	
 	// 상세페이지 이동
-	@GetMapping("/detail/{no}")
+	@GetMapping("/{no}")
 	public String detail(@PathVariable(name = "no") int no, Model model){
 		
 		log.info("조회할 강의번호: " + no);

@@ -54,74 +54,102 @@
 			</div>	
 		</div>
 		<div class="col-5 mt-3">
-			<label id="">사용할 포인트</label>
-			<div class="mt-1">
-				<input type="hidden" name="user_point" value="${LOGIN_USER.point}"/>
-				<input class="form-control" type="number" id="point-use"  placeholder="사용가능포인트 ${LOGIN_USER.point}" min="0" max="5000" />
-				<button class="btn btn-success">포인트적용</button>
-			</div>
+			<c:if test="${not empty carts}">
+				<label id="">사용할 포인트</label>
+				<div class="mt-1">
+					<input class="form-control" type="number" id="point-use"  placeholder="사용가능포인트 ${LOGIN_USER.point}" min="0" max="${LOGIN_USER.point}" />
+				</div>
+			</c:if>
 		</div>
 	</div>
-	<div class="row mt-4">
-		<div class="col-7 mt-3">
-			<div class="d-flex justify-content-between">
-				<h3><strong>강의 정보</strong></h3>
-				<a href="" class="mt-2 text-black" id="cart-delete">전체삭제</a>
+	<c:choose>
+		<c:when test="${empty carts}">
+			<div class="row mt-5">
+				<div  class="d-grid gap-2 col-6 mx-auto">
+				<span>바구니에 담긴 강의가 없습니다.</span>
+				<a href="/course" class="btn btn-success">강의 둘러보기</a>
+				<a href="/wishlist" class="btn btn-primary">위시리스트가기</a>
+				</div>
 			</div>
-			<c:forEach var="cart" items="${carts}">
-				<div class="row mt-3 border-top border-1" id="cart-item-${cart.cartNo}">
-					<div class="col-3 mt-3" >
-						<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/${cart.img}" style="width:120px; height:120px;">
+		</c:when>
+		<c:otherwise>
+			<div class="row mt-4">
+				<div class="col-7 mt-3">
+					<div class="d-flex justify-content-between">
+						<h3><strong>강의 정보</strong></h3>
+						<button type="button" class="btn btn-sm mt-2 text-black" id="delete-cartItems">전체삭제</button>
 					</div>
-					<div class="col-7 mt-4">
-						<h5> ${cart.classTitle}</h5>
-						<c:choose>
-							<c:when test="${not empty cart.period }">
-								<p>(수강기한: <strong>${cart.period}개월</strong>)</p>
-							</c:when>
-							<c:otherwise>
-								<p>(수강기한: <strong>무제한</strong>)</p>
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div class="col-2 mt-4">
-					<c:choose>
-						<c:when test="${cart.discountPrice gt 0}">
-							<h5><del>&#8361;<fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></del></h5>
-							<h5 data-price="${cart.discountPrice}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.discountPrice}</fmt:formatNumber></strong></h5>
-						</c:when>
-						<c:otherwise>
-							<h5 data-price="${cart.price}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></strong></h5>
-						</c:otherwise>
-					</c:choose>
-						<button class="btn btn-outline-secondary btn-sm" id="go-wishList" data-no="${cart.cartNo}" data-class-no="${cart.classNo}">위시리스트로 이동</button>
-						<button class="btn btn-outline-secondary btn-sm mt-1 "id="delete-cartItem" data-no="${cart.cartNo}">장바구니삭제</button>
+					<c:forEach var="cart" items="${carts}">
+						<div class="row mt-3 border-top border-1" id="cart-item-${cart.cartNo}" data-no ="${cart.cartNo}">
+							<div class="col-3 mt-3" >
+								<img class="rounded mx-auto d-block" alt="courceImg" src="/resources/images/course/${cart.img}" style="width:120px; height:120px;">
+							</div>
+							<div class="col-7 mt-4">
+								<h5> ${cart.classTitle}</h5>
+								<c:choose>
+									<c:when test="${not empty cart.period }">
+										<p>(수강기한: <strong>${cart.period}개월</strong>)</p>
+									</c:when>
+									<c:otherwise>
+										<p>(수강기한: <strong>무제한</strong>)</p>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<div class="col-2 mt-4">
+							<c:choose>
+								<c:when test="${cart.discountPrice gt 0}">
+									<h5><del>&#8361;<fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></del></h5>
+									<h5 data-price="${cart.discountPrice}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.discountPrice}</fmt:formatNumber></strong></h5>
+								</c:when>
+								<c:otherwise>
+									<h5 data-price="${cart.price}">&#8361;<strong><fmt:formatNumber pattern="##,###">${cart.price}</fmt:formatNumber></strong></h5>
+								</c:otherwise>
+							</c:choose>
+								<button class="btn btn-outline-secondary btn-sm" id="go-wishList-${cart.cartNo}" data-no="${cart.cartNo}" data-class-no="${cart.classNo}">위시리스트로 이동</button>
+								<button class="btn btn-outline-secondary btn-sm mt-1 "id="delete-cartItem-${cart.cartNo}" data-no="${cart.cartNo}">장바구니삭제</button>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="col-5 mt-3 ">
+					<div class="border p-3">
+						<form class="p-3" id="form-payment" method action="/payment">
+							<input type="hidden" name="classNo" value="">
+							<input type="hidden" name="classTitle" value="">
+							<input type="hidden" name="cartNo" value="">
+							<input type="hidden" name="couponNo" value="">
+		
+							<div class=" d-flex justify-content-between border-bottom">
+								<h4><strong>총 결재금액</strong></h4>
+								<h4 id="total-pay-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h4>
+							</div>
+							<div class=" d-flex justify-content-between mt-3">
+								<h6>구매 금액</h6>
+								<h6 id="total-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h6>
+							</div>
+							<div class=" d-flex justify-content-between">
+								<h6>쿠폰할인 </h6>
+								<h6 id="coupon-amount"> &#8361; <strong><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
+							</div>
+							<div class=" d-flex justify-content-between border-bottom">
+								<h6>포인트할인 </h6>
+								<h6 id="point-amount"> &#8361; <strong><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
+							</div>
+							<label class="form-label mt-4">이름</label>
+							<input class="form-control" type="text" name="name" value="${LOGIN_USER.name}" placeholder="이름을 적어주세요."/>
+							<label class="form-label mt-2">휴대폰 번호</label>
+							<input class="form-control" type="number" name="tel" value="${LOGIN_USER.tel}" placeholder="01012345678"/>
+							<label class="form-label mt-2">이메일주소</label>
+							<input class="form-control" type="text" name="email" value="${LOGIN_USER.email}"/>
+							<label class="form-label mt-2">결제수단</label>
+							<button class="form-control btn btn-outline-secondary" type="button" id="btn-kakao-pay">카카오페이로 결제하기</button>
+						</form>
 					</div>
 				</div>
-			</c:forEach>
-		</div>
-		<div class="col-5 mt-3 ">
-			<div class="border p-3">
-				<form class="p-3" id="form-payment" action="/rest/payment">
-					<input type="hidden" name="classNo" value="">
-					<input type="hidden" name="classTitle" value="">
-					<input type="hidden" name="classTitle" value="">
-					<div class=" d-flex justify-content-between">
-						<h4><strong>총계</strong></h4>
-						<h4 id="total-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h4>
-					</div>
-					<label class="form-label mt-2">이름</label>
-					<input class="form-control" type="text" name="name" value="${LOGIN_USER.name}" placeholder="dddd"/>
-					<label class="form-label mt-2">휴대폰 번호</label>
-					<input class="form-control" type="number" name="tel" value="${LOGIN_USER.tel}" placeholder="01012345678"/>
-					<label class="form-label mt-2">이메일주소</label>
-					<input class="form-control" type="text" name="email" value="${LOGIN_USER.email}"/>
-					<label class="form-label mt-2">결제수단</label>
-					<button class="form-control btn btn-outline-secondary" id="btn-kakao-pay">카카오페이로 결제하기</button>
-				</form>
-			</div>
-		</div>
-	</div>
+			</div>		
+		</c:otherwise>
+	</c:choose>
+
 <!-- 쿠폰함 모달창 -->
 	<div class="modal fade" id="couponBox" tabindex="-1" aria-labelledby="couponBoxModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -153,46 +181,59 @@
 </div>
 <%@ include file="../common/footer.jsp" %> 
 <script type="text/javascript">
-	
+
+	// 포인트, 쿠폰 적용해서 총 결제금액 변경. 
+	// 하나의 값에 여러 기능이 포함되어있다면 하나의 function에 합쳐서 구현.
 	$(function(){
-		// 숫자가 아닌 정규식
-		var replaceNotInt = /[^0-9]/gi;
-	    
-	    $("#point-use").on("focusout", function() {
-	        var x = $(this).val();
-	        if (x.length > 0) {
-	            if (x.match(replaceNotInt)) {
-	               x = x.replace(replaceNotInt, "");
-	            }
-	            if (x > 5000){
-	            	x = x.replace(""); 
-	            }
-	            $(this).val(x);
-	        }
-	    }).on("keyup", function() {
-	        $(this).val($(this).val().replace(replaceNotInt, ""));
-	    });
-	
-	});
-	
-	// 가격에 쿠폰적용하기.
-	$('input[name="userCoupon"]').change(function(){
-		var value = $(this).val();  // 쿠폰번호 -> 결제시 넘기기.
-		var couponType = $(this).data("coupon-type");
-		var amount = $(this).data("discount");
-		var totalPrice = parseInt($("#total-price strong").text().trim().replace(/,/g, ''));
+		const orginalTotalPrice = parseInt($("#total-price strong").text().replace(/,/g, ''));
+		//쿠폰
+		$('input[name="userCoupon"]').change(function(){
+			changeTotalPrice();
+		})	
 		
-		if(couponType == 'price'){
-			totalPrice -= amount
-		} else if (couponType == "rate"){
-			totalPrice -= (totalPrice*amount/100)
+		//포인트
+		$("#point-use").on("keyup",function(){
+			changeTotalPrice();
+		})
+		
+		function changeTotalPrice(){
+			var $radio = $(":radio[name='userCoupon']:checked");
+			var type = $radio.data("coupon-type");
+			var discountValue = $radio.data("discount");
+			var amount = 0;
+			if (type == 'price') {
+				amount = parseInt(discountValue);
+			}else if (type == 'rate') {
+				amount = parseInt(orginalTotalPrice*discountValue/100);
+			}
+
+			$("#coupon-amount").text(amount.toLocaleString());
+			var totalPayPrice = orginalTotalPrice - amount;
+			
+			var $pointUse = $("#point-use");
+			var maxPoint = parseInt($pointUse.attr("max"));
+			var minPoint = 0
+			var point = parseInt($pointUse.val());
+			if (point) {
+				if (point > maxPoint) {
+					$pointUse.val(maxPoint);
+				}
+				if (point < 0) {
+					$pointUse.val(minPoint);
+				}
+				totalPayPrice -= point;
+				
+				$("#point-amount").text(point.toLocaleString());				
+			}
+
+			$("#total-pay-price").text(totalPayPrice.toLocaleString());
+			
 		}
-		 $("#total-price strong").text(totalPrice.toLocaleString());
-	})	
+	})
 	
 	// 위시리스트로 이동
 	$(function(){
-		$("#go-wishList").click(function(){
+		$(".btn[id^=go-wishList]").click(function(){
 			var no = $(this).data("no"); //cartNo 값 넘기기 => cart삭제.
 			var classNo = $(this).data("class-no");
 			$("#cart-item-"+no).remove;
@@ -212,12 +253,11 @@
 			}
 		
 		})
-		})
+	  })
 	})
-	
 	// 장바구니삭제
 	$(function(){
-		$("#delete-cartItem").click(function(){
+		$(".btn[id^=delete-cartItem]").click(function(){
 			var no = $(this).data("no"); // cartNo로 삭제하기.
 			$("#cart-item-"+no).remove;
 			$.ajax({
@@ -236,6 +276,55 @@
 				}
 			})
 			
+		})
+	})
+	// 장바구니 전체삭제.
+	$(function(){
+		$("#delete-cartItems").click(function(){
+			alert("모든 카트아이템을 삭제하시겠습니까?");
+			var cartNos = [];
+			$(".row [id^=cart-item]").data("no").each(function(index, input){
+				cartNos.push($(input).val());
+			})
+			$.ajax({
+				type:"Post"
+				,url:"/rest/deleteCarts"
+				,dataType:"json"
+				,data:{
+					cartNos: cartNos
+				}
+				,success:function(response){
+					if(response.status == "OK"){
+						$(".row [id^=cart-item]").remove
+						location.reload(true);
+					}else{
+						alert(response.error);
+					}
+				}
+			})
+			
+			$(".row [id^=cart-item]").remove; 
+			
+		})
+	})
+	
+	// 카카오결제
+	$(function(){
+		$("#btn-kakao-pay").click(function(){
+			
+			var name = $("#form-payment input[name=name]").val();
+			var tel = $("#form-payment input[name=tel]").val();
+			var email = $("#form-payment input[name=email]").val();
+			
+			if(name == ""){
+				$("#form-payment input[name='name']").focus()
+			}
+			if(tel == ""){
+				$("#form-payment input[name='tel']").focus()
+			}
+			if(email == ""){
+				$("#form-payment input[name='email']").focus()
+			}
 		})
 	})
 	

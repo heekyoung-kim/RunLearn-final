@@ -30,7 +30,7 @@ public class OrderController {
 	public String cart(Model model) {
 		User user =  (User)SessionUtils.getAttribute("LOGIN_USER");
 		if(user == null) {
-		   return "home";
+		   return "redirect:/";
 		}
 		int couponTotal = usercouponService.totalCouponCntByUserNo(user.getNo());
 		List<UserCouponDto> userCoupons = usercouponService.getUserCouponsByUserNo(user.getNo());
@@ -57,5 +57,6 @@ public class OrderController {
 		return "/order/carts";
 	}
 	
+
 }
  

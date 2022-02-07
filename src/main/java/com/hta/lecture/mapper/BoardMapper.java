@@ -17,6 +17,7 @@ public interface BoardMapper {
 	List<BoardDto> getBoardByCriteria(BoardCriteria criteria);
 	void addBoard(Board board);
 	void addTag(Tag tag);
+	
 //	void deleteBoardByCriteria(int boardNo);
 //	void updateBoardByCriteria(Board board);
 }

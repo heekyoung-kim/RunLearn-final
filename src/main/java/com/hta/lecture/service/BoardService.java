@@ -39,9 +39,11 @@ public class BoardService {
 		// + boardNo값은 selectkey값으로 받아온 값을 꺼내서 추가해준다.
 		for(Tag tag : tags) {
 			tag.setBoardNo(board.getBoardNo());
-			boardMapper.addTag(tag);
+			boardMapper.addTag(tag);  
+			}
 		}
 	}
 	
+	
 		
-}
+

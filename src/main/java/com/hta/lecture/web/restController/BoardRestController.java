@@ -47,8 +47,7 @@ public class BoardRestController {
 				tag.setTagName(tagName);
 				tags.add(tag);
 			}
-		}
-		
+		}		
 		try {
 			boardService.addBoard(addboard, tags);
 			response.setStatus("OK");

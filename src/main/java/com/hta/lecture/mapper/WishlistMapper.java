@@ -12,4 +12,6 @@ public interface WishlistMapper {
 	void addWishList(Wishlist wish);
 	void deleteWishListByNo(int wishNo);
 	List<WishlistDto> getWishClasstByUserNo(int no);
+	Wishlist getWishByUserNoClassNo(Wishlist wishlist); // 위시리스트 중복조회
 }
+ 

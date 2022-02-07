@@ -15,3 +15,4 @@ public class Wishlist {
 	private int userNo;
 	private int classNo;
 }
+ 

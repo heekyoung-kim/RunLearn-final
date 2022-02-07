@@ -10,8 +10,9 @@ import lombok.Setter;
 public class CartDto {
 
 	private int cartNo;
+	private int classNo;
 	private String classTitle;
-	private String img;
+	private String img; 
 	private String period;
 	private int price;
 	private int discountPrice;

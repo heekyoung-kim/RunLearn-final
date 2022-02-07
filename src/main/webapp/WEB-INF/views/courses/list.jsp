@@ -3,30 +3,79 @@
 <html lang="ko">
 <head>
 	<title>인프런 홈페이지</title>
+	<style>
+		#filter-btn-group .checked{color: #1dc078;}	
+	</style>
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<div class="input-group">
-				<form id="form-search-category" class="d-flex" method="get" action="/course">
-					<input class="form-control" name="value" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit" id="btn-search-class">Search</button>
+			<div class="input-group" id=category-btn-group>
+				<form id="form-search-category" class="d-inline-flex mt-3 me-1" method="get" action="/course">
+					<input class="form-control" name="categoryName" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit" id="btn-search-category"><i class="fas fa-search"></i></button>
 				</form>
-			</div>
-			<div class="d-inline">
-				<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-				<label class="btn btn-outline-primary" for="btn-check-outlined">Single toggle</label>
+				<c:forEach var="category" items="${categoryList }">			
+					<div class="d-inline-flex mt-3 mx-1">
+						<input type="checkbox" class="btn-check" id="btn-check-outlined-${category.no}" autocomplete="off">
+						<label class="btn btn-outline-secondary" for="btn-check-outlined-${category.no}">${category.name }</label>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
-	<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mt-3 g-4">
+	
+	<div class="row mt-5">
+		<div class="w-100 d-md-flex">
+		<div class="col col-md-8">
+			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group" id="filter-btn-group">
+				<form id="form-search-filter" class="d-inline-flex mt-3 me-1" method="get" action="/course">
+					<input type="hidden" name="filter" />
+					
+					<span style="height:31px; line-height:31px;">
+						<i class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 10.4a1.8 1.8 0 0 1 1.7 1.209l.03-.005.07-.004h3.6a.6.6 0 0 1 .07 1.196l-.07.004H9.8a.606.606 0 0 1-.1-.008 1.8 1.8 0 0 1-3.4-.001l-.03.005-.07.004H2.6a.6.6 0 0 1-.07-1.196l.07-.004h3.6c.034 0 .067.003.1.008A1.8 1.8 0 0 1 8 10.4zm0 1.2a.6.6 0 1 0 0 1.2.6.6 0 0 0 0-1.2zM3.8 6.2a1.8 1.8 0 0 1 1.7 1.209l.03-.005.07-.004h7.8a.6.6 0 0 1 .07 1.196l-.07.004H5.6a.605.605 0 0 1-.1-.008A1.8 1.8 0 1 1 3.8 6.2zm0 1.2a.6.6 0 1 0 0 1.2.6.6 0 0 0 0-1.2zM10.4 2a1.8 1.8 0 0 1 1.7 1.209l.03-.005.07-.004h1.2a.6.6 0 0 1 .07 1.196l-.07.004h-1.2a.605.605 0 0 1-.1-.008 1.8 1.8 0 0 1-3.4-.001l-.03.005-.07.004h-6a.6.6 0 0 1-.07-1.196L2.6 3.2h6c.034 0 .067.003.1.008A1.8 1.8 0 0 1 10.4 2zm0 1.2a.6.6 0 1 0 0 1.2.6.6 0 0 0 0-1.2z" fill="#3E4042"></path></svg></i>
+	 				필터
+	 				</span>
+	  					
+	  				<input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck1">유료</label>
+					<input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck2">무료</label>
+					<input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck3">할인중</label>
+					
+					<input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck4">입문</label>
+					<input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck5">중급</label>
+					<input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+					<label class="btn btn-sm" for="btncheck6">중급이상</label>
+				</form>
+			</div>
+		</div>
+		<div class="col col-md-4 text-end" id="sort-form">
+			<form id=form-sort-filter class="" method="get" action="/course">
+				<input type="hidden" value="${param.sort }" name="sort" />
+				<select class="form-select-sm" aria-label="Default select example">
+					<option selected>추천순</option>
+					<option value="likely">인기순</option>
+					<option value="recently">최신순</option>
+					<option value="grade">평점순</option>
+					<option value="studentCount">학생수순</option>
+				</select>
+			</form>
+		</div>
+		</div>
+	</div>
+	
+	<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mt-3 gx-4">
 		<input type="hidden" value="${param.category }" name="category" />
 		<c:forEach var="course" items="${classes }">					
 			<div class="col">
 				<div class="card h-100">
-					<a href="/course/${course.no }" class="stretched-link"></a>
+					<a href="/course/${course.no }" class="stretched-link" data-course-no="${course.no }"></a>
 					<img src="/resources/images/course/${course.image }" class="card-img-top" alt="...">
 					<div class="card-body">
 						<!-- <h5 class="card-title">Card title</h5> -->
@@ -86,20 +135,44 @@ $(".pagination a").click(function(event) {
 	$("#form-search-class").trigger("submit");
 })
 
-// json 정보를 호출해서 해당 데이터로 카테고리 검색과 토글 버튼이 생성되도록 한다.
-/* $(function(){
-	$.getJSON("/rest/ClassDetailList.do", function(categoryList) {
-		let $categoryUl = $("#menu-1")
+$(".input-group input[type=checkbox]").on("click", function(){
+	var id= $(this).attr("id");
+	
+	if( $(this).is(":checked")){
+		var value = $("#category-btn-group label[for='"+id+"']").text();
+		console.log(value);
+		$(":input[name=categoryName]").val(value);
 		
-		$.each(categoryList, function(index, category){
-			let no = category.no;
-			let name = category.name;
-			let parentNo = category.parentNo;
-			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?category='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
-			$categoryUl.append($li);
-		})
-	})
-}) */
+		//
+		$("#form-search-category").trigger("submit");
+	}
+})
+
+$("#filter-btn-group input[type=checkbox]").click(function(){
+	var id= $(this).attr("id");
+	var value = $("#filter-btn-group label[for='"+id+"']").text();
+	
+	if($(this).is(":checked")){
+		$("#filter-btn-group label[for='"+id+"']").addClass("checked");
+		console.log(value);
+		$(this).val(value);
+		
+		$("#filter-btn-group input[name=filter]").val(value)
+		
+		$("#form-search-filter").trigger("submit");
+	} else {
+		$("#filter-btn-group label[for='"+id+"']").removeClass("checked");
+	}
+	
+})
+
+// sort 정보를 서버에 전달
+$("#sort-form select").on("change", function(){
+	var sortValue = $(this).val();
+	$("#sort-form input[name=sort]").val(sortValue);
+	$("#form-sort-filter").trigger("submit");
+})
+
 </script>
 </body>
 </html>

@@ -22,8 +22,11 @@ public interface ClassMapper {
 	
 	int getClassesTotalRows(ClassCriteria criteria);
 	
-	// 카테고리 리스트를 불러옴
+	// 모든 카테고리 리스트를 불러옴
 	List<Category> getAllClassCategories();
+	
+	// 최상위 카테고리 리스트를 불러옴
+	List<Category> getTopClassCategories();
 	
 	// 카테고리 번호로 카테고리 리스트 정보를 조회(계층형 메뉴 관련)
 	List<Category> getAllSubCategories(int no);

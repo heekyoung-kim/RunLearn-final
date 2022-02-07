@@ -23,11 +23,23 @@ public class CartService {
 	}
 	
 	public void deleteItem(int no) {
-		cartMapper.deleteItemByNo(no);
+		cartMapper.deleteItemByCartNo(no);
 	}
 	
+	
+	public void deleteItemByUserNoClassNo(Carts cart) {
+		cartMapper.deleteItemByUserNoClassNo(cart);
+	}
+	
+	
 	public void addCart(Carts cart) {
+		// 카트 중복추가 조회.
+		Carts savedCart = cartMapper.getCartByUserNoClassNo(cart);
+		if(savedCart != null) {
+			throw new RuntimeException("카트에 동일상품이 존재합니다.");
+		}
 		cartMapper.addCart(cart);
 	}
 
 }
+ 

@@ -3,6 +3,7 @@
 <mapper namespace="com.hta.lecture.mapper.ClassMapper">
 	
 
+	<!-- 강의번호로 강의정보를 조회 -->
 	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.vo.Classes">
 		select
 			class_no				as no,
@@ -33,6 +34,7 @@
 			a.category_no = b.category_no and class_no = #{value}
 	</select>
 	
+	<!-- 카테고리 번호로 강의정보를 조회 -->
 	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassCourseDto">
 		select
 			class_no as no,
@@ -41,6 +43,8 @@
 			class_price as price,
 			class_discountprice as discountPrice,
 			class_image as image,
+			class_total_student as studentCount,
+			class_review_score_count as reviewCount,
 			category_no as categoryNo,
 			category_name as categoryName,
 			category_par_no as categoryParNo
@@ -57,6 +61,8 @@
                     A.class_price,
                     A.class_discountprice,
                     A.class_image,
+                    A.class_total_student,
+                    A.class_review_score_count,
                     C.category_no,
                     C.category_name,
                     C.category_par_no
@@ -72,9 +78,19 @@
 			where
 				class_title like '%' || #{value} || '%' OR
 				teacher_name like '%' || #{value} || '%'
+			<if test="sort == 'price'">
+			order by class_price asc
+			</if>
+			<if test="sort == 'studentCount'">
+			order by class_total_student desc
+			</if>
+			<if test="sort == 'grade'">
+			order by class_review_score_count desc
+			</if>
 			)
 		where
 			rn between #{beginIndex} and #{endIndex}
+		
 	</select>
 	
 	<!-- criteria 정보로 class 검색 결과를 조회 -->
@@ -200,8 +216,18 @@
 		</where>			
 	</select>
 	
-	<!-- 최상위 카테고리 정보를 조회하는 쿼리 -->
+	<!-- 모든 카테고리 정보를 조회하는 쿼리 -->
 	<select id="getAllClassCategories" resultType="com.hta.lecture.vo.Category">
+		select
+		    category_no 										as no,
+		    category_name 										as name,
+		    category_par_no 									as parentNo,
+		    category_grade 										as grade
+		from final_category_tb
+	</select>
+	
+	<!-- 최상위 카테고리 정보를 조회하는 쿼리 -->
+	<select id="getTopClassCategories" resultType="com.hta.lecture.vo.Category">
 		select
 		    category_no 										as no,
 		    category_name 										as name,
@@ -296,7 +322,6 @@
 		order by class_no asc
 	</select>
 	
-	
 	<!-- 
 		(select class_no, count(*) cnt
 		from final_progress_tb
@@ -307,5 +332,32 @@
 		(select class_no, count(*) cnt
 		from final_review_tb
 		group by class_no) RC
-	 -->
+
+	<!-- 전체 강의 리스트 -->
+	<select id="getAllClass" resultType="com.hta.lecture.dto.ClassListDto">
+		select
+			A.class_no				as no,
+			A.class_title				as title,
+			A.class_content			as content,
+			A.class_difficultly		as difficultly,
+			A.class_image				as image,
+			A.class_video				as video,
+			A.class_income			as income,
+			A.class_period			as period,
+			A.class_price				as price,
+			A.class_discountprice		as discountPrice,
+			A.class_permission		as permission,
+			A.class_filter			as filter,
+			A.class_status			as status,
+			A.class_application_date	as applicationDate,
+			A.class_open_date			as openDate,
+			A.class_updated_date		as updatedDate,
+			A.class_deleted_date		as deletedDate,
+			A.class_total_count		as totalCount,
+			A.class_total_time		as totalTime,
+			A.class_isdeleted			as isDeleted
+		from 
+	        final_class_tb A
+        order by A.class_no asc
+	</select>
 </mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hta.lecture.mapper.UserCouponMapper">
+
+	<insert id="addCoupon" parameterType="com.hta.lecture.vo.UserCoupon">
+		insert into final_user_coupon_tb
+		(user_coupon_no, user_no, coupon_no)
+		values
+		(user_coupon_no_seq.nextval, #{userNo},#{couponNo})
+	</insert>
+
+	<update id="updateUseCouponStatus" parameterType="com.hta.lecture.vo.UserCoupon">
+		update
+			final_user_coupon_tb
+		set
+			user_coupon_use_yn = 'Y'
+			,user_coupon_use_date = sysdate
+		where
+			user_no = #{userNo}
+			and coupon_no = #{couponNo}		  
+	</update>
+	
+	<select id="getCouponByUserNo" parameterType="int" resultType="com.hta.lecture.dto.UserCouponDto">
+		select
+			A.user_coupon_no					userCouponNO
+			,A.user_no							userNo
+			,A.coupon_no 						couponNo
+			,A.user_coupon_use_yn 				useStatus
+			,A.user_coupon_use_date				useDate
+			,A.user_coupon_deleted_date_yn		periodStatus
+			,A.coupon_pub_date					pubDate
+			,B.coupon_name						couponName
+			,B.coupon_discount_rate				discountRate
+			,B.coupon_discount_price			discountPrice
+			,B.coupon_use_period				usePeriod
+		from
+			final_user_coupon_tb A , final_coupon_tb B
+		where
+			A.coupon_no = B.coupon_no 
+			and user_no = #{value}	
+	</select>
+	<select id="totalCouponCntByUserNo" parameterType="int" resultType="int">
+		select 
+			count(*)
+		from(
+			select
+				A.user_coupon_no					userCouponNO
+				,A.user_no							userNo
+				,A.coupon_no 						couponNo
+				,A.user_coupon_use_yn 				useStatus
+				,A.user_coupon_use_date				useDate
+				,A.user_coupon_deleted_date_yn		periodStatus
+				,A.coupon_pub_date					pubDate
+				,B.coupon_name						couponName
+				,B.coupon_discount_rate				discountRate
+				,B.coupon_discount_price			discountPrice
+				,B.coupon_use_period				usePeriod
+			from
+				final_user_coupon_tb A , final_coupon_tb B
+			where
+				A.coupon_no = B.coupon_no 
+				and user_no = #{value}	
+			)
+	</select>
+</mapper>

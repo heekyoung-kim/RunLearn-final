@@ -3,14 +3,14 @@
 <mapper namespace="com.hta.lecture.mapper.WishlistMapper">
 	
 	<insert id="addWishList" parameterType="com.hta.lecture.vo.Wishlist">
-		insert into final_cart_tb
+		insert into final_wish_tb
 			(wish_no, user_no, class_no)
 		values
-			(wish_no_seq.nextval,#{userNo},#{classNo})
+			(wish_no_seq.nextval, #{userNo}, #{classNo})
 	</insert>
 	
 	<delete id="deleteWishListByNo" parameterType="int">
-	   delete from final_cart_tb
+	   delete from final_wish_tb
 	   where 
 	   	wish_no = #{value};
 	</delete>
@@ -28,7 +28,21 @@
              from
                  final_class_tb A, final_teacher_tb B, final_wishlist_tb C
              where
-                 A.teacher_no = B.teacher_no and A.class_no = C.class_no
+                 A.teacher_no = B.teacher_no and A.class_no = C.class_no 
                  and user_no = #{value}
 	</select>
+	
+	<select id="getWishByUserNoClassNo" parameterType="com.hta.lecture.dto.WishlistDto" resultType="com.hta.lecture.dto.WishlistDto">
+		select
+			wish_no			as wishNo,
+			class_no		as classNo,
+			user_no			as userNo
+		from 
+			final_wish_tb
+		where
+			class_no = #{classNo}
+			and user_no = #{userNo}	
+	</select>
+	
+	
 </mapper>

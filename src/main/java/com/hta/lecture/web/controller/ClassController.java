@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
 import com.hta.lecture.service.ClassService;
+import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
 
@@ -50,8 +51,10 @@ public class ClassController {
 
 		// 검색조건(value)과 조회범위(beginIndex, endIndex)가 포함된 Criteria를 서비스에 전달해서 데이터 조회
 		List<ClassCourseDto> classes = classService.getAllCourseInfo(criteria);
+		List<Category> categoryList = classService.getAllClassCategories();
 		
 		model.addAttribute("classes", classes);		
+		model.addAttribute("categoryList", categoryList);		
 		model.addAttribute("pagination", pagination);
 		
 		return "/courses/list"; // list.jsp

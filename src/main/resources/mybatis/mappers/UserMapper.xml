@@ -34,7 +34,7 @@
 			user_intro			intro,
 			user_img			img,
 			user_login_type 	loginType,
-			teacher_yn			teacherStatus,
+			teacher_yn			teacherStatus, 
 			manager_yn			managerStatus,
 			user_deleted_yn		deletedStatus,
 			user_created_date	createdDate,

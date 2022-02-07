@@ -25,7 +25,7 @@ public class UserService {
 			userMapper.addUser(user);
 		}
 		return savedUser;
-	}
+	} 
 	// 일반 로그인
 	public User login(String email, String password) {
 		User savedUser = userMapper.getUserByEmail(email);

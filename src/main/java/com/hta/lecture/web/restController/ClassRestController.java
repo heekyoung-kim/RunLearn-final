@@ -50,7 +50,7 @@ public class ClassRestController {
 	
 	@GetMapping("/topCategoryList.do")
 	public List<Category> topList() {
-		List<Category> category = classService.getAllClassCategories();
+		List<Category> category = classService.getTopClassCategories();
 		return category;
 	}
 	

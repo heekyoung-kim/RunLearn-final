@@ -14,9 +14,10 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@ToString
+@ToString 
 public class Tag {
-
+	
+	private int boardNo;
 	private int tagNo;
 	private String tagName;
 }

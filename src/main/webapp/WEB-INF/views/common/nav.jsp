@@ -66,7 +66,7 @@
 				</form>
 				<ul class="navbar-nav" id="navbar-right">
 					<!-- 미로그인/지식공유미참여자 -->
-					<li class="nav-item"><a class="nav-link btn btn-sm  m-1" href="#">지식공유참여</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-sm  m-1" href="/open-knowledge">지식공유참여</a></li>
 					<!--// 미로그인/지식공유미참여자 -->
 					<!-- 로그인시 -->
 					<!-- 로그인/지식공유참여자 -->
@@ -78,17 +78,17 @@
 							</li>
 							<li class="nav-item mx-1">
 							<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent m-1" href="">최근강의</a></li>
-							<li class="nav-item"><a class="nav-link" href="carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
+							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
 							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
 							<li class="nav-item">	
 								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="logout">로그아웃</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="#">학생</a>
+								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="/dashboard">학생</a>
 							</li>							
 							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-success btn-sm" href="#">지식공유자</a>
+									<a class="nav-link btn btn-success btn-sm" href="/instructor">지식공유자</a>
 								</li>							
 							</c:if>
 						</c:when>

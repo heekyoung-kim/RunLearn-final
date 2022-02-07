@@ -1,5 +1,7 @@
 package com.hta.lecture.web.restController;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,6 +104,23 @@ public class CartsRestController {
 			response.setStatus("FAIL");
 			response.setError(e.getMessage());
 			
+			return response;
+		}
+	}
+	
+	// 카트 전체삭제.
+	@PostMapping("/deleteCarts")
+	public ResponseDto<?> deleteCarts(List<Integer> cartNos) {
+		ResponseDto<?> response = new ResponseDto<>();
+		try {
+			for(int cartNo : cartNos) {
+				log.info("삭제할 카트번호:"+cartNo);
+				cartService.deleteItem(cartNo);
+			}
+			return response;
+		} catch (Exception e) {
+			response.setStatus("FAIL");
+			response.setError(e.getMessage());
 			return response;
 		}
 	}

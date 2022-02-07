@@ -81,6 +81,9 @@ public class HomeController {
 		
 		return "redirect:/";
 	}
-
 	
+	@GetMapping("/open-knowledge")
+	public String openKnowledge() {
+		return"openKnowledge";
+	}
 }

@@ -42,21 +42,7 @@
 			<div class="container">
 				<div class="row my-3">
 					<div class="col-2 left-side">
-						<dl>
-							<dt class="px-1 py-2">대시보드</dt>
-							<dd class="px-4 py-1 active"><a href="">대시보드</a></dd>
-						</dl>
-						<dl>
-							<dt class="px-1 py-2">강의관리</dt>
-							<dd class="px-4 py-1"><a href="">강의관리</a></dd>
-							<dd class="px-4 py-1"><a href="">질문리스트</a></dd>
-							<dd class="px-4 py-1"><a href="">수강평리스트</a></dd>
-							<dd class="px-4 py-1"><a href="">수익 확인</a></dd>
-						</dl>
-						<dl>
-							<dt class="px-1 py-2">강의 만들기</dt>
-							<dd class="px-4 py-1"><a href="">강의 만들기</a></dd>
-						</dl>
+						<%@ include file="../teacher-mypage-leftbar.jsp" %>
 					</div>
 					<div class="col-10 right-instructor">
 						<div class="row">

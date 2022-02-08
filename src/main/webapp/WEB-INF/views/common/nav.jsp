@@ -88,7 +88,7 @@
 							</li>							
 							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-success btn-sm" href="/instructor">지식공유자</a>
+									<a class="nav-link btn btn-success btn-sm m-1" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
 								</li>							
 							</c:if>
 						</c:when>

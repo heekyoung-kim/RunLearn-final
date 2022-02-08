@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.CouponDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
 import com.hta.lecture.web.form.ClassCriteria;
@@ -57,6 +58,11 @@ public interface AdminMapper {
 	String getDataScienceIncomeForThisMonth();
 	  
 	List<MonthIncomeDto> getMonthIncome();
+	
+	// 쿠폰 총 데이터 갯수 조회
+	int getCouponTotalRows();
+	
+	List<CouponDto> getAllCoupon();
 	
 	// 유저 총 데이터 갯수 조회
 	//int getUsersTotalRows(ClassCriteria criteria);

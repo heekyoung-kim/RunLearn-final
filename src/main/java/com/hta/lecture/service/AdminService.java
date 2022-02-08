@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hta.lecture.dto.AdminPageDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.CouponDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
 import com.hta.lecture.mapper.AdminMapper;
@@ -85,5 +86,10 @@ public class AdminService {
 	public List<MonthIncomeDto> getMonthIncome(){
 		List<MonthIncomeDto> monthIncomeList = adminMapper.getMonthIncome();
 		return monthIncomeList;
+	}
+	
+	public List<CouponDto> getAllCoupon(){
+		List<CouponDto> getAllCoupon = adminMapper.getAllCoupon();
+		return getAllCoupon;
 	}
 }

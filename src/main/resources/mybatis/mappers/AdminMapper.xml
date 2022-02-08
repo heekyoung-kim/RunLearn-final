@@ -237,17 +237,22 @@
 				C.category_par_no
 		    from final_class_tb A, final_teacher_tb B, final_category_tb C
 		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
-		    <if test="category != null">
-				start with C.category_no = #{category}
-				connect by prior C.category_no = C.category_par_no
-			</if>
-		) A
-		<where>
-			<if test="value != null">
-				class_title like '%' || #{value} || '%' OR
-				teacher_name like '%' || #{value} || '%'
-			</if>
-		</where>			
+		
 	</select>
+	
+	<select id="getCouponTotalRows" resultType="int">
+		select count(*)
+		 from final_coupon_tb
+	</select>
+	
+	<select id="getAllCoupon" resultType="com.hta.lecture.dto.CouponDto">
+		select
+			coupon_no as couponNo,
+			coupon_name as couponName,
+			coupon_use_period as couponPeriod
+		 from final_coupon_tb
+	</select>
+	
+	
 	
 </mapper>

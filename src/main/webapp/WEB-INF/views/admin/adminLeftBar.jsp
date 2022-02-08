@@ -136,6 +136,11 @@
 					                  </a>
 					                </li>
 					                <li>
+					                  <a class="btn_wrap  " href="/admin/coupon" >
+					                    <span>쿠폰 관리</span> 
+					                  </a>
+					                </li>
+					                <li>
 					                  <a class="btn_wrap  " href="" >
 					                    <span>질문 리스트</span> 
 					                  </a>
@@ -153,11 +158,6 @@
 					                <li>
 					                  <a class="btn_wrap  " href="" >
 					                    <span>수익 확인</span> 
-					                  </a>
-					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
-					                    <span>쿠폰 관리</span> 
 					                  </a>
 					                </li>
 					                <li>

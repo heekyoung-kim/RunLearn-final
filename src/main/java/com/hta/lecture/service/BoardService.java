@@ -42,6 +42,8 @@ public class BoardService {
 			boardMapper.addTag(tag);  
 			}
 		}
+	
+	
 	}
 	
 	

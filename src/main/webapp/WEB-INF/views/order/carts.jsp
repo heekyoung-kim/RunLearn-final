@@ -32,7 +32,7 @@
 				<c:forEach var="coupon" items="${coupons}">	
 					<c:choose>
 						<c:when test="${coupon.discountRate eq 0}">					
-							<c:if test="${coupon.useStatus eq 'N'}">
+							<c:if test="${coupon.useStatus eq 'N'|| coupon.periodStatus eq 'N'}">
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="price" data-discount="${coupon.discountPrice}" value="${coupon.userCouponNo}">
 							  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
@@ -282,29 +282,18 @@
 	$(function(){
 		$("#delete-cartItems").click(function(){
 			alert("모든 카트아이템을 삭제하시겠습니까?");
-			var cartNos = [];
-			$(".row [id^=cart-item]").data("no").each(function(index, input){
-				cartNos.push($(input).val());
-			})
 			$.ajax({
 				type:"Post"
 				,url:"/rest/deleteCarts"
 				,dataType:"json"
-				,data:{
-					cartNos: cartNos
-				}
 				,success:function(response){
 					if(response.status == "OK"){
-						$(".row [id^=cart-item]").remove
 						location.reload(true);
 					}else{
 						alert(response.error);
 					}
 				}
 			})
-			
-			$(".row [id^=cart-item]").remove; 
-			
 		})
 	})
 	

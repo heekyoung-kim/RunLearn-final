@@ -10,6 +10,9 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<div class="m-3 p-5">
+	<%@include file="../student-mypage-leftbar.jsp" %>
+</div>
 <div class="container">
   
 </div>

@@ -110,13 +110,12 @@ public class CartsRestController {
 	
 	// 카트 전체삭제.
 	@PostMapping("/deleteCarts")
-	public ResponseDto<?> deleteCarts(List<Integer> cartNos) {
+	public ResponseDto<?> deleteCarts() {
 		ResponseDto<?> response = new ResponseDto<>();
 		try {
-			for(int cartNo : cartNos) {
-				log.info("삭제할 카트번호:"+cartNo);
-				cartService.deleteItem(cartNo);
-			}
+			response.setStatus("OK");
+			User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+			cartService.deleteCartByUserNo(user.getNo());
 			return response;
 		} catch (Exception e) {
 			response.setStatus("FAIL");

@@ -1,6 +1,9 @@
 package com.hta.lecture.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hta.lecture.dto.CartDto;
 import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.mapper.CartMapper;
+import com.hta.lecture.mapper.CouponMapper;
 import com.hta.lecture.mapper.UserCouponMapper;
+import com.hta.lecture.utils.SessionUtils;
+import com.hta.lecture.vo.Coupon;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.vo.UserCoupon;
 
 @Service
@@ -19,8 +26,33 @@ public class UserCouponService {
 	@Autowired
 	private UserCouponMapper userCouponMapper;
 	
+	@Autowired
+	private CouponMapper couponMapper;
+	
+	
 	// 쿠폰추가.
-	public void addCouponByUserNoUserCoupon(UserCoupon userCoupon) {
+	public void addCouponByUserNoUserCoupon(int couponNo) {
+		
+		// 유저정보, 쿠폰정보 조회
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		Coupon coupon = couponMapper.getCoupon(couponNo);
+		int couponPeriod = coupon.getPeriod();
+		
+		// 만료일자 구하기.
+		Date now = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		cal.add(Calendar.DATE, couponPeriod); // 현재 날짜에 만료기한(일) 더하기.
+		
+		Date period = cal.getTime();
+		
+		// 만료기한, 쿠폰번호, 유저번호 저장.
+		UserCoupon userCoupon = UserCoupon.builder()
+								.userCouponNo(couponNo)
+								.periodDate(period)
+								.userNo(user.getNo())
+								.build();
+		// insert
 		userCouponMapper.addCoupon(userCoupon);
 	}
 	

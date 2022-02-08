@@ -1,5 +1,9 @@
 package com.hta.lecture.dto;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hta.lecture.web.form.ProfitByCategory;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +15,12 @@ import lombok.ToString;
 @Getter
 public class AdminPageDto {
 	
+	private String developerIncomeForThisMonth; 
+	private String securityIncomeForThisMonth; 
+	private String dataScienceIncomeForThisMonth;
+	
 	private int totalIncome;
+	private int getIncomeForThisMonth;
 	
 	private int totalClassCount;
 	private double totalClassGradeAvr;

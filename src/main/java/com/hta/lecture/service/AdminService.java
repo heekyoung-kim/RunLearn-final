@@ -5,12 +5,18 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;import com.hta.lecture.dto.ClassDetailDto;
+import org.springframework.stereotype.Service;
+
+import com.hta.lecture.dto.AdminPageDto;
+import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
+import com.hta.lecture.dto.CouponDto;
+import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
 import com.hta.lecture.mapper.AdminMapper;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.web.form.ProfitByCategory;
 
 @Service
 public class AdminService {
@@ -37,12 +43,7 @@ public class AdminService {
 	public int getTotalOrderCount() {
 		return adminMapper.getTotalOrderCount();
 	}
-	
 
-	public int getTotalClassGrade() {
-		return adminMapper.getTotalClassGrade();
-	}
-	
 	
 	// 개설 제출된 강의의 수
 	public int getSubmitClassCount(){
@@ -51,29 +52,44 @@ public class AdminService {
 	
 	// 강의 수익 합을 가져온다
 	public int getTotalIncome(){
-		int total=0;
-		List<ClassListDto> categoryList = adminMapper.getAllClass();
 		
-		for(ClassListDto classes : categoryList) {
-			total+=classes.getIncome();
-		}
+		return adminMapper.getTotalIncome();
+	}
+	
+	// 이번달 수익 합을 가져온다
+	public int getIncomeForThisMonth(){
 		
-		return total;
+		return adminMapper.getIncomeForThisMonth();
 	}
 	
 	
 	// 강의 평점 평균을 가져온다
 	public double getGradeAvr() {
 		
-		int avr = 0;
-		List<ReviewDto> reviewList = adminMapper.getTotalReview();
-		int reviewCount = adminMapper.getTotalReviewCount();
-		
-		for(ReviewDto reviews : reviewList) {
-			avr+= Integer.parseInt(reviews.getGrade());
-		}
-		return (double)avr/reviewCount;
+		return adminMapper.getAvgReview();
 	}
-
 	
+	// 카테고리별 평균을 가져온다
+	public String getDeveloperIncomeForThisMonth() {
+		return adminMapper.getDeveloperIncomeForThisMonth();
+	}
+	
+	public String getSecurityIncomeForThisMonth() {
+		return adminMapper.getSecurityIncomeForThisMonth();
+	}
+	
+	public String getDataScienceIncomeForThisMonth() {
+		return adminMapper.getDataScienceIncomeForThisMonth();
+	}
+	
+	
+	public List<MonthIncomeDto> getMonthIncome(){
+		List<MonthIncomeDto> monthIncomeList = adminMapper.getMonthIncome();
+		return monthIncomeList;
+	}
+	
+	public List<CouponDto> getAllCoupon(){
+		List<CouponDto> getAllCoupon = adminMapper.getAllCoupon();
+		return getAllCoupon;
+	}
 }

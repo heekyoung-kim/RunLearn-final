@@ -39,27 +39,27 @@
 		<if test="sort == 'reply'">
 		 order by A.board_comment_cnt desc
 		</if>
-		<!--  <if test="tags != null">
+		<if test="tags != null">
 		and A.board_boardNo in (select A.board_boardNo
 		             from final_tag_tb
 		             where C.tag_name in (
-							      <foreach index="index"  item="tag" collection="tags" separator=", ">
-							         #{tag}
-							      </foreach>
+			<foreach index="index"  item="tag" collection="tags" separator=", ">
+			#{tag}
+			</foreach>
 							     )
 		)
-		</if> -->
+		</if>
 	</select>
 	
 	<insert id="addBoard" parameterType="com.hta.lecture.vo.Board" >
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
 			select board_no_seq.nextval
 			from dual
 		</selectKey>
 		insert into final_board_tb
 		(board_no, board_category, board_title, board_content, board_status)
 		values
-		(#{no}, #{category}, #{title}, #{content}, #{status})
+		(#{boardNo}, #{category}, #{title}, #{content}, #{status})
 	</insert>
 	
 	<insert id="addTag" parameterType="com.hta.lecture.vo.Tag" >
@@ -74,7 +74,7 @@
 	<update id="updateBoardByCriteria" parameterType="com.hta.lecture.web.form.BoardCriteria" >
 	</update>
 	
-	<delete id="deleteBoardByCriteria" parameterType="int">\
+	<delete id="deleteBoardByCriteria" parameterType="int">
 	
 	</delete>
  -->	

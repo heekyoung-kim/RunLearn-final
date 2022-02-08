@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+  
 <%@ include file="../../common/nav.jsp"%>
 <div class="container-fluid" >
 	<section class="community-header " style="background: black;">
@@ -57,7 +58,6 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
 				<h5 class="modal-title" id="writeBoardLabel">커뮤니티</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
@@ -74,6 +74,7 @@
 						<div class="form-group mb-3">
 							<label for="title">제목</label>
 	 						<input type="text" name="title" class="form-control" id="title" placeholder= "제목을 입력하세요">						
+				<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
 						</div>			
 					  	<div class="form-group mb-3">
 							<label for="tag">태그</label>
@@ -89,7 +90,7 @@
 						</div>				
 				</div>
 				<div class="modal-footer">
-					<button type= "button" class="btn btn-outline-secondary" data-dismiss="modal">취소</button>
+					<button type= "button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >취소</button>
 					<button type= "button" class="btn btn-outline-success" id="btn-addBoard" >등록</button>
 				</div>
 			</form>
@@ -198,6 +199,7 @@ $(function(){
 		$(this).closest('span').remove();
 	})
 
+	
 	$("#btn-addBoard").click(function(event){
 		$("#alert-error-addBoard").hide();
 		var category = $("#addBoard-form [name=category]").val();

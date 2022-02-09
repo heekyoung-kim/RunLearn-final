@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hta.lecture.dto.UserCouponDto;
+import com.hta.lecture.dto.WishlistDto;
 import com.hta.lecture.service.UserCouponService;
 import com.hta.lecture.service.UserService;
+import com.hta.lecture.service.WishlistService;
 import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.User;
 
@@ -24,6 +26,8 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	UserCouponService userCouponService;
+	@Autowired
+	WishlistService wishlistService;
 	
 	@GetMapping("/dashboard")
 	public String studentMyPage() {
@@ -31,7 +35,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/wishlist")
-	public String wishlist() {
+	public String wishlist(Model model) {
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		List<WishlistDto> wishlist =  wishlistService.getWishListByUserNo(user.getNo());
+		model.addAttribute("wishlists", wishlist); 
 		return "student-mypage/myclass/wishlist";
 	}
 	

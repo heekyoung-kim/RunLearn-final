@@ -9,14 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hta.lecture.dto.CartDto;
 import com.hta.lecture.dto.UserCouponDto;
-import com.hta.lecture.mapper.CartMapper;
 import com.hta.lecture.mapper.CouponMapper;
 import com.hta.lecture.mapper.UserCouponMapper;
-import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Coupon;
-import com.hta.lecture.vo.User;
 import com.hta.lecture.vo.UserCoupon;
 
 @Service
@@ -31,10 +27,9 @@ public class UserCouponService {
 	
 	
 	// 쿠폰추가.
-	public void addCouponByUserNoUserCoupon(int couponNo) {
+	public void addCouponByUserNoUserCoupon(int couponNo, int userNo) {
 		
-		// 유저정보, 쿠폰정보 조회
-		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		//쿠폰정보 조회
 		Coupon coupon = couponMapper.getCoupon(couponNo);
 		int couponPeriod = coupon.getPeriod();
 		
@@ -50,7 +45,7 @@ public class UserCouponService {
 		UserCoupon userCoupon = UserCoupon.builder()
 								.userCouponNo(couponNo)
 								.periodDate(period)
-								.userNo(user.getNo())
+								.userNo(userNo)
 								.build();
 		// insert
 		userCouponMapper.addCoupon(userCoupon);

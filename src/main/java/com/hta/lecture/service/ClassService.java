@@ -93,6 +93,8 @@ public class ClassService {
 			for (ClassFiles files : classFiles) {
 				files.setNo(classes.getNo());
 				classMapper.insertClassFile(files);
-		} 	
+			} 	
 	
+		}
+
 }

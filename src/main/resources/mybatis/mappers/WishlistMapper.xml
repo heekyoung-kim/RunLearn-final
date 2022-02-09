@@ -9,7 +9,7 @@
 			(wish_no_seq.nextval, #{userNo}, #{classNo})
 	</insert>
 	
-	<delete id="deleteWishListByNo" parameterType="int">
+	<delete id="deleteWishListByNo" parameterType="com.hta.lecture.vo.Wishlist">
 	   delete from final_wish_tb
 	   where 
 	   	wish_no = #{value}
@@ -17,19 +17,23 @@
 	
 	<select id="getWishClasstByUserNo" parameterType="int" resultType="com.hta.lecture.dto.WishlistDto" >
 		select
-	    		  A.class_no 				as classNo
-                 ,A.class_title				as title
-                 ,B.teacher_name			as teacherName
-                 ,A.class_price				as price
-                 ,A.class_discountprice  	as discountPrice
-                 ,A.class_image				as image
-                 ,C.wish_no					as wishNo
-                 ,C.user_no					as userNo
+	    		  A.class_no 				as classNo,
+                 A.class_title				as title,
+                 A.class_price				as price,
+                 A.class_discountprice  	as discountPrice,
+                 a.class_difficultly        as difficulty,
+                 A.class_image				as image,
+                 B.teacher_name			    as teacherName,
+                 C.wish_no					as wishNo,
+                 C.user_no					as userNo,
+                 d.category_name            as category 
              from
-                 final_class_tb A, final_teacher_tb B, final_wishlist_tb C
+                 final_class_tb A, final_teacher_tb B, final_wish_tb C, final_category_tb D
              where
-                 A.teacher_no = B.teacher_no and A.class_no = C.class_no 
-                 and user_no = #{value}
+                 A.teacher_no = B.teacher_no 
+                 and A.class_no = C.class_no
+                 and a.category_no = d.category_no
+                 and C.user_no = #{value}
 	</select>
 	
 	<select id="getWishByUserNoClassNo" parameterType="com.hta.lecture.dto.WishlistDto" resultType="com.hta.lecture.dto.WishlistDto">

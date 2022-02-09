@@ -159,8 +159,8 @@
 			<div class="card card-floating" style="width: 18rem;">
 				<div class="card-body">
 					<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
-					<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2">수강신청</a><br>
-					<a href="#" class="card-link">장바구니 담기</a> <a href="#" class="card-link">추천수</a><br>
+					<a href="" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">수강신청</a><br>
+					<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="#" class="card-link">추천수</a><br>
 				</div>
 				<div class="card-footer">
 					<span>&middot; 지식공유자: </span><a href="#" class="card-link">강사명</a><br>
@@ -195,6 +195,50 @@ $("#texteditor-submit").click(function(){
 	console.log(value);
 	$(".textarea-field").html(value);
 });
+
+// 장바구니담기
+$(".btn-apply").click(function(){
+	var classNo = $(this).data("no")
+	alert("동작")
+	$.ajax({
+		type:"Post"
+		,url:"/rest/addCart"
+		,dataType:"json"
+		,data:{
+			classNo: classNo
+		}
+		,success:function(response){
+			if(response.status == "OK"){
+				alert("수강바구니에 추가되었습니다.")
+			}else{
+				alert(response.error);
+			}
+			
+		}
+	})
+})
+
+// 위시리스트 담기
+$(".wishlist-button").click(function(){
+	var classNo = $(this).data("no")
+	alert("동작")	
+	$.ajax({
+		type:"Post"
+		,url:"/rest/addWishlist"
+		,dataType:"json"
+		,data:{
+			classNo: classNo
+		}		
+		,success:function(response){
+			if(response.status == "OK"){
+				alert("위시리스트에 추가되었습니다.")
+			}else{
+				alert(response.error);
+			}
+		}
+	})
+})
+
   </script>
 </body>
 </html>

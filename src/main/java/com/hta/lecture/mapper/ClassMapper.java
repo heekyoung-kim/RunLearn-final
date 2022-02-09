@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
-import com.hta.lecture.dto.ClassListDto;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
 
@@ -37,6 +37,10 @@ public interface ClassMapper {
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
 	
-	
+	// 강의만들기
+	void insertClass(Classes classes);
+	// 첨부파일 
+	void insertClassFile(ClassFiles classFiles);
+	List<ClassFiles> getClassFilesByClassNo(int No);
 	
 }

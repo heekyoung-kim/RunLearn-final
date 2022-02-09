@@ -332,7 +332,7 @@
 		(select class_no, count(*) cnt
 		from final_review_tb
 		group by class_no) RC
-
+								-->
 	<!-- 전체 강의 리스트 -->
 	<select id="getAllClass" resultType="com.hta.lecture.dto.ClassListDto">
 		select
@@ -360,4 +360,61 @@
 	        final_class_tb A
         order by A.class_no asc
 	</select>
+	
+	<insert id="insertClass" parameterType="com.hta.lecture.vo.Classes">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select class_no_seq.nextval
+			from dual
+		</selectKey>
+		insert into Final_Class_TB
+			(
+           	class_no,				    
+			class_title,				    
+			class_content,			    
+			class_difficultly,
+			class_image,
+			class_video,
+			class_income,
+			class_price,
+			class_discountPrice,
+			class_permission,
+			class_filter,
+			class_status,
+			class_application_date,
+			class_open_date,
+			class_updated_Date,
+			class_deleted_Date,
+			class_total_count,
+			class_total_time,
+			class_isdeleted,
+			teacher_no,
+			category_no				    
+              
+            )
+		values
+			(
+             #{no}, #{title}, #{content}, #{difficultly}, #{image}, #{video}, #{income}, #{price},
+			 #{discountPrice}, N, #{filter}, #{status}, #{applicationDate}, #{openDate},
+			 #{updatedDate}, #{deletedDate}, #{totalCount}, #{totalTime}, #{isDeleted}, 1, 1
+             )
+	</insert>
+	
+	<insert id="insertClassFile" parameterType="com.hta.lecture.vo.ClassFiles">
+		insert into FINAL_CLASS_UPFILES
+			(class_no, class_uploadFiles)
+		values
+			(#{no}, #{uploadFiles})	
+	</insert>
+	
+	<select id="getClassFilesByClassNo" parameterType="int" resultType="com.hta.lecture.vo.ClassFiles">
+		select
+			class_no			 no,
+			class_uploadFiles	 uploadFiles
+		from
+			FINAL_CLASS_UPFILES
+		where
+			class_no = #{value}
+	</select>
+	
+	
 </mapper>

@@ -11,6 +11,7 @@ import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
 
@@ -73,5 +74,15 @@ public class ClassService {
 	// 강의를 수강하는 학생의 숫자를 가져온다
 	public int countAllClassStudent(int no) {
 		return classMapper.countAllClassStudent(no);
+	}
+	
+	// 새 강의 만들기
+		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {
+			classMapper.insertClass(classes);
+			
+			for (ClassFiles files : classFiles) {
+				files.setNo(classes.getNo());
+				classMapper.insertClassFile(files);
+		} 	
 	}
 }

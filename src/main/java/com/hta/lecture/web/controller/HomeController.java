@@ -30,7 +30,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home() {
 		
-		return "home";
+		return "home.jsp";
 	}
 	@RequestMapping("/hello")
 	public String hello() {
@@ -48,14 +48,14 @@ public class HomeController {
 	// 회원가입 폼
 	@GetMapping("/registerUser")
 	public String registerForm() {
-		return "register";
+		return "register.jsp";
 	}
 	
 	// 회원정보 수정.
 	@PostMapping("/updateUser") 
 	public String updateUser(User user) {
 		userService.updateUser(user);
-		return "profile";
+		return "profile.jsp";
 	}
 	
 	// kakao로그인 요청을 처리한다. 

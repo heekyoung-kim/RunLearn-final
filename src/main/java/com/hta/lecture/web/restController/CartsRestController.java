@@ -34,9 +34,29 @@ public class CartsRestController {
 	@Autowired
 	private WishlistService wishlistService;
 
+	@PostMapping("/addDeleteCart")
+	public ResponseDto<?> addDeleteCart(int calssNo, int addDelete){
+		ResponseDto<?> response = new ResponseDto<>();
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		
+		try {
+			response.setStatus("OK");
+			
+			Carts cart = Carts.builder().classNo(calssNo).userNo(user.getNo()).build();
+			if(addDelete == 0) {
+				cartService.addCart(cart);
+			}
+			cartService.deleteItemByUserNoClassNo(cart);
+			
+		} catch (RuntimeException e) {
+			response.setStatus("FAIL");		
+		}
+		
+		return response;
+	}
 	
 	@GetMapping("/couponBox")
-	public ResponseDto<?> addCarts() {
+	public ResponseDto<?> getUserCoupon() {
 		ResponseDto<?> response = new ResponseDto<>();
 		
 		try {
@@ -61,8 +81,7 @@ public class CartsRestController {
 
 	
 	@PostMapping("/addWishList")
-
-	public ResponseDto<?> addCart(Wishlist wishList){
+	public ResponseDto<?> moveWishlist(Wishlist wishList){
 		ResponseDto<?> response = new ResponseDto<>();
 		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
 		
@@ -90,6 +109,37 @@ public class CartsRestController {
 		}
 	}
 
+	// 카트 추가
+	@PostMapping("/addCart")
+	public ResponseDto<?> addCart(Carts cart){
+		ResponseDto<?> response = new ResponseDto<>();
+
+		try {
+			response.setStatus("OK");
+			
+			// 카트추가
+			User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+			cart.setUserNo(user.getNo());
+			cartService.addCart(cart);			 
+			
+			// 위시리스트 삭제
+			Wishlist wishlist = Wishlist.builder()
+								.classNo(cart.getClassNo())
+								.userNo(user.getNo())
+								.build();
+			wishlistService.deleteItem(wishlist); 
+			
+			return response;
+		} catch (RuntimeException e) {
+			response.setStatus("FAIL");
+			response.setError(e.getMessage());
+			
+			return response;
+		}
+	}
+	
+	
+	// 카트 하나 삭제
 	@PostMapping("/deleteCart")
 	public ResponseDto<?> deleteCart(int cartNo){
 		ResponseDto<?> response = new ResponseDto<>();
@@ -110,13 +160,12 @@ public class CartsRestController {
 	
 	// 카트 전체삭제.
 	@PostMapping("/deleteCarts")
-	public ResponseDto<?> deleteCarts(List<Integer> cartNos) {
+	public ResponseDto<?> deleteCarts() {
 		ResponseDto<?> response = new ResponseDto<>();
 		try {
-			for(int cartNo : cartNos) {
-				log.info("삭제할 카트번호:"+cartNo);
-				cartService.deleteItem(cartNo);
-			}
+			response.setStatus("OK");
+			User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+			cartService.deleteCartByUserNo(user.getNo());
 			return response;
 		} catch (Exception e) {
 			response.setStatus("FAIL");

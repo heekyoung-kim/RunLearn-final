@@ -189,6 +189,23 @@
 	    letter-spacing: -.3px;
 	    font-size: 24px;
 	}
+	.graph-body-content{
+	    -webkit-font-smoothing: antialiased;
+	    -webkit-tap-highlight-color: transparent;
+	    --swiper-theme-color: #007aff;
+	    font-family: Noto Sans KR,-apple-system,"system-ui",BlinkMacSystemFont,Apple SD Gothic Neo,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica;
+	    text-rendering: optimizeSpeed;
+	    text-size-adjust: 100%;
+	    box-sizing: inherit;
+	    padding: 0;
+	    margin: 0;
+	    color: #adb5bd;
+	    text-align: center;
+	    font-weight: 700;
+	    line-height: 1.25;
+	    letter-spacing: -.3px;
+	    font-size: 40px;
+	}
 	
 	.process-card-body-content{
 	    -webkit-font-smoothing: antialiased;
@@ -333,6 +350,7 @@
     color: #000a12;
     box-sizing: inherit;
     width: 50%;
+    height: 500px;
     padding: 8px;
     }
 </style>
@@ -565,9 +583,12 @@
 					               	</div>
 					                
 					                <div class="card-body d-flex flex-column justify-content-end">
+					                  <div class="graph-body-content">
+			                     		<p class="font-sans-serif lh-1 mb-1"><fmt:formatNumber value="${adminPage.getIncomeForThisMonth}" type="number"/>원</p>
+			                    	  </div>
 					                  <div class="card-summary-body">
-					                    <div style="width: 50%; height: 100%;">
-			   								<canvas id="myChart"></canvas>
+					                    <div style="width: 70%; height: 100%;">
+			   								<canvas id="profitChartOfThisMonth"></canvas>
 			      						</div>
 					                  </div>
 					                </div>
@@ -585,58 +606,125 @@
 					                
 					                <div class="card-body d-flex flex-column justify-content-end">
 					                  <div class="card-summary-body">
-					                    <div style="width: 50%; height: 100%;">
-			   								<canvas id="myChart2"></canvas>
+					                    <div style="width: 100%; height: 100%;">
+			   								<canvas id="myChart2" style="display: block; box-sizing: border-box; height: 100%; width: 100%;" width="100%" height="65px"></canvas>
 			      						</div>
 					                  </div>
 					                </div>
 					           </div>
 					     </div>
 					</section>
+					
+					
+					<!--  
+					<c:forEach var="monthIncome" items="${monthIncome}">
+							<p>${monthIncome.payMonth}</p>
+							<p>${monthIncome.totalPrice}</p>
+					</c:forEach>-->
+					
 		</div>
-
+	</div>
 <script type="text/javascript">
-const labels = [
+
+
+	function getFormatDate(date,num){
+		
+		var year = date.getFullYear();
+		var month = (1+ date.getMonth());
+		
+		
+		year = month-num<1? year-1:year;
+		month= month-num<1?14-num:month-num; 
+		
+		month= month>=10?month:'0'+month;
+		return year+'/'+month;
+	}
 	
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-  ];
+	var date= new Date();
+	
+	$(function(){
+		$.getJSON("/admin", function() {
+			console.log(3);
+			$.each(${monthIncome}, function(index,monthIncome){
+				
+				console.log(4);
+			})
+			
+		})
+	});
+	
+	
+	
+		
+	const pieLabels = [
+	    '개발 · 프로그래밍',
+	    '보안 · 네트워크',
+	    '데이터 사이언스'
+	  ];
+	
+	const barLabels = [
+		getFormatDate(date,1),
+		getFormatDate(date,2),
+		getFormatDate(date,3),
+		getFormatDate(date,4),
+		getFormatDate(date,5),
+		getFormatDate(date,6)
+	    
+	  ];
 
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-    }]
-  };
+	  const monthProfitData = {
+	    datasets: [{
+	      label: 'My First dataset',
+	      backgroundColor: [
+	    	  	'rgb(255, 99, 132)',
+	    	  	'rgb(54, 162, 235)',
+	    	  	'rgb(255, 205, 86)'
+	    	  	],
+	      data: [${adminPage.developerIncomeForThisMonth},${adminPage.securityIncomeForThisMonth} , ${adminPage.dataScienceIncomeForThisMonth}],
+	    }],
+	    labels: pieLabels
+	  };
+	  
+	  const recentProfitData = {
+			    datasets: [{
+			      label: 'My First dataset',
+			      backgroundColor: [
+			    	  	'rgb(255, 99, 132)',
+			    	  	'rgb(54, 162, 235)',
+			    	  	'rgb(255, 205, 86)'
+			    	  	],
+			      data: [${adminPage.developerIncomeForThisMonth},${adminPage.securityIncomeForThisMonth} , ${adminPage.dataScienceIncomeForThisMonth}],
+			    }],
+			    labels: barLabels
+			  };
 
-  const config = {
-    type: 'doughnut',
-    data: data,
-    options: {}
-  };
+	  const config = {
+	    type: 'doughnut',
+	    data: monthProfitData,
+	    options: {
+	        plugins: {
+	            legend: {
+					position : 'right',
+	            }
+	        }
+	    }
+	  };
   
-  const config2 = {
-    type: 'bar',
-    data: data,
-    options: {}
-  };
+	  const config2 = {
+	    type: 'bar',
+	    data: recentProfitData,
+	    options: {}
+	  };
 
-  const myChart = new Chart(
-	document.getElementById('myChart'),
-	config
-	);
-  
-  const myChart2 = new Chart(
-	document.getElementById('myChart2'),
-	config2
-	);
+	  const myChart = new Chart(
+		document.getElementById('profitChartOfThisMonth'),
+		config
+		);
+	  
+	  const myChart2 = new Chart(
+		document.getElementById('myChart2'),
+		config2
+		);
 
 </script>
 </body>

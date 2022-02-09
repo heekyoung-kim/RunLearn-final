@@ -4,9 +4,9 @@
 
 	<insert id="addCoupon" parameterType="com.hta.lecture.vo.UserCoupon">
 		insert into final_user_coupon_tb
-		(user_coupon_no, user_no, coupon_no)
+		(user_coupon_no, user_no, coupon_no, coupon_period_date)
 		values
-		(user_coupon_no_seq.nextval, #{userNo},#{couponNo})
+		(user_coupon_no_seq.nextval, #{userNo},#{couponNo},#{periodDate})
 	</insert>
 
 	<update id="updateUseCouponStatus" parameterType="com.hta.lecture.vo.UserCoupon">
@@ -29,6 +29,7 @@
 			,A.user_coupon_use_date				useDate
 			,A.user_coupon_deleted_date_yn		periodStatus
 			,A.coupon_pub_date					pubDate
+			,A.coupon_period_date				periodDate
 			,B.coupon_name						couponName
 			,B.coupon_discount_rate				discountRate
 			,B.coupon_discount_price			discountPrice

@@ -18,10 +18,8 @@ import com.hta.lecture.web.form.BoardCriteria;
 @Controller
 @RequestMapping("/community")
 public class BoardController {
-
 	@Autowired
 	BoardService boardService;
-	
 	
 	@GetMapping("/questions")
 	public String qnaCriteriaList(BoardCriteria criteria, Model model) {
@@ -62,13 +60,7 @@ public class BoardController {
 		
 		return"redirect: community/list/questions/"+no;
 	}
-	
-//	@GetMapping("/list.do")
-//	public String list(String category, String status) {
-//		BoardCriteria criteria = new BoardCriteria();
-//		criteria.setCategory(category);	// 질문, 자유주제, 스터디
-//		criteria.setStatus(status);	// null, 해결, 미해결, 모집중, 모집완료
-//		return "";
-//}
+
+
 	
 }

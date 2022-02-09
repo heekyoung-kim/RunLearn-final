@@ -34,8 +34,13 @@ public interface ClassMapper {
 	// 카테고리 번호로 해당 카테고리 전체 강의상세정보를 조회
 	List<ClassDetailDto> getClassByCategory(String category);
 	
+	// 회원번호로 해당 지식공유자가 게시한 강의 수를 확인
+	int getClassCountByNo(int no);
+	
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
+  
+  List<Classes> getAllClassByNo(int no);
 	
 	// 강의만들기
 	void insertClass(Classes classes);

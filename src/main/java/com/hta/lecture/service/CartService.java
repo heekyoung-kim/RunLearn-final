@@ -25,6 +25,9 @@ public class CartService {
 	public void deleteItem(int no) {
 		cartMapper.deleteItemByCartNo(no);
 	}
+	public void deleteCartByUserNo(int no) {
+		cartMapper.deleteCartByUserNo(no);
+	}
 	
 	
 	public void deleteItemByUserNoClassNo(Carts cart) {

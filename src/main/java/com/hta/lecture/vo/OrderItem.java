@@ -2,6 +2,8 @@ package com.hta.lecture.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +22,7 @@ public class OrderItem {
 	private int orderItemNo;
 	private int orderNo;
 	private int classNo;
+	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date orderItemDeletedDate;
 	private String deletedStatus;
 }

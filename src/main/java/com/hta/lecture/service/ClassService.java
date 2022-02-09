@@ -28,6 +28,10 @@ public class ClassService {
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	
+	public int getClassCountByNo(int no) {
+		return classMapper.getClassCountByNo(no);
+	}
+	
 	public List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria){
 		List<ClassCourseDto> classCourse = classMapper.getAllCourseInfo(criteria);
 		return classCourse;
@@ -76,6 +80,12 @@ public class ClassService {
 		return classMapper.countAllClassStudent(no);
 	}
 	
+  public List<Classes> getAllClassByNo(int no) {
+		List<Classes> classes = classMapper.getAllClassByNo(no);
+		
+		return classes;
+  }
+  
 	// 새 강의 만들기
 		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {
 			classMapper.insertClass(classes);
@@ -84,5 +94,5 @@ public class ClassService {
 				files.setNo(classes.getNo());
 				classMapper.insertClassFile(files);
 		} 	
-	}
+	
 }

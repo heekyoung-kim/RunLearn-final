@@ -10,17 +10,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
-  
+<body>  
 <%@ include file="../../common/nav.jsp"%>
 <div class="container-fluid" >
 	<section class="community-header " style="background: black;">
 		<div class="community-header__content" >
-			<h2 class="community-header__title" style="color:white;  font-size:30px;">묻고 답해요</h2>
-			<p class="community-header__sub-title" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
+			<h2 class="fs-4 my-3 text-light fw-bold" style="color:white;  font-size:30px;">묻고 답해요</h2>
+			<p class="fs-6 text-light" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
 		</div>
 	</section>
 <%@ include file="../../community/left.jsp"%>
+
 <!--전체,해결,미해결 상태그룹버튼  -->	
 <div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
 <button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-question">전체</button>  

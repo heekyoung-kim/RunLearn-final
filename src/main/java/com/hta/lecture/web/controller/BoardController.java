@@ -61,6 +61,8 @@ public class BoardController {
 		return"redirect: community/list/questions/"+no;
 	}
 
-
-	
+@GetMapping("/detail")
+public String detail() {
+	return "/community/detail";
+}
 }

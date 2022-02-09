@@ -27,6 +27,10 @@ public class ClassService {
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	
+	public int getClassCountByNo(int no) {
+		return classMapper.getClassCountByNo(no);
+	}
+	
 	public List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria){
 		List<ClassCourseDto> classCourse = classMapper.getAllCourseInfo(criteria);
 		return classCourse;
@@ -73,5 +77,11 @@ public class ClassService {
 	// 강의를 수강하는 학생의 숫자를 가져온다
 	public int countAllClassStudent(int no) {
 		return classMapper.countAllClassStudent(no);
+	}
+	
+	public List<Classes> getAllClassByNo(int no) {
+		List<Classes> classes = classMapper.getAllClassByNo(no);
+		
+		return classes;
 	}
 }

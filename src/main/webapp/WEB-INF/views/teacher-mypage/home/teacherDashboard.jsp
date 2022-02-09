@@ -41,7 +41,7 @@
 		<div class="col">
 			<div class="container">
 				<div class="row my-3">
-					<div class="col-2 left-side">
+					<div class="col-2">
 						<%@ include file="../teacher-mypage-leftbar.jsp" %>
 					</div>
 					<div class="col-10 right-instructor">
@@ -51,22 +51,15 @@
 									<div class="card-header border-bottom p-2 mb-0">
 										<div class="card-title mb-0">
 											<h6 class="mb-0 fw-bold">총 강의 수</h6>
-											<a href="" class="float-end text-secondary">더 보기 >></a>
+											<a href="../myclass/course/${param.no }" class="float-end text-secondary">더 보기 >></a>
 										</div>
 									</div>
 									<div class="card-body p-0">
 										<div class="card-text p-2 text-center">
 											<div>
-												<p class="mb-0">0 개</p>
+												<p class="mb-0">${classCount } 개</p>
 											</div>
 										</div>
-										<!-- 
-										<div class="card-text p-2">
-											<a href="#" class="card-link">Card link</a><br>
-											<a href="#" class="card-link">Card link</a><br>
-											<a href="#" class="card-link">Card link</a><br>
-										</div>
-										 -->
 									</div>
 								</div>
 							</div>

@@ -1,5 +1,7 @@
 package com.hta.lecture.web.controller;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,10 @@ public class TeacherController {
 	@GetMapping("{no}")
 	public String insturctorMyPage(@PathVariable(name = "no") int no, Model model) {
 		
-		log.info("조회할 강의번호: " + no);
-		Classes classes = classService.getClassDetail(no);
+		log.info("조회할 회원 번호: " + no);
+		int classCount = classService.getClassCountByNo(no);
 		
-		model.addAttribute("classes", classes);
+		model.addAttribute("classCount", classCount);
 		
 		return "teacher-mypage/home/teacherDashboard";
 	}
@@ -38,8 +40,14 @@ public class TeacherController {
 	public String profile() {
 		return "teacher-mypage/home/teacherProfile";
 	}
-	@GetMapping("/courses")
-	public String cources() {
+	@GetMapping("/courses/{no}")
+	public String cources(@PathVariable(name = "no") int no, Model model) {
+		
+		log.info("회원 번호 조회: " + no);
+		List<Classes> classes = classService.getAllClassByNo(no);
+		
+		model.addAttribute("classes", classes);
+		
 		return "teacher-mypage/myclass/courses";
 	}
 	@GetMapping("/incomes")

@@ -79,62 +79,64 @@
 	
 	<!-- 카테고리 번호로 강의정보를 조회 -->
 	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassCourseDto">
-		select
-			class_no as no,
-			class_title as title,
-			teacher_name as name,
-			class_price as price,
-			class_discountprice as discountPrice,
-			class_image as image,
-			class_total_student as studentCount,
-			class_review_score_count as reviewCount,
-			category_no as categoryNo,
-			category_name as categoryName,
-			category_par_no as categoryParNo
-		from
-			(
-			select
-				row_number() over (order by class_no desc) rn,
+      select
+         class_no as no,
+         class_title as title,
+         teacher_name as name,
+         class_price as price,
+         class_discountprice as discountPrice,
+         class_image as image,
+         class_total_student as studentCount,
+         class_review_score_count as reviewCount,
+         category_no as categoryNo,
+         category_name as categoryName,
+         category_par_no as categoryParNo,
+         class_uploadfiles as uploadfiles
+      from
+         (
+         select
+            row_number() over (order by class_no desc) rn,
                 A.*
-			from
-				(select
+         from
+            (select
                     distinct A.class_no,
-                    A.class_title,
-                    B.teacher_name,
-                    A.class_price,
-                    A.class_discountprice,
-                    A.class_image,
-                    A.class_total_student,
-                    A.class_review_score_count,
-                    C.category_no,
-                    C.category_name,
-                    C.category_par_no
+                  A.class_title,
+                  B.teacher_name,
+                  A.class_price,
+                  A.class_discountprice,
+                  A.class_image,
+                  A.class_total_student,
+                  A.class_review_score_count,
+                  C.category_no,
+                  C.category_name,
+                  C.category_par_no,
+                  D.class_uploadfiles
                 from
-                    final_class_tb A, final_teacher_tb B, final_category_tb C
+                    final_class_tb A, final_teacher_tb B, final_category_tb C, final_class_upfiles D
                 where
-                    A.teacher_no = B.teacher_no and A.category_no = C.category_no
+                    A.teacher_no = B.teacher_no and A.category_no = C.category_no and A.class_no = D.class_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
-		                connect by prior C.category_no = C.category_par_no
+                      start with C.category_name = #{category}
+                      connect by prior C.category_no = C.category_par_no
                     </if>
-                ) A	
-			where
-				class_title like '%' || #{value} || '%' OR
-				teacher_name like '%' || #{value} || '%'
-			<if test="sort == 'price'">
-			order by class_price asc
-			</if>
-			<if test="sort == 'studentCount'">
-			order by class_total_student desc
-			</if>
-			<if test="sort == 'grade'">
-			order by class_review_score_count desc
-			</if>
-			)
-		where
-			rn between #{beginIndex} and #{endIndex}
-		
-	</select>
+                ) A   
+         where
+            class_title like '%' || #{value} || '%' OR
+            teacher_name like '%' || #{value} || '%'
+         <if test="sort == 'price'">
+         order by class_price asc
+         </if>
+         <if test="sort == 'studentCount'">
+         order by class_total_student desc
+         </if>
+         <if test="sort == 'grade'">
+         order by class_review_score_count desc
+         </if>
+         )
+      where
+         rn between #{beginIndex} and #{endIndex}
+      
+   </select>
 	
 	<!-- criteria 정보로 class 검색 결과를 조회 -->
 	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassDetailDto">
@@ -431,15 +433,14 @@
 			class_total_count,
 			class_total_time,
 			class_isdeleted,
-			teacher_no,
-			category_no				    
-              
+			category_no,
+			teacher_no
             )
 		values
 			(
              #{no}, #{title}, #{content}, #{difficultly}, #{image}, #{video}, #{income}, #{price},
-			 #{discountPrice}, N, #{filter}, #{status}, #{applicationDate}, #{openDate},
-			 #{updatedDate}, #{deletedDate}, #{totalCount}, #{totalTime}, #{isDeleted}, 1, 1
+			 #{discountPrice}, 'N', #{filter}, #{status}, #{applicationDate}, #{openDate},
+			 #{updatedDate}, #{deletedDate}, #{totalCount}, #{totalTime}, #{isDeleted}, #{categoryNo}, #{teacherNo}
              )
 	</insert>
 	

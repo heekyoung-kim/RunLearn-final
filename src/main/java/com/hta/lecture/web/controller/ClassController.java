@@ -92,12 +92,12 @@ public class ClassController {
 	@GetMapping("/insert.do")
 	public String insert() {
 		
-		return "class/insertForm";
+		return "courses/insertForm";
 	}
 	
 	@PostMapping("/insert.do")
 	public String save(ClassInsertForm form) throws IOException{
-		String saveDirectory = "C:\\Users\\HOME\\git\\final-project\\src\\main\\webapp\\resources\\image\\course";
+		String saveDirectory = "C:\\Users\\HOME\\git\\final-project\\src\\main\\webapp\\resources\\images\\course";
 		
 		List<ClassFiles> classFiles = new ArrayList<ClassFiles>();
 		
@@ -122,6 +122,7 @@ public class ClassController {
 		BeanUtils.copyProperties(form, classes);
 		classService.addNewClass(classes, classFiles);
 		
-		return "redirect:courses/list";
+		
+		return "redirect:";
 	}
 }

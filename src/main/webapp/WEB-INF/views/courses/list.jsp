@@ -83,7 +83,7 @@
 			<div class="col mb-3" id="card-${course.no }">
 				<div class="card h-100">
 					<a href="/course/${course.no }" class="stretched-link" data-course-no="${course.no }"></a>
-					<img src="/resources/images/course/${course.image }" class="card-img-top" alt="...">
+					<img src="/resources/images/course/${course.uploadfiles }" class="card-img-top" alt="...">
 					<div class="card-body">
 						<!-- <h5 class="card-title">Card title</h5> -->
 						<p class="card-text">${course.title }</p>

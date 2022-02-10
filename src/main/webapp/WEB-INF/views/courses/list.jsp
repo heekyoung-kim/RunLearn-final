@@ -19,7 +19,7 @@
 		<div class="col">
 			<div class="input-group" id=category-btn-group>
 				<form id="form-search-category" class="d-inline-flex mt-3 me-1" method="get" action="/course">
-					<input class="form-control" name="categoryName" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
+					<input class="form-control" name="category" value="${param.value }" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit" id="btn-search-category"><i class="fas fa-search"></i></button>
 				</form>
 				<c:forEach var="category" items="${categoryList }">			
@@ -196,7 +196,7 @@ $(".input-group input[type=checkbox]").on("click", function(){
 	if( $(this).is(":checked")){
 		var value = $("#category-btn-group label[for='"+id+"']").text();
 		console.log(value);
-		$(":input[name=categoryName]").val(value);
+		$(":input[name=category]").val(value);
 		
 		//
 		$("#form-search-category").trigger("submit");

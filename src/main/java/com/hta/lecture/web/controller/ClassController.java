@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,13 +43,16 @@ public class ClassController {
 	@Autowired
 	ClassService classService;
 	
-	// 사이트 경로를 인프런처럼 구현할때 slug 에 관련된 플러그인? 이 있는 것 같다.
 	@GetMapping
 	public String list(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			ClassCriteria criteria, Model model) {
 
 		logger.info("요청 페이지번호 : " + page);
 		logger.info("검색조건 및 값 :" + criteria);
+		
+		if (!StringUtils.hasText(criteria.getCategory())) {
+			criteria.setCategory(null);
+		}
 		
 		// 검색조건에 해당하는 총 데이터 갯수 조회
 		int totalRecords = classService.getTotalRows(criteria);

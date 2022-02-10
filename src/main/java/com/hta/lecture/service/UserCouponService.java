@@ -31,10 +31,9 @@ public class UserCouponService {
 	
 	
 	// 쿠폰추가.
-	public void addCouponByUserNoUserCoupon(int couponNo) {
+	public void addCouponByUserNoUserCoupon(int couponNo, int userNo) {
 		
-		// 유저정보, 쿠폰정보 조회
-		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		//쿠폰정보 조회
 		Coupon coupon = couponMapper.getCoupon(couponNo);
 		int couponPeriod = coupon.getPeriod();
 		
@@ -50,7 +49,7 @@ public class UserCouponService {
 		UserCoupon userCoupon = UserCoupon.builder()
 								.userCouponNo(couponNo)
 								.periodDate(period)
-								.userNo(user.getNo())
+								.userNo(userNo)
 								.build();
 		// insert
 		userCouponMapper.addCoupon(userCoupon);

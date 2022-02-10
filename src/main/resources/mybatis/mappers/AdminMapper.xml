@@ -240,19 +240,101 @@
 		
 	</select>
 	
-	<select id="getCouponTotalRows" resultType="int">
-		select count(*)
-		 from final_coupon_tb
-	</select>
-	
-	<select id="getAllCoupon" resultType="com.hta.lecture.dto.CouponDto">
+	<select id="getAllCoupon" parameterType="com.hta.lecture.web.form.CouponCriteria" resultType="com.hta.lecture.dto.CouponDto">
 		select
 			coupon_no as couponNo,
 			coupon_name as couponName,
 			coupon_use_period as couponPeriod
-		 from final_coupon_tb
+		 from (
+			select
+				row_number() over (order by coupon_no ASC) rn,
+				A.coupon_no,
+				A.coupon_name,
+				A.coupon_use_period
+		  	from final_coupon_tb A
+		 
+		 <where>
+			 <if test="couponOpt!=null and couponValue !=null">
+			 	<choose>
+					<when test="couponOpt == '이름'">
+						coupon_name like  '%' || #{couponValue} || '%'				
+					</when>		 	
+					<when test="couponOpt == '번호'">
+						coupon_no = #{couponValue}
+					</when>		 	
+			 	</choose>
+			 </if>
+		 </where>)
+		where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="getCouponTotalRows" parameterType="com.hta.lecture.web.form.CouponCriteria" resultType="int">
+		select count(*)
+		from final_coupon_tb
+		 <where>
+			 <if test="couponOpt!=null and couponValue !=null">
+			 	<choose>
+					<when test="couponOpt == '이름'">
+						coupon_name like  '%' || #{couponValue} || '%'				
+					</when>		 	
+					<when test="couponOpt == '번호'">
+						coupon_no = #{couponValue}
+					</when>		 	
+			 	</choose>
+			 </if>
+		 </where>
+	</select>
+	 
+	<select id="getCouponPosessUsers" parameterType="com.hta.lecture.web.form.UserCouponCriteria" resultType="com.hta.lecture.dto.CouponPosessUserDto">
+		select distinct 
+			user_no	as userNo,
+			user_name as userName, 
+			user_email as userEmail
+		from ( 
+			select
+				row_number() over (order by user_no ASC) rn,
+                A.user_no,
+                A.user_name,
+                A.user_email
+			from
+				final_user_tb A
+		<where>
+			 not user_name='관리자'
+			 <if test="userCouponOpt!=null and userCouponValue !=null">
+			 	<choose>
+					<when test="userCouponOpt == '이름'">
+						and user_name like  '%' || #{userCouponValue} || '%'				
+					</when>		 	
+					<when test="userCouponOpt == '메일'">
+						and user_email like  '%' || #{userCouponValue} || '%'
+					</when>		 	
+			 	</choose>
+			 </if>
+		 </where>
+		 )
+		where
+			rn between #{beginIndex} and #{endIndex}
 	</select>
 	
 	
+	<select id="getCouponUsersTotalRows" parameterType="com.hta.lecture.web.form.UserCouponCriteria" resultType="int">
+		select count(*)
+		from final_user_tb B
+		<where>
+			 not B.user_name='관리자'
+			 <if test="userCouponOpt!=null and userCouponValue !=null">
+			 	<choose>
+					<when test="userCouponOpt == '이름'">
+						and user_name like  '%' || #{userCouponValue} || '%'				
+					</when>		 	
+					<when test="userCouponOpt == '메일'">
+						and user_email like  '%' || #{userCouponValue} || '%'
+					</when>		 	
+			 	</choose>
+			 </if>
+		 </where>
+	</select>
+	 
 	
 </mapper>

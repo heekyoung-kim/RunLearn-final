@@ -38,7 +38,8 @@
 			final_user_coupon_tb A , final_coupon_tb B
 		where
 			A.coupon_no = B.coupon_no 
-			and user_no = #{value}	
+			and user_no = #{value}
+		order by A.coupon_no	
 	</select>
 	<select id="totalCouponCntByUserNo" parameterType="int" resultType="int">
 		select 

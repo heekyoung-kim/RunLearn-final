@@ -114,7 +114,7 @@
                 where
                     A.teacher_no = B.teacher_no and A.category_no = C.category_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
+		                start with C.category_name = #{category}
 		                connect by prior C.category_no = C.category_par_no
                     </if>
                 ) A	
@@ -201,7 +201,7 @@
 				where
                     A.teacher_no = B.teacher_no and A.category_no = C.category_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
+		                start with C.category_name = #{category}
 		                connect by prior C.category_no = C.category_par_no
                     </if>
                 ) A
@@ -247,7 +247,7 @@
 		    from final_class_tb A, final_teacher_tb B, final_category_tb C
 		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
 		    <if test="category != null">
-				start with C.category_no = #{category}
+				start with C.category_name = #{category}
 				connect by prior C.category_no = C.category_par_no
 			</if>
 		) A

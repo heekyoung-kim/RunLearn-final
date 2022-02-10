@@ -51,7 +51,7 @@
 									<div class="card-header border-bottom p-2 mb-0">
 										<div class="card-title mb-0">
 											<h6 class="mb-0 fw-bold">총 강의 수</h6>
-											<a href="../myclass/course/${param.no }" class="float-end text-secondary">더 보기 >></a>
+											<a href="../instructor/courses/${LOGIN_USER.no }" class="float-end text-secondary">더 보기 >></a>
 										</div>
 									</div>
 									<div class="card-body p-0">

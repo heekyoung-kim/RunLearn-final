@@ -16,5 +16,5 @@ public class ClassCriteria {
 	private String filter;
 	private int beginIndex;
 	private int endIndex;
-	
+
 }

@@ -142,27 +142,12 @@
 					                </li>
 					                <li>
 					                  <a class="btn_wrap  " href="" >
-					                    <span>질문 리스트</span> 
-					                  </a>
-					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
-					                    <span>수강평 리스트</span> 
-					                  </a>
-					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
-					                    <span>강의소식 관리</span> 
-					                  </a>
-					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
 					                    <span>수익 확인</span> 
 					                  </a>
 					                </li>
-					                <li>
+					                  <li>
 					                  <a class="btn_wrap  " href="" >
-					                    <span>문의 리스트</span> 
+					                    <span>수강평 리스트</span> 
 					                  </a>
 					                </li>
 					          </ul>

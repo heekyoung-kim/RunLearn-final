@@ -27,7 +27,7 @@
 				  <input class="form-check-input" type="radio" name="userCoupon" id="not-use" value="-1" checked>
 				  <label class="form-check-label" for="not-use">
 				    쿠폰사용안함
-				  </label>
+				  </label>	
 				</div>
 				<c:forEach var="coupon" items="${coupons}">	
 					<c:choose>

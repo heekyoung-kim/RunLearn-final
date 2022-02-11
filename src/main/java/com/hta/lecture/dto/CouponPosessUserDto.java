@@ -1,5 +1,7 @@
 package com.hta.lecture.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,12 +11,10 @@ import lombok.ToString;
 @ToString
 @Setter
 @Getter
-public class CouponDto {
+public class CouponPosessUserDto {
 
-	private int couponNo;
-	private String couponName;
-	private int	discountRate;
-	private int	discountPrice;
-	private int couponPeriod;
-	
+	private int userNo;
+	private String userName;
+	private String userEmail;
+	private List<UserCouponDto> couponList;
 }

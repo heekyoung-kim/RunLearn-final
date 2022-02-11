@@ -643,14 +643,16 @@
 	var date= new Date();
 	
 	$(function(){
-		$.getJSON("/admin", function() {
-			console.log(3);
-			$.each(${monthIncome}, function(index,monthIncome){
-				
-				console.log(4);
+		let monthIncomes = [];
+		alert(${monthIncome});
+		$.getJSON("/admin",function(){
+			$.each(${monthIncome}, function(key, item){
+				monthIncomes=${monthIncome};
 			})
-			
+
 		})
+		
+		console.log(monthIncomes);
 	});
 	
 	

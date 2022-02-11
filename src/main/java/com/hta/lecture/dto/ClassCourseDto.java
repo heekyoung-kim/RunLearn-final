@@ -26,5 +26,5 @@ public class ClassCourseDto {
 	private int categoryParNo;
 	private String existCart;
 	private String existWishlist;
-	
+	private String uploadfiles;
 }

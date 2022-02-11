@@ -5,10 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hta.lecture.dto.BoardDetailDto;
 import com.hta.lecture.dto.BoardDto;
 import com.hta.lecture.mapper.BoardMapper;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Board;
+import com.hta.lecture.vo.BoardComment;
 import com.hta.lecture.vo.Tag;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.BoardCriteria;
 import com.hta.lecture.web.form.Criteria;
 
@@ -43,9 +47,21 @@ public class BoardService {
 			}
 		}
 	
+
+	public BoardDetailDto getBoardDetailDto(int boardNo) {
+		
+		BoardDetailDto dto = boardMapper.getBoardDetailDto(boardNo);	
+		
+		List<Tag> tags = boardMapper.getBoardTags(boardNo);
+		List<BoardComment> comments = boardMapper.getBoardComments(boardNo);
+	
+		dto.setTags(tags);
+		dto.setComments(comments);
+
+		return dto;
 	
 	}
 	
-	
-		
+	//public void updateBoard()
 
+}

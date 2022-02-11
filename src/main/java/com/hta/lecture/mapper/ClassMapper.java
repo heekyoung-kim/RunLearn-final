@@ -40,7 +40,11 @@ public interface ClassMapper {
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
   
-  List<Classes> getAllClassByNo(int no);
+	// 회원번호로 해당 회원(지식공유자)의 전체 강의 정보를 조회
+    List<Classes> getAllClassByNo(int no);
+    
+    // 회원번호로 해당 회원(지식공유자)의 강사번호를 조회
+    int getTeacherNoByUserNo(int no);
 	
 	// 강의만들기
 	void insertClass(Classes classes);

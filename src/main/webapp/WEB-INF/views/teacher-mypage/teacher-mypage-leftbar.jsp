@@ -17,18 +17,18 @@
 <div class="left-side">
 	<dl>
 		<dt class="px-1 py-2">대시보드</dt>
-		<dd class="px-4 py-1 active"><a href="/instructor/${param.no }">대시보드</a></dd>
+		<dd class="px-4 py-1 active"><a href="/instructor/${LOGIN_USER.no }">대시보드</a></dd>
 	</dl>
 	<dl>
 		<dt class="px-1 py-2">강의관리</dt>
-		<dd class="px-4 py-1"><a href="/instructor/courses/${param.no }">강의관리</a></dd>
-		<dd class="px-4 py-1"><a href="/instructor/questions/${param.no }">질문리스트</a></dd>
-		<dd class="px-4 py-1"><a href="/instructor/reviews/${param.no }">수강평리스트</a></dd>
-		<dd class="px-4 py-1"><a href="/instructor/incomes/${param.no }">수익 확인</a></dd>
+		<dd class="px-4 py-1"><a href="/instructor/courses/${LOGIN_USER.no }">강의관리</a></dd>
+		<dd class="px-4 py-1"><a href="/instructor/questions/${LOGIN_USER.no }">질문리스트</a></dd>
+		<dd class="px-4 py-1"><a href="/instructor/reviews/${LOGIN_USER.no }">수강평리스트</a></dd>
+		<dd class="px-4 py-1"><a href="/instructor/incomes/${LOGIN_USER.no }">수익 확인</a></dd>
 	</dl>
 	<dl>
 		<dt class="px-1 py-2">강의 만들기</dt>
-		<dd class="px-4 py-1"><a href="">강의 만들기</a></dd>
+		<dd class="px-4 py-1"><a href="/course/insert.do?no=${LOGIN_USER.no }">강의 만들기</a></dd>
 	</dl>
 </div>
 </body>

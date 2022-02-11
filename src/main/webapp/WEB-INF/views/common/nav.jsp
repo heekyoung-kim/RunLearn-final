@@ -14,6 +14,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/067cf61548.js" ></script>
+<script src="https://cdn.tiny.cloud/1/8a09qtqq8gwqfnj049ypv7aiyphqexh8n4rtbyw3xvs59wtj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- 카카오 로그인지원 자바스크립트 라이브러리를 포함시킨다. -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
@@ -229,7 +230,7 @@ $(function(){
 			let no = category.no;
 			let name = category.name;
 			let parentNo = category.parentNo;
-			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?category='+no+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
+			let $li = $('<li class="nav-item" id="nav-item-'+no+'"><a class="nav-link" href="/course?category='+name+'" data-menu-1="'+no+'">'+name+'</a><ul class="navbar-nav is-boxed depth2"></ul></li>');
 			$categoryUl.append($li);
 			
 			$.getJSON("/rest/subCategoryList.do", {no:no}, function(subCategoryList){
@@ -238,7 +239,7 @@ $(function(){
 				$.each(subCategoryList, function(index, subCategory) {
 					let subNo = subCategory.no;
 					let subName = subCategory.name;
-					let $subLi = $('<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?category='+subNo+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3"></ul></li>');
+					let $subLi = $('<li class="nav-item" id="sub-nav-item-'+subNo+'"><a class="nav-link" href="/course?category='+subName+'" data-menu-2="'+subNo+'">'+subName+'</a><ul class="navbar-nav is-boxed depth3"></ul></li>');
 					$subcategoryUl.append($subLi);
 					
 					$.getJSON('/rest/subCategoryList.do', {no:subNo}, function(secondSubCategoryList) {

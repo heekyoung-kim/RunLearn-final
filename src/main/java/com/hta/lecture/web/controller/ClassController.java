@@ -82,8 +82,6 @@ public class ClassController {
 		return "/courses/list"; // list.jsp
 	}
 	
-	
-	
 	// 상세페이지 이동
 	@GetMapping("/{no}")
 	public String detail(@PathVariable(name = "no") int no, Model model){
@@ -144,8 +142,7 @@ public class ClassController {
 		BeanUtils.copyProperties(form, classes);
 		classService.addNewClass(classes, classFiles);
 		
-		
-		
 		return "redirect:";
 	}
+	
 }

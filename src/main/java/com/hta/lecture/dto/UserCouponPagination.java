@@ -1,8 +1,8 @@
 package com.hta.lecture.dto;
 
-public class UserPagination {
+public class UserCouponPagination {
 
-	private int rowsPerPage = 30;			// 한 페이지당 표시할 데이터의 갯수
+	private int rowsPerPage = 20;			// 한 페이지당 표시할 데이터의 갯수
 	private int pagesPerBlock = 5;			// 한 블록당 표시할 페이지번호 숫자
 	private int currentPageNo;				// 현재 페이지번호
 	private int totalRecords;				// 총 데이터 갯수
@@ -23,7 +23,7 @@ public class UserPagination {
 	 * @param pageNo 요청한 페이지 번호
 	 * @param totalRecords 총 데이터 갯수
 	 */
-	public UserPagination(int pageNo, int totalRecords) {
+	public UserCouponPagination(int pageNo, int totalRecords) {
 		init(pageNo, totalRecords, rowsPerPage);
 	}
 	
@@ -34,7 +34,7 @@ public class UserPagination {
 	 * @param totalRecords 총 데이터 갯수
 	 * @param 한 화면당 표시할 행의 갯수
 	 */
-	public UserPagination(int pageNo, int totalRecords, int rows) {
+	public UserCouponPagination(int pageNo, int totalRecords, int rows) {
 		init(pageNo, totalRecords, rows);
 	}
 	

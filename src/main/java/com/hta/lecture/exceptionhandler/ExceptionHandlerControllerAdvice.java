@@ -67,7 +67,7 @@ public class ExceptionHandlerControllerAdvice {
 	
 	@ExceptionHandler(RestLoginErrorException.class) 
 	public @ResponseBody ResponseDto<?> handleRestLoginErrorException(RestLoginErrorException e, Model model){
-		
+		e.printStackTrace();
 		ResponseDto<?> response = new ResponseDto<>();
 		response.setStatus("FAIL");
 		response.setError(e.getMessage());
@@ -90,7 +90,7 @@ public class ExceptionHandlerControllerAdvice {
 	
 	@ExceptionHandler(DataAccessException.class)
 	public String handleDataAccessException(DataAccessException e) {
-		
+		e.printStackTrace();
 		return "error/databaseError.jsp";
 	}
 	

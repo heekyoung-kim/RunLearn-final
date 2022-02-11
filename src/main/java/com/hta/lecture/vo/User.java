@@ -17,7 +17,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class User {
+public class User{
 
 	private int no;
 	private String email;
@@ -35,4 +35,5 @@ public class User {
 	private Date createdDate;
 	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date updatedDate;
+
 }

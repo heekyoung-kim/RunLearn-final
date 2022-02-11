@@ -12,6 +12,7 @@
 		.text-box .text-content{position:absolute; top:50%; transform:translateY(-50%); color:#fff;}
 		.card-floating{position:sticky; top:75px; margin:20px 34px 20px auto; width:332px;}
 		.btn.btn-apply{background:#00c471; color:#fff;}
+		.btn.btn-go-study{background:#00c471; color:#fff;}
 		@media screen and (max-width: 1024px) {
 			.section-1 .img-box{width:525px; height:341px;}
 		}
@@ -157,11 +158,22 @@
 		</div>
 		<div class="col-4">
 			<div class="card card-floating" style="width: 18rem;">
-				<div class="card-body">
-					<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
-					<a href="" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">수강신청</a><br>
-					<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="#" class="card-link">추천수</a><br>
-				</div>
+				<c:choose>
+					<c:when test="${empty savedProgress}">
+						<div class="card-body">
+							<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
+							<a href="" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">수강신청</a><br>
+							<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="" class="card-link">공유하기</a><br>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="card-body">
+							<h3 class="card-title">학습중</h3>
+							<a href="" class="btn btn-go-study w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">이어학습하기</a><br>
+							<a href="" class="card-link">공유하기</a><br>
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="card-footer">
 					<span>&middot; 지식공유자: </span><a href="#" class="card-link">강사명</a><br>
 					<span>&middot; 총 xx개 수업: 총 x시간 </span><br>
@@ -199,7 +211,6 @@ $("#texteditor-submit").click(function(){
 // 장바구니담기
 $(".btn-apply").click(function(){
 	var classNo = $(this).data("no")
-	alert("동작")
 	$.ajax({
 		type:"Post"
 		,url:"/rest/addCart"
@@ -221,10 +232,9 @@ $(".btn-apply").click(function(){
 // 위시리스트 담기
 $(".wishlist-button").click(function(){
 	var classNo = $(this).data("no")
-	alert("동작")	
 	$.ajax({
 		type:"Post"
-		,url:"/rest/addWishlist"
+		,url:"/rest/addWishList"
 		,dataType:"json"
 		,data:{
 			classNo: classNo

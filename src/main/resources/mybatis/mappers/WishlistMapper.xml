@@ -9,10 +9,17 @@
 			(wish_no_seq.nextval, #{userNo}, #{classNo})
 	</insert>
 	
-	<delete id="deleteWishListByNo" parameterType="com.hta.lecture.vo.Wishlist">
+	<delete id="deleteWishListByNo" parameterType="int">
 	   delete from final_wish_tb
 	   where 
 	   	wish_no = #{value}
+	</delete>
+	
+	<delete id="deleteWishListByUserNoClassNo" parameterType="com.hta.lecture.vo.Wishlist">
+	   delete from final_wish_tb
+	   where 
+	   	user_no = #{userNo}
+	   	and class_no = #{classNo}
 	</delete>
 	
 	<select id="getWishClasstByUserNo" parameterType="int" resultType="com.hta.lecture.dto.WishlistDto" >

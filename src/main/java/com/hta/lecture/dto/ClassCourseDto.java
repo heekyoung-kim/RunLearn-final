@@ -24,4 +24,7 @@ public class ClassCourseDto {
 	private int categoryNo;
 	private String categoryName;
 	private int categoryParNo;
+	private String existCart;
+	private String existWishlist;
+	
 }

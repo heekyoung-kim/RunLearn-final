@@ -251,7 +251,6 @@
 					alert(response.error);
 				}
 			}
-		
 		})
 	  })
 	})
@@ -314,6 +313,8 @@
 			if(email == ""){
 				$("#form-payment input[name='email']").focus()
 			}
+			
+			// 
 		})
 	})
 	

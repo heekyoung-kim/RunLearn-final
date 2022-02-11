@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hta.lecture.mapper.TeacherMapper">
+	
+	<insert id="insertTeacher" parameterType="com.hta.lecture.vo.Teacher" >
+		insert into final_teacher_tb
+		(teacher_no, user_no, teacher_email,teacher_name,teacher_tel,teacher_hope_category 
+			,teacher_intro,teacher_intro_link,teacher_income,teacher_img)
+		values
+		(teacher_no_seq.nextval, #{userNo},#{email},#{name},#{tel},#{hopeCategory},#{intro},#{introLink},#{income},#{img})
+	</insert>
+	
+	<update id="updateTeacher" parameterType="com.hta.lecture.vo.Teacher" >
+		UPDATE
+			final_teacher_tb
+		SET
+			teacher_email = #{email} 
+			,teacher_name = #{name} 
+			,teacher_tel = #{tel} 
+			,teacher_hope_category = #{hopeCategory} 
+			,teacher_intro = #{intro} 
+			,teacher_intro_link = #{introLink} 
+			,teacher_income = #{income} 
+			,teacher_img = #{img}
+		WHERE
+			user_no = #{userNo}
+	</update>
+	
+	<select id="getTeacherByUserNo" parameterType="int" resultType="com.hta.lecture.vo.Teacher">
+		SELECT
+		    teacher_no  			no
+			,user_no				userNo
+			,teacher_email			email
+			,teacher_name			name
+			,teacher_tel			tel
+			,teacher_hope_category	hopeCategory
+			,teacher_intro			intro
+			,teacher_intro_link		introLink
+			,teacher_income			income
+			,teacher_img			img
+		FROM
+			final_teacher_tb
+		WHERE
+			user_no = #{userNo}
+	</select>
+</mapper>

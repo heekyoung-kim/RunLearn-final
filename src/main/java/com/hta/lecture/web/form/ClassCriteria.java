@@ -11,10 +11,11 @@ public class ClassCriteria {
 
 	private int page;
 	private String category;
+	private String categoryName;
 	private String value;
 	private String sort;
 	private String filter;
 	private int beginIndex;
 	private int endIndex;
-	
+	private int userNo;
 }

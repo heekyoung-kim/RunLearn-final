@@ -120,6 +120,7 @@ public class CartsRestController {
 			// 카트추가
 			User user = (User)SessionUtils.getAttribute("LOGIN_USER");
 			cart.setUserNo(user.getNo());
+			log.info("카트추가:", cart);
 			cartService.addCart(cart);			 
 			
 			// 위시리스트 삭제
@@ -127,7 +128,7 @@ public class CartsRestController {
 								.classNo(cart.getClassNo())
 								.userNo(user.getNo())
 								.build();
-			wishlistService.deleteItem(wishlist); 
+			wishlistService.deleteItemByIcon(wishlist);
 			
 			return response;
 		} catch (RuntimeException e) {

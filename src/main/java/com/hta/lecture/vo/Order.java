@@ -21,12 +21,12 @@ public class Order {
 	
 	private int orderNo;
 	private int userNo;
-	private String userName;
+	private String PayUserName;
 	private int sumPrice;		// 총합 
 	private int discountPrice;  // 할인
 	private int totalPrice;	// 최종결제금액
 	private String tel;
-	private String Email;
+	private String email;
 	private Date orderDate;
 	private int usePoint;
 	private String orderStatus;

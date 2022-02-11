@@ -60,7 +60,7 @@ public class UserCouponService {
 	}
 
 	// 쿠폰 사용여부 수정.
-	public void updateUseCoupon(UserCoupon userCoupon) {
+	public void updateUseCouponStatues(UserCoupon userCoupon) {
 		userCouponMapper.updateUseCouponStatus(userCoupon);
 	}
 	

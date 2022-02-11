@@ -18,6 +18,7 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -60,7 +61,18 @@
     		<groupId>javax.servlet</groupId>
     		<artifactId>jstl</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 비밀번호 암호화 -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+	    	<artifactId>commons-codec</artifactId>		
+    	</dependency>		
+				
 		<!-- 첨부파일 업로드 지원 라이브러리 의존성 추가 -->
 		<dependency>
             <groupId>commons-fileupload</groupId>

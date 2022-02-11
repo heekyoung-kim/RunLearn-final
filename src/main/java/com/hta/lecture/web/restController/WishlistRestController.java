@@ -31,10 +31,11 @@ public class WishlistRestController {
 			if(addDelete == 0) {
 				wishlistService.addWishList(wishlist);					
 			}
-			wishlistService.deleteItem(wishlist);			
+			wishlistService.deleteItemByIcon(wishlist);			
 			
 		} catch (RuntimeException e) {
-			response.setStatus("FAIL");		
+			response.setStatus("FAIL");	
+			response.setError(e.getMessage());
 		}
 		
 		

@@ -10,8 +10,9 @@ import com.hta.lecture.vo.Wishlist;
 public interface WishlistMapper {
 
 	void addWishList(Wishlist wish);
-	void deleteWishListByClassNoUserNo(Wishlist wishlist);
+	void deleteWishListByNo(int wishNo);
+	void deleteWishListByUserNoClassNo(Wishlist wishlist);
 	List<WishlistDto> getWishClasstByUserNo(int no);
-	Wishlist getWishByUserNoClassNo(Wishlist wishlist); // 위시리스트 중복조회
+	WishlistDto getWishByUserNoClassNo(Wishlist wishlist); // 위시리스트 중복조회
 }
  

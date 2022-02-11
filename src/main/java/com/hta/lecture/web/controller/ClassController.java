@@ -25,9 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
 import com.hta.lecture.service.ClassService;
+import com.hta.lecture.service.ProgressService;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
+import com.hta.lecture.vo.Progress;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.ClassCriteria;
 import com.hta.lecture.web.form.ClassInsertForm;
 
@@ -42,6 +46,9 @@ public class ClassController {
 	
 	@Autowired
 	ClassService classService;
+
+	@Autowired
+	ProgressService progressService;
 	
 	@GetMapping
 	public String list(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
@@ -84,6 +91,18 @@ public class ClassController {
 		log.info("조회할 강의번호: " + no);
 		Classes classes = classService.getClassDetail(no);
 		
+
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		Progress savedProgress = null;
+		if(user != null) {
+			Progress progress = Progress.builder().classNo(no).userNo(user.getNo()).build();
+			savedProgress = progressService.checkProgressByUserNoClassNo(progress);
+			log.info("학습강좌 강의겁색:",progress);
+			log.info("학습중정보:",savedProgress);
+
+		}
+		model.addAttribute("savedProgress", savedProgress);
+
 		model.addAttribute("classes", classes);
 		
 		return "/courses/detail";

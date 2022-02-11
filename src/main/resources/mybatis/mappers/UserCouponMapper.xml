@@ -16,8 +16,7 @@
 			user_coupon_use_yn = 'Y'
 			,user_coupon_use_date = sysdate
 		where
-			user_no = #{userNo}
-			and coupon_no = #{couponNo}		  
+			user_coupon_no = #{userCouponNO}
 	</update>
 	
 	<select id="getCouponByUserNo" parameterType="int" resultType="com.hta.lecture.dto.UserCouponDto">

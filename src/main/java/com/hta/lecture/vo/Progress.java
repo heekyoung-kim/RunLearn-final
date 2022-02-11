@@ -15,9 +15,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Payment {
-	private int orderNo;
-	private String paymentClassName;
-	private String payMathod;
-	private Date paymentDate;
+public class Progress {
+	// 수강중인 강좌.
+	private int progressNo;
+	private int userNo;
+	private int classNo;
+	private int progressEndCount; // 수강한 강의수
+	private int progressStudyTime; // 총 수강시간
 }

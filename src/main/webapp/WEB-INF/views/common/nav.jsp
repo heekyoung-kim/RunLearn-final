@@ -82,7 +82,7 @@
 							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
 							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
 							<li class="nav-item">	
-								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="logout">로그아웃</a>
+								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="/logout">로그아웃</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="/dashboard">학생</a>
@@ -135,11 +135,11 @@
 			    		 --%>
 			    		<div class="alert alert-danger d-none" id="alert-kakao-login">오류 메세지</div>
 						    		
-		    			<a id="btn-kakao-login" href="kakao/login">
+		    			<a id="btn-kakao-login" href="/kakao/login">
 		  					<img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="200" alt="카카오 로그인 버튼"/>
 						</a>
 		    		</div>
-		    		<form id="form-kakao-login" method="post" action="kakao-login">
+		    		<form id="form-kakao-login" method="post" action="/kakao-login">
 		    			<input type="hidden" name="email"/>
 		    			<input type="hidden" name="name"/>
 		    			<input type="hidden" name="img"/>

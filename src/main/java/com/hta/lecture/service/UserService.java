@@ -2,6 +2,7 @@ package com.hta.lecture.service;
 
 import javax.management.RuntimeErrorException;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
+	
 	// 카카오 로그인
 	public User loginWithKakao(User user) {
 		User savedUser = userMapper.getUserByEmail(user.getEmail());
@@ -29,6 +31,7 @@ public class UserService {
 	// 일반 로그인
 	public User login(String email, String password) {
 		User savedUser = userMapper.getUserByEmail(email);
+		
 		if(savedUser == null) {
 			throw new RuntimeException("아이디를 확인해주세요.");
 		}
@@ -38,6 +41,9 @@ public class UserService {
 		if("Y".equals(savedUser.getDeletedStatus())) {
 			throw new RuntimeException("탈퇴처리된 회원아이디입니다.");
 		}
+		
+		password = (DigestUtils.sha256Hex(password)); // 비밀번호암호화
+		
 		if(!password.equals(savedUser.getPassword())) {
 			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
 		}
@@ -55,6 +61,9 @@ public class UserService {
 		if(telCheck != null) {
 			throw new RuntimeException("이미 존재하는 전화번호입니다.");
 		}
+		
+		user.setPassword(DigestUtils.sha256Hex(user.getPassword())); // 비밀번호암호화
+		
 		userMapper.addUser(user);
 		
 		return user;

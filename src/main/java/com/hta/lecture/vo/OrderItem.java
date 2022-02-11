@@ -22,8 +22,9 @@ public class OrderItem {
 	private int orderItemNo;
 	private int orderNo;
 	private int classNo;
+	private int orderDetailPrice; // 강의별 결제금액.
 	@JsonFormat(pattern = "yyyy년 M월 d일")
-	private Date orderItemDeletedDate;
+	private Date orderItemDeletedDate;  //수강마감일.
 	private String deletedStatus;
 }
  

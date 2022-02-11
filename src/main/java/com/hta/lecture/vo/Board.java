@@ -2,6 +2,8 @@ package com.hta.lecture.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,9 +24,14 @@ public class Board {
 	private String title;
 	private String content;
 	private String status;
-	private Date registrationDate;
+	@JsonFormat(pattern = "yyyy년 M월 d일")
+	private Date createdDate;
+	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date updateDate;
+	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date deleteDate;
-	private int likeCnt;
+	private int boardLikeCnt;
 	private int commentCnt;
+	private int classNo;
+	private int userNo;
 }

@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class UserController {
+public class UserInfoController {
 
 	@Autowired
 	UserService userService;
@@ -31,12 +31,26 @@ public class UserController {
 	
 	@GetMapping("/dashboard")
 	public String studentMyPage() {
+		if(SessionUtils.getAttribute("LOGIN_USER") == null) {
+			return "home";
+		}
 		return "student-mypage/home/dashboard";
+	}
+	
+	@GetMapping("/profile")
+	public String profile() {
+		if(SessionUtils.getAttribute("LOGIN_USER") == null) {
+			return "home";
+		}
+		return "student-mypage/home/profile";
 	}
 	
 	@GetMapping("/wishlist")
 	public String wishlist(Model model) {
 		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		if(user == null) {
+			return "home";
+		}
 		List<WishlistDto> wishlist =  wishlistService.getWishListByUserNo(user.getNo());
 		model.addAttribute("wishlists", wishlist); 
 		return "student-mypage/myclass/wishlist";
@@ -46,6 +60,9 @@ public class UserController {
 	public String couponBox(Model model) {
 		
 		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		if(user == null) {
+			return "home";
+		}
 		List<UserCouponDto> coupons = userCouponService.getUserCouponsByUserNo(user.getNo());
 		int totalUseCoupons = 0;
 		int totalNotUseCoupons = 0;
@@ -67,11 +84,17 @@ public class UserController {
 	
 	@GetMapping("/point")
 	public String point() {
+		if(SessionUtils.getAttribute("LOGIN_USER") == null) {
+			return "home";
+		}
 		return "student-mypage/myclass/my-points";
 	}
 	
 	@GetMapping("/orders")
 	public String orders() {
+		if(SessionUtils.getAttribute("LOGIN_USER") == null) {
+			return "home";
+		}	
 		return "student-mypage/myclass/orders";
 	}
 	

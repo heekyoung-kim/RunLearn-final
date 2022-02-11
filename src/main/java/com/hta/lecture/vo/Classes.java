@@ -24,6 +24,7 @@ public class Classes {
 	private String image;
 	private String video;
 	private int income;
+	private int period;
 	private int price;
 	private int discountPrice;
 	private String permission;

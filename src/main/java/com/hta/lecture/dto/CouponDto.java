@@ -13,5 +13,8 @@ public class CouponDto {
 
 	private int couponNo;
 	private String couponName;
+	private int	discountRate;
+	private int	discountPrice;
 	private int couponPeriod;
+	
 }

@@ -16,8 +16,7 @@
 			user_coupon_use_yn = 'Y'
 			,user_coupon_use_date = sysdate
 		where
-			user_no = #{userNo}
-			and coupon_no = #{couponNo}		  
+			user_coupon_no = #{userCouponNO}
 	</update>
 	
 	<select id="getCouponByUserNo" parameterType="int" resultType="com.hta.lecture.dto.UserCouponDto">
@@ -38,7 +37,8 @@
 			final_user_coupon_tb A , final_coupon_tb B
 		where
 			A.coupon_no = B.coupon_no 
-			and user_no = #{value}	
+			and user_no = #{value}
+		order by A.coupon_no	
 	</select>
 	<select id="totalCouponCntByUserNo" parameterType="int" resultType="int">
 		select 

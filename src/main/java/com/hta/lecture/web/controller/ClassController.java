@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
 import com.hta.lecture.service.ClassService;
+import com.hta.lecture.service.ProgressService;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
+import com.hta.lecture.vo.Progress;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.ClassCriteria;
 import com.hta.lecture.web.form.ClassInsertForm;
 
@@ -41,14 +46,20 @@ public class ClassController {
 	
 	@Autowired
 	ClassService classService;
+
+	@Autowired
+	ProgressService progressService;
 	
-	// 사이트 경로를 인프런처럼 구현할때 slug 에 관련된 플러그인? 이 있는 것 같다.
 	@GetMapping
 	public String list(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			ClassCriteria criteria, Model model) {
 
 		logger.info("요청 페이지번호 : " + page);
 		logger.info("검색조건 및 값 :" + criteria);
+		
+		if (!StringUtils.hasText(criteria.getCategory())) {
+			criteria.setCategory(null);
+		}
 		
 		// 검색조건에 해당하는 총 데이터 갯수 조회
 		int totalRecords = classService.getTotalRows(criteria);
@@ -78,20 +89,35 @@ public class ClassController {
 		log.info("조회할 강의번호: " + no);
 		Classes classes = classService.getClassDetail(no);
 		
+
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		Progress savedProgress = null;
+		if(user != null) {
+			Progress progress = Progress.builder().classNo(no).userNo(user.getNo()).build();
+			savedProgress = progressService.checkProgressByUserNoClassNo(progress);
+			log.info("학습강좌 강의겁색:",progress);
+			log.info("학습중정보:",savedProgress);
+
+		}
+		model.addAttribute("savedProgress", savedProgress);
+
 		model.addAttribute("classes", classes);
 		
 		return "/courses/detail";
 	}
 	
 	@GetMapping("/insert.do")
-	public String insert() {
+	public String insert(@RequestParam(name = "no") int no, Model model) {
+		
+		int teacherNo = classService.getTeacherNoByUserNo(no);
+		model.addAttribute("teacherNo", teacherNo);
 		
 		return "courses/insertForm";
 	}
 	
 	@PostMapping("/insert.do")
 	public String save(ClassInsertForm form) throws IOException{
-		String saveDirectory = "C:\\Users\\HOME\\git\\final-project\\src\\main\\webapp\\resources\\images\\course";
+		String saveDirectory = "C:\\projects\\vue-workspace\\final-project\\src\\main\\webapp\\resources\\images\\course";
 		
 		List<ClassFiles> classFiles = new ArrayList<ClassFiles>();
 		

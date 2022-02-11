@@ -8,9 +8,14 @@ import org.apache.ibatis.annotations.Mapper;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassListDto;
 import com.hta.lecture.dto.CouponDto;
+import com.hta.lecture.dto.CouponPosessUserDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
+import com.hta.lecture.dto.UserCouponDto;
+import com.hta.lecture.vo.Coupon;
 import com.hta.lecture.web.form.ClassCriteria;
+import com.hta.lecture.web.form.CouponCriteria;
+import com.hta.lecture.web.form.UserCouponCriteria;
 
 @Mapper
 public interface AdminMapper {
@@ -59,13 +64,15 @@ public interface AdminMapper {
 	  
 	List<MonthIncomeDto> getMonthIncome();
 	
-	// 쿠폰 총 데이터 갯수 조회
-	int getCouponTotalRows();
+	List<CouponDto> getAllCoupon(CouponCriteria criteria);
+	int getCouponTotalRows (CouponCriteria criteria);
 	
-	List<CouponDto> getAllCoupon();
+	List<CouponPosessUserDto> getCouponPosessUsers(UserCouponCriteria userCriteria);
+	int getCouponUsersTotalRows(UserCouponCriteria userCriteria);
 	
-	// 유저 총 데이터 갯수 조회
-	//int getUsersTotalRows(ClassCriteria criteria);
+	void addCoupon(Coupon coupon);
+	void deleteCoupon(int couponNo);
 	
-	//List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria);
+	void addUserCoupon(UserCouponDto userCoupon);
+	void deleteUserCoupon(int userNo, int couponNo);
 }

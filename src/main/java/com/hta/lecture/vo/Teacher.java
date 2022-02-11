@@ -16,6 +16,7 @@ import lombok.ToString;
 public class Teacher {
 
 	private int no;
+	private int userNo;
 	private String email;
 	private String name;
 	private String tel;
@@ -24,5 +25,4 @@ public class Teacher {
 	private String introLink;
 	private int income;
 	private String img;
-	private int userNo;
 }

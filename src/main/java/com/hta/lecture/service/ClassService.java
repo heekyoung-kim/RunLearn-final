@@ -94,6 +94,10 @@ public class ClassService {
 		
 		return teacherno;
 	}
+	
+	public int getTeacherNoByUserNo(int no) {
+		return classMapper.getTeacherNoByUserNo(no);
+	}
   
 	// 새 강의 만들기
 		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {

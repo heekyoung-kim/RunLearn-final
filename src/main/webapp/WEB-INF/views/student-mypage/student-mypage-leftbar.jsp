@@ -124,7 +124,7 @@
 			                  </a>
 			                </li>
 			                <li>
-			                  <a class="btn_wrap is_active " href="" >
+			                  <a class="btn_wrap is_active " href="/profile" >
 			                    <span>프로필</span> 
 			                  </a>
 			                </li>

@@ -24,19 +24,23 @@ public class WishlistService {
 	}
 	
 	// 위시리스트 조회
-	public Wishlist getWishByUserNoClassNo(Wishlist wishlist){
-		Wishlist wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
+	public WishlistDto getWishByUserNoClassNo(Wishlist wishlist){
+		WishlistDto wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
 		return wish;
 	}
 	
-	// 위시리스트 삭제
-	public void deleteItem(Wishlist wishlist) {
-		wishlistMapper.deleteWishListByClassNoUserNo(wishlist);
+	// 장바구니에서 위시리스트 삭제
+	public void deleteItem(int wishNo) {
+		wishlistMapper.deleteWishListByNo(wishNo);
+	}
+	// 아이콘으로 위시리스트 삭제
+	public void deleteItemByIcon(Wishlist wishlist) {
+		wishlistMapper.deleteWishListByUserNoClassNo(wishlist);
 	}
 	
 	// 위시리스트 추가.
 	public void addWishList(Wishlist wishlist) {
-		Wishlist wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
+		WishlistDto wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
 		// classNo와 userNo로 wishlist테이블에서 동일 상품 유무조회
 		// 있으면 RuntimeException throw 아니면 저장.	
 		if(wish != null) {

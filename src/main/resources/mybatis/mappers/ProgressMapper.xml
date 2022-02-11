@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hta.lecture.mapper.ProgressMapper">
+
+<insert id="insertProgress" parameterType="com.hta.lecture.vo.Progress">
+	insert into final_progress_tb
+	(progress_no, user_no, class_no)
+	values
+	(progress_no_seq.nextval, #{userNo}, #{classNo})
+</insert>
+
+<update id="updateProgress" parameterType="com.hta.lecture.vo.Progress">
+	UPDATE
+		final_progress_tb
+	SET
+		progress_end_count = #{progressEndCount}  
+	   ,progress_end_time = #{progressStudyTime}
+	WHERE
+		user_no = #{userNo}
+	and class_no = #{classNo} 	
+</update>
+
+<delete id="deleteProgressByUserNoClassNo" parameterType="com.hta.lecture.vo.Progress">
+	delete from final_progress_tb
+	where
+		user_no = #{userNo}
+	and	class_no = #{classNo}	
+</delete>
+
+<select id="getProgressByUserNoClassNo" parameterType="com.hta.lecture.vo.Progress" resultType="com.hta.lecture.vo.Progress">
+	SELECT
+		progress_no	 progressNo
+		,class_no	 classNo
+		,user_no	 userNo	
+	FROM
+		final_progress_tb
+	WHERE	
+		class_no = #{classNo}
+	and user_no = #{userNo}
+</select>
+
+
+</mapper>

@@ -143,7 +143,6 @@
 		select
 			class_no				as no,
 			class_title				as title,
-			class_content			as content,
 			class_difficultly		as difficultly,
 			class_image				as image,
 			class_video				as video,
@@ -175,7 +174,6 @@
 				(select
                     distinct A.class_no,
 					A.class_title,
-					A.class_content,
 					A.class_difficultly,
 					A.class_image,	
 					A.class_video,
@@ -203,7 +201,7 @@
 				where
                     A.teacher_no = B.teacher_no and A.category_no = C.category_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
+		                start with C.category_name = #{category}
 		                connect by prior C.category_no = C.category_par_no
                     </if>
                 ) A
@@ -223,7 +221,6 @@
 			select
                 distinct A.class_no,
 				A.class_title,
-				A.class_content,
 				A.class_difficultly,
 				A.class_image,	
 				A.class_video,
@@ -249,7 +246,7 @@
 		    from final_class_tb A, final_teacher_tb B, final_category_tb C
 		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
 		    <if test="category != null">
-				start with C.category_no = #{category}
+				start with C.category_name = #{category}
 				connect by prior C.category_no = C.category_par_no
 			</if>
 		) A
@@ -298,7 +295,6 @@
 		select
 			class_no				as no,
 			class_title				as title,
-			class_content			as content,
 			class_difficultly		as difficultly,
 			class_image				as image,
 			class_video				as video,
@@ -331,7 +327,6 @@
 					select
 	                    distinct A.class_no,
 						A.class_title,
-						A.class_content,
 						A.class_difficultly,
 						A.class_image,	
 						A.class_video,
@@ -478,5 +473,14 @@
 			class_no = #{value}
 	</select>
 	
+	<select id="getTeacherNoByUserNo" parameterType="int" resultType="int">
+		select
+		    b.teacher_no as teacherNo
+		from
+		    final_user_tb a, final_teacher_tb b
+		where
+		    a.user_no = b.user_no
+		    and a.user_no = #{no}
+	</select>
 	
 </mapper>

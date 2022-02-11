@@ -1,5 +1,6 @@
 package com.hta.lecture.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,12 +12,18 @@ import com.hta.lecture.dto.AdminPageDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
 import com.hta.lecture.dto.CouponDto;
+import com.hta.lecture.dto.CouponPosessUserDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
+import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.mapper.AdminMapper;
 import com.hta.lecture.mapper.ClassMapper;
+import com.hta.lecture.mapper.UserCouponMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.Coupon;
+import com.hta.lecture.web.form.CouponCriteria;
 import com.hta.lecture.web.form.ProfitByCategory;
+import com.hta.lecture.web.form.UserCouponCriteria;
 
 @Service
 public class AdminService {
@@ -26,8 +33,9 @@ public class AdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
+	
 	@Autowired
-	private ClassMapper classMapper;
+	private UserCouponMapper userCouponMapper;
 	
 	// 총 강의 수
 	public int getTotalClassCount() {
@@ -88,8 +96,50 @@ public class AdminService {
 		return monthIncomeList;
 	}
 	
-	public List<CouponDto> getAllCoupon(){
-		List<CouponDto> getAllCoupon = adminMapper.getAllCoupon();
+	public List<CouponDto> getAllCoupon(CouponCriteria criteria){
+		List<CouponDto> getAllCoupon = adminMapper.getAllCoupon(criteria);
+		
 		return getAllCoupon;
+	}
+	
+	
+	public int getCouponTotalRows (CouponCriteria criteria) {
+		return adminMapper.getCouponTotalRows(criteria);
+	}
+	
+	
+	public List<CouponPosessUserDto> getCouponPosessUserList(UserCouponCriteria userCriteria){
+		
+		List<CouponPosessUserDto> getCouponPosessUserList = adminMapper.getCouponPosessUsers(userCriteria);
+		
+		for(CouponPosessUserDto userList : getCouponPosessUserList) {
+			
+			userList.setCouponList(userCouponMapper
+											.getCouponByUserNo(userList.getUserNo()));
+			
+		}
+		
+		return getCouponPosessUserList;
+	}
+	
+	
+	public int getCouponUsersTotalRows(UserCouponCriteria userCriteria) {
+		return adminMapper.getCouponUsersTotalRows(userCriteria);
+	}
+	
+	public void addCoupon(Coupon coupon) {
+		adminMapper.addCoupon(coupon);
+	}
+	
+	public void deleteCoupon(int couponNo) {
+		adminMapper.deleteCoupon(couponNo);
+	}
+	
+	public void addUserCoupon(UserCouponDto userCoupon) {
+		adminMapper.addUserCoupon(userCoupon);
+	}
+	
+	public void deleteUserCoupon(int userNo, int couponNo) {
+		adminMapper.deleteUserCoupon(userNo, couponNo);
 	}
 }

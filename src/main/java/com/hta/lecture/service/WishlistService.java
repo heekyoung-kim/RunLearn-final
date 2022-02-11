@@ -17,19 +17,24 @@ public class WishlistService {
 	@Autowired
 	private WishlistMapper wishlistMapper;
 	
+	// 위시리스트들 조회
 	public List<WishlistDto> getWishListByUserNo(int no){
 		List<WishlistDto> wishList = wishlistMapper.getWishClasstByUserNo(no);
 		return wishList;
 	}
+	
+	// 위시리스트 조회
 	public Wishlist getWishByUserNoClassNo(Wishlist wishlist){
 		Wishlist wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
 		return wish;
 	}
 	
-	public void deleteItem(int no) {
-		wishlistMapper.deleteWishListByNo(no);
+	// 위시리스트 삭제
+	public void deleteItem(Wishlist wishlist) {
+		wishlistMapper.deleteWishListByClassNoUserNo(wishlist);
 	}
 	
+	// 위시리스트 추가.
 	public void addWishList(Wishlist wishlist) {
 		Wishlist wish = wishlistMapper.getWishByUserNoClassNo(wishlist);
 		// classNo와 userNo로 wishlist테이블에서 동일 상품 유무조회

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hta.lecture.mapper.ClassMapper">
 	
-
 	<!-- 강의번호로 강의정보를 조회 -->
 	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.vo.Classes">
 		select
@@ -34,64 +33,110 @@
 			a.category_no = b.category_no and class_no = #{value}
 	</select>
 	
+	<!-- 회원 번호로 해당 강사의 강의 수를 조회 -->
+	<select id="getClassCountByNo" parameterType="int" resultType="int">
+		select
+			count(*)
+		from
+			final_class_tb a, final_teacher_tb b
+		where
+			a.teacher_no = b.teacher_no
+			and user_no = #{no}
+	</select>
+	
+	<!-- 회원 번호로 해당 회원(지식공유자)의 전체 강의 정보를 조회 -->
+	<select id="getAllClassByNo" parameterType="int" resultType="com.hta.lecture.vo.Classes">
+		select
+			class_no				as no,
+			class_title				as title,
+			class_content			as content,
+			class_difficultly		as difficultly,
+			class_image				as image,
+			class_video				as video,
+			class_income			as income,
+			class_period			as period,
+			class_price				as price,
+			class_discountprice		as discountPrice,
+			class_permission		as permission,
+			class_filter			as filter,
+			class_status			as status,
+			class_application_date	as applicationDate,
+			class_open_date			as openDate,
+			class_updated_date		as updatedDate,
+			class_deleted_date		as deletedDate,
+			class_total_count		as totalCount,
+			class_total_time		as totalTime,
+			class_isdeleted			as isDeleted,
+			a.teacher_no			as teacherNo,
+			category_no				as categoryNo
+		from
+			final_class_tb a, final_teacher_tb b, final_user_tb c
+		where
+			a.teacher_no = b.teacher_no and b.user_no = c.user_no
+			and b.user_no = #{no}
+		order by class_no asc
+	</select>
+	
 	<!-- 카테고리 번호로 강의정보를 조회 -->
 	<select id="getAllCourseInfo" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassCourseDto">
-		select
-			class_no as no,
-			class_title as title,
-			teacher_name as name,
-			class_price as price,
-			class_discountprice as discountPrice,
-			class_image as image,
-			class_total_student as studentCount,
-			class_review_score_count as reviewCount,
-			category_no as categoryNo,
-			category_name as categoryName,
-			category_par_no as categoryParNo
-		from
-			(
-			select
-				row_number() over (order by class_no desc) rn,
+      select
+         class_no as no,
+         class_title as title,
+         teacher_name as name,
+         class_price as price,
+         class_discountprice as discountPrice,
+         class_image as image,
+         class_total_student as studentCount,
+         class_review_score_count as reviewCount,
+         category_no as categoryNo,
+         category_name as categoryName,
+         category_par_no as categoryParNo,
+         class_uploadfiles as uploadfiles
+      from
+         (
+         select
+            row_number() over (order by class_no desc) rn,
                 A.*
-			from
-				(select
+         from
+            (select
                     distinct A.class_no,
-                    A.class_title,
-                    B.teacher_name,
-                    A.class_price,
-                    A.class_discountprice,
-                    A.class_image,
-                    A.class_total_student,
-                    A.class_review_score_count,
-                    C.category_no,
-                    C.category_name,
-                    C.category_par_no
+                  A.class_title,
+                  B.teacher_name,
+                  A.class_price,
+                  A.class_discountprice,
+                  A.class_image,
+                  A.class_total_student,
+                  A.class_review_score_count,
+                  C.category_no,
+                  C.category_name,
+                  C.category_par_no,
+                  D.class_uploadfiles
                 from
-                    final_class_tb A, final_teacher_tb B, final_category_tb C
+                    final_class_tb A, final_teacher_tb B, final_category_tb C, final_class_upfiles D
                 where
-                    A.teacher_no = B.teacher_no and A.category_no = C.category_no
+                    A.teacher_no = B.teacher_no and A.category_no = C.category_no and A.class_no = D.class_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
-		                connect by prior C.category_no = C.category_par_no
+                      start with C.category_name = #{category}
+                      connect by prior C.category_no = C.category_par_no
                     </if>
-                ) A	
-			where
-				class_title like '%' || #{value} || '%' OR
-				teacher_name like '%' || #{value} || '%'
-			<if test="sort == 'price'">
-			order by class_price asc
-			</if>
-			<if test="sort == 'studentCount'">
-			order by class_total_student desc
-			</if>
-			<if test="sort == 'grade'">
-			order by class_review_score_count desc
-			</if>
-			)
-		where
-			rn between #{beginIndex} and #{endIndex}
-		
-	</select>
+                ) A   
+         where
+            class_title like '%' || #{value} || '%' OR
+            teacher_name like '%' || #{value} || '%'
+         <if test="sort == 'price'">
+         order by class_price asc
+         </if>
+         <if test="sort == 'studentCount'">
+         order by class_total_student desc
+         </if>
+         <if test="sort == 'grade'">
+         order by class_review_score_count desc
+         </if>
+         )
+      where
+         rn between #{beginIndex} and #{endIndex}
+      
+   </select>
 	
 	<!-- criteria 정보로 class 검색 결과를 조회 -->
 	<select id="getClassSearch" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="com.hta.lecture.dto.ClassDetailDto">
@@ -158,7 +203,7 @@
 				where
                     A.teacher_no = B.teacher_no and A.category_no = C.category_no
                     <if test="category != null">
-		                start with C.category_no = #{category}
+		                start with C.category_name = #{category}
 		                connect by prior C.category_no = C.category_par_no
                     </if>
                 ) A
@@ -204,7 +249,7 @@
 		    from final_class_tb A, final_teacher_tb B, final_category_tb C
 		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
 		    <if test="category != null">
-				start with C.category_no = #{category}
+				start with C.category_name = #{category}
 				connect by prior C.category_no = C.category_par_no
 			</if>
 		) A
@@ -361,4 +406,69 @@
 	        final_class_tb A
         order by A.class_no asc
 	</select>
+	
+	<insert id="insertClass" parameterType="com.hta.lecture.vo.Classes">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select class_no_seq.nextval
+			from dual
+		</selectKey>
+		insert into Final_Class_TB
+			(
+           	class_no,				    
+			class_title,				    
+			class_content,			    
+			class_difficultly,
+			class_image,
+			class_video,
+			class_income,
+			class_price,
+			class_discountPrice,
+			class_permission,
+			class_filter,
+			class_status,
+			class_application_date,
+			class_open_date,
+			class_updated_Date,
+			class_deleted_Date,
+			class_total_count,
+			class_total_time,
+			class_isdeleted,
+			category_no,
+			teacher_no
+            )
+		values
+			(
+             #{no}, #{title}, #{content}, #{difficultly}, #{image}, #{video}, #{income}, #{price},
+			 #{discountPrice}, 'N', #{filter}, #{status}, #{applicationDate}, #{openDate},
+			 #{updatedDate}, #{deletedDate}, #{totalCount}, #{totalTime}, #{isDeleted}, #{categoryNo}, #{teacherNo}
+             )
+	</insert>
+	
+	<insert id="insertClassFile" parameterType="com.hta.lecture.vo.ClassFiles">
+		insert into FINAL_CLASS_UPFILES
+			(class_no, class_uploadFiles)
+		values
+			(#{no}, #{uploadFiles})	
+	</insert>
+	
+	<select id="getClassFilesByClassNo" parameterType="int" resultType="com.hta.lecture.vo.ClassFiles">
+		select
+			class_no			 no,
+			class_uploadFiles	 uploadFiles
+		from
+			FINAL_CLASS_UPFILES
+		where
+			class_no = #{value}
+	</select>
+	
+	<select id="getTeacherNoByUserNo" parameterType="int" resultType="int">
+		select
+		    b.teacher_no as teacherNo
+		from
+		    final_user_tb a, final_teacher_tb b
+		where
+		    a.user_no = b.user_no
+		    and a.user_no = #{no}
+	</select>
+	
 </mapper>

@@ -11,6 +11,7 @@ import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
 
@@ -25,6 +26,10 @@ public class ClassService {
 	public int getTotalRows(ClassCriteria criteria) {
 		logger.info("검색조건: " + criteria);
 		return classMapper.getClassesTotalRows(criteria);
+	}
+	
+	public int getClassCountByNo(int no) {
+		return classMapper.getClassCountByNo(no);
 	}
 	
 	public List<ClassCourseDto> getAllCourseInfo(ClassCriteria criteria){
@@ -74,4 +79,26 @@ public class ClassService {
 	public int countAllClassStudent(int no) {
 		return classMapper.countAllClassStudent(no);
 	}
+	
+	public List<Classes> getAllClassByNo(int no) {
+		List<Classes> classes = classMapper.getAllClassByNo(no);
+		
+		return classes;
+	}
+	
+	public int getTeacherNoByUserNo(int no) {
+		return classMapper.getTeacherNoByUserNo(no);
+	}
+  
+	// 새 강의 만들기
+		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {
+			classMapper.insertClass(classes);
+			
+			for (ClassFiles files : classFiles) {
+				files.setNo(classes.getNo());
+				classMapper.insertClassFile(files);
+			} 	
+	
+		}
+
 }

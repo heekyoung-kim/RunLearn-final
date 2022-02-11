@@ -15,8 +15,8 @@
 <div class="container-fluid" >
 	<section class="community-header" style="background: black">
 		<div class="community-header__content">
-			<h2 class="community-header__title" style="color:white; font-size:30px;">함께 성장할 스터디를 모집해보세요</h2>
-			<p class="community-header__sub-title" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지!!</p>
+			<h2 class="fs-4 my-3 text-light fw-bold" style="color:white; font-size:30px;">함께 성장할 스터디를 모집해보세요</h2>
+			<p class="fs-6 text-light" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지!!</p>
 		</div>
 	</section>
 <%@ include file="../../community/left.jsp"%>

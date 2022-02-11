@@ -23,5 +23,7 @@ public class WishlistDto {
 	private int price; 
 	private int discountPrice;
 	private String image;
+	private String difficulty;
+	private String category;
 	
 }

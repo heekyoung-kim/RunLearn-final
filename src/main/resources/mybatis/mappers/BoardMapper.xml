@@ -3,7 +3,7 @@
 <mapper namespace="com.hta.lecture.mapper.BoardMapper">
 	
 	
-
+<!-- criteria로 board 조회 -->
 	 <select id="getBoardByCriteria" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.BoardDto">
 	select 
 		A.board_no					boardNo,
@@ -51,6 +51,7 @@
 		</if>
 	</select>
 	
+<!-- Board 추가 -->	
 	<insert id="addBoard" parameterType="com.hta.lecture.vo.Board" >
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
 			select board_no_seq.nextval
@@ -62,12 +63,22 @@
 		(#{boardNo}, #{category}, #{title}, #{content}, #{status})
 	</insert>
 	
+<!-- Tag 추가 -->	
 	<insert id="addTag" parameterType="com.hta.lecture.vo.Tag" >
 		insert into final_tag_tb
 		(board_no, tag_no, tag_name)
 		values
 		(#{boardNo}, tag_no_seq.nextval, #{tagName})
 	</insert>
+
+<!--글번호로 글상세정보를 조회-->
+
+<!-- 해당글번호의 댓글정보 조회 -->
+
+
+
+
+
 
 
 <!-- 

@@ -24,4 +24,5 @@ public class ClassCourseDto {
 	private int categoryNo;
 	private String categoryName;
 	private int categoryParNo;
+	private String uploadfiles;
 }

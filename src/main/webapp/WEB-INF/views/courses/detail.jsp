@@ -18,6 +18,7 @@
 			.section-1 .img-box{width:90vw; height:58vw;}
 		}
 	</style>
+	
 </head>
 <body>
 <%@ include file="../common/nav.jsp" %>
@@ -56,13 +57,19 @@
 	</div>
 	<div class="row">
 		<div class="col-8">
+			<p class="fs-3"><strong>${classes.difficultly }자</strong>를 위해 준비한<br><strong>[개발 도구] 강의입니다.</strong></p>
+			<p>코알못도 따라올 수 있는 친절하고 쉬운 강좌! 현업 개발자는 Git 박사로 들어주는 끝판왕 강좌!</p>
+			
+			<div>
+				${classes.content }
+			</div>
 		</div>
 		<div class="col-4">
 			<div class="card card-floating" style="width: 18rem;">
 				<div class="card-body">
 					<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
-					<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2">수강신청</a><br>
-					<a href="#" class="card-link">장바구니 담기</a> <a href="#" class="card-link">추천수</a><br>
+					<a href="" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">수강신청</a><br>
+					<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="#" class="card-link">추천수</a><br>
 				</div>
 				<div class="card-footer">
 					<span>&middot; 지식공유자: </span><a href="#" class="card-link">강사명</a><br>
@@ -75,5 +82,51 @@
 	</div>
 </div>
 <%@ include file="../common/footer.jsp" %>
+<script>
+
+// 장바구니담기
+$(".btn-apply").click(function(){
+	var classNo = $(this).data("no")
+	alert("동작")
+	$.ajax({
+		type:"Post"
+		,url:"/rest/addCart"
+		,dataType:"json"
+		,data:{
+			classNo: classNo
+		}
+		,success:function(response){
+			if(response.status == "OK"){
+				alert("수강바구니에 추가되었습니다.")
+			}else{
+				alert(response.error);
+			}
+			
+		}
+	})
+})
+
+// 위시리스트 담기
+$(".wishlist-button").click(function(){
+	var classNo = $(this).data("no")
+	alert("동작")	
+	$.ajax({
+		type:"Post"
+		,url:"/rest/addWishlist"
+		,dataType:"json"
+		,data:{
+			classNo: classNo
+		}		
+		,success:function(response){
+			if(response.status == "OK"){
+				alert("위시리스트에 추가되었습니다.")
+			}else{
+				alert(response.error);
+			}
+		}
+	})
+})
+
+  </script>
 </body>
 </html>

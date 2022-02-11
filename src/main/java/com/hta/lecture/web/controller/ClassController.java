@@ -1,23 +1,35 @@
 package com.hta.lecture.web.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
+import com.hta.lecture.web.form.ClassInsertForm;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,13 +43,16 @@ public class ClassController {
 	@Autowired
 	ClassService classService;
 	
-	// 사이트 경로를 인프런처럼 구현할때 slug 에 관련된 플러그인? 이 있는 것 같다.
 	@GetMapping
 	public String list(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			ClassCriteria criteria, Model model) {
 
 		logger.info("요청 페이지번호 : " + page);
 		logger.info("검색조건 및 값 :" + criteria);
+		
+		if (!StringUtils.hasText(criteria.getCategory())) {
+			criteria.setCategory(null);
+		}
 		
 		// 검색조건에 해당하는 총 데이터 갯수 조회
 		int totalRecords = classService.getTotalRows(criteria);
@@ -72,5 +87,46 @@ public class ClassController {
 		model.addAttribute("classes", classes);
 		
 		return "/courses/detail";
+	}
+	
+	@GetMapping("/insert.do")
+	public String insert(@RequestParam(name = "no") int no, Model model) {
+		
+		int teacherNo = classService.getTeacherNoByUserNo(no);
+		model.addAttribute("teacherNo", teacherNo);
+		
+		return "courses/insertForm";
+	}
+	
+	@PostMapping("/insert.do")
+	public String save(ClassInsertForm form) throws IOException{
+		String saveDirectory = "C:\\projects\\vue-workspace\\final-project\\src\\main\\webapp\\resources\\images\\course";
+		
+		List<ClassFiles> classFiles = new ArrayList<ClassFiles>();
+		
+		List<MultipartFile> uploadFiles = form.getUploadFiles();
+		for(MultipartFile multipartFile : uploadFiles) {
+			if(!multipartFile.isEmpty()) {
+				String filename = System.currentTimeMillis() + System.currentTimeMillis() + multipartFile.getOriginalFilename();
+				
+				ClassFiles classFile = new ClassFiles();
+				classFile.setUploadFiles(filename);
+				classFiles.add(classFile);
+				
+				InputStream in = multipartFile.getInputStream();
+				FileOutputStream out = new FileOutputStream(new File(saveDirectory, filename));
+				FileCopyUtils.copy(in, out);
+			
+			}
+			
+		}
+		
+		Classes classes = new Classes();
+		BeanUtils.copyProperties(form, classes);
+		classService.addNewClass(classes, classFiles);
+		
+		
+		
+		return "redirect:";
 	}
 }

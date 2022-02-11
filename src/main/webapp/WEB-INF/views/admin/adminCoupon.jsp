@@ -423,7 +423,7 @@
 							  				</td>
 							  				<td>
 									  			<label class="form-check-label" for="coupon-check-${coupons.couponNo}}">
-									    			${coupons.couponNo }
+									    			${loop.count }
 									  			</label>
 							  				</td>
 							  				<td>
@@ -587,7 +587,7 @@
 				<h5 class="modal-title" id="writeBoardLabel">쿠폰 생성</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<form id="addCoupon-form" method="post" action="/addBoard">
+			<form id="addCoupon-form" method="post" action="/addCoupon">
 				<div class="modal-body">
 						<div class="form-group mb-3">
 							<label for="name">쿠폰 이름</label>
@@ -608,12 +608,11 @@
 						</div>
 						<div class="form-group mb-3">
 							<label for="name">쿠폰 기간</label>
-	 						<input type="text" name="period" class="form-control" id="period" placeholder= "쿠폰 기간을 입력하세요">
+	 						<input type="text" name="period" class="form-control" id="period" placeholder= "쿠폰 기간(일)을 입력하세요">
 	 						<div class="alert alert-danger" id="alert-error-addCouponPeriod" style="display:none;"></div>						
 						</div>				
 				</div>
 				<div class="modal-footer">
-					<button type= "button" class="btn btn-outline-success" id="btn-addBoard" >연습</button>
 					<button type= "button" class="btn btn-outline-success" id="btn-addCoupon" >등록</button>
 					<button type= "button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >취소</button>
 				</div>
@@ -632,7 +631,7 @@
 		if(opt && value){
 			$("#form-search-coupon").trigger("submit");
 		}
-		alert("검색 조건을 입력하세요");
+		
 		
 	});
 	
@@ -649,7 +648,7 @@
 		
 	});
 	
-	// 쿠폰 삭제 버튼 클릭스
+	// 쿠폰 삭제 버튼 클릭
 	$("#btn-delete-coupon").click(function(){
 		var couponNo;
 		$(".radioButton .form-check-input").each(function(){
@@ -657,7 +656,23 @@
 				couponNo = $(this).val();
 		})
 		
-		alert(couponNo);
+		$.getJSON({
+			type: "post"
+			,url: "/rest/deleteCoupon"
+			,dataType: "json"
+			,data: {
+				couponNo: couponNo
+			},
+			success : function(response){
+				if(response.status == "OK"){
+					alert("삭제 되었습니다.");
+					location.reload(true);
+				}else{
+					$("#alert-error-register").show().text(response.error);
+				}	
+			}
+		})
+		
 	});
 	
 	// 쿠폰 전체 선택
@@ -672,63 +687,126 @@
 	
 	// 유저 쿠폰 등록 버튼
 	$("#btn-register-userCoupon").click(function(){
-		var couponNO;
-		var userNo =[];
+		let userNo="";
 		
+		$(".checkbox .form-checkbox-input").each(function(){
+			if($(this).is(":checked"))  // ":checked"를 이용하여 체크가 되어있는지 아닌지 확인한다.
+				userNo+=$(this).val()+" "; 
+		})
+		
+		var couponNO;
 		$(".radioButton .form-check-input").each(function(){
 			if($(this).is(":checked"))
 				couponNo = $(this).val();
 		})
 		
-		$(".checkbox .form-checkbox-input").each(function(){
-			if($(this).is(":checked"))  // ":checked"를 이용하여 체크가 되어있는지 아닌지 확인한다.
-				userNo.push($(this).val()); 
+		
+		$.getJSON({
+			type: "post"
+			,url: "/rest/addUserCoupon"
+			,dataType: "json"
+			,data: {
+				 userNo: userNo,
+				 couponNo: couponNo
+			},
+			success : function(response){
+				if(response.status == "OK"){
+					alert("유저 쿠폰이 발급되었습니다.");
+					location.reload(true);
+				}else{
+					$("#alert-error-register").show().text(response.error);
+				}	
+			}
 		})
 		
-		alert(userNo);
 	});
 	
 	// 유저 쿠폰 삭제 버튼
 	$("#btn-delete-userCoupon").click(function(){
-		var str ="";
+		var userCoupon ="";
 		$(".checkbox .btn-check").each(function(){
 			if($(this).is(":checked"))  // ":checked"를 이용하여 체크가 되어있는지 아닌지 확인한다.
-			str += $(this).val() + " "; 
+				userCoupon += $(this).val() + " "; 
 		})
-		alert(str);
+		
+		$.getJSON({
+			type: "post"
+			,url: "/rest/deleteUserCoupon"
+			,dataType: "json"
+			,data: {
+				userCoupon: userCoupon
+			},
+			success : function(response){
+				if(response.status == "OK"){
+					alert("쿠폰이 삭제 되었습니다.");
+					location.reload(true);
+				}else{
+					$("#alert-error-register").show().text(response.error);
+				}	
+			}
+		})
 	});
 	
 	$("#btn-addCoupon").click(function(event){
-		$("#alert-error-addBoard").hide();
-		var couponName = $("#addCoupon-form [name=name]").val();
+		
+		
+		var name = $("#addCoupon-form [name=name]").val();
+		var discount = $("select[name=discountOpt]").val();
 		var discountRate;
 		var discountPrice;
 		var period = $("#addCoupon-form [name=period]").val();
 		
-		if($("select[name=discountOpt]").val() == "할인율")
-			discountRate = $.trim((":input[name=discount]").val());
-		else
-			discountPrice = $.trim((":input[name=discount]").val());
 		
-		if(couponName == ""){
-			$("#alert-error-addCoupon").show().text("쿠폰 이름을 입력해주세요.");
-			return;
+		if(discount=="할인율"){
+			discountRate= $("#addCoupon-form [name=discount]").val();
+			console.log(discountRate);
 		}
 		
-		if(discountRate == "" && discountPrice == ""){
+		if(discount=="할인금액"){
+			discountPrice= $("#addCoupon-form [name=discount]").val();
+			console.log(discountPrice);
+		}
+		
+		if(name == ""){
+			$("#alert-error-addCouponName").show().text("쿠폰 이름을 입력해주세요.");
+			return;
+		}
+		$("#alert-error-addCouponName").hide();
+			
+		if(discountRate == "" || discountPrice == ""){
 			$("#alert-error-addCouponDiscount").show().text("할인 조건을 입력해주세요.");
 			return;
 		}
+		$("#alert-error-addCouponDiscount").hide();
 		
 		if(period == ""){
 			$("#alert-error-addCouponPeriod").show().text("쿠폰 기간을 입력해주세요.");
 			return;
 		}
-	}
+		$("#alert-error-addCouponPeriod").hide();
+		
+		$.getJSON({
+			type: "post"
+			,url: "/rest/addCoupon"
+			,dataType: "json"
+			,data: {
+				 name: name
+				,discountRate: discountRate
+				,discountPrice: discountPrice
+				,period: period
+			},
+			success : function(response){
+				if(response.status == "OK"){
+					alert("글이 등록되었습니다.");
+					location.reload(true);
+				}else{
+					$("#alert-error-register").show().text(response.error);
+				}	
+			}
+		})
+		
+	})
 	
-	$("#btn-addBoard").click(function(event){
-		alert(1);
-	}
 	
 </script>
 </body>

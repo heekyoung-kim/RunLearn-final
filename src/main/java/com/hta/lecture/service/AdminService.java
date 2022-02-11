@@ -15,10 +15,12 @@ import com.hta.lecture.dto.CouponDto;
 import com.hta.lecture.dto.CouponPosessUserDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
+import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.mapper.AdminMapper;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.mapper.UserCouponMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.Coupon;
 import com.hta.lecture.web.form.CouponCriteria;
 import com.hta.lecture.web.form.ProfitByCategory;
 import com.hta.lecture.web.form.UserCouponCriteria;
@@ -125,5 +127,19 @@ public class AdminService {
 		return adminMapper.getCouponUsersTotalRows(userCriteria);
 	}
 	
+	public void addCoupon(Coupon coupon) {
+		adminMapper.addCoupon(coupon);
+	}
 	
+	public void deleteCoupon(int couponNo) {
+		adminMapper.deleteCoupon(couponNo);
+	}
+	
+	public void addUserCoupon(UserCouponDto userCoupon) {
+		adminMapper.addUserCoupon(userCoupon);
+	}
+	
+	public void deleteUserCoupon(int userNo, int couponNo) {
+		adminMapper.deleteUserCoupon(userNo, couponNo);
+	}
 }

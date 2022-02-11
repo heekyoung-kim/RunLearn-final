@@ -336,5 +336,29 @@
 		 </where>
 	</select>
 	 
+	<select id="addCoupon" parameterType="com.hta.lecture.vo.Coupon">
+		insert into final_coupon_tb
+		(coupon_no, coupon_name, coupon_discount_rate, coupon_discount_price, coupon_use_period)
+		values
+		(coupon_no_seq.nextval,#{name},#{discountRate},#{discountPrice},#{period})
+	</select>
+	
+	<select id="deleteCoupon" parameterType="int">
+		delete from final_coupon_tb
+		where coupon_no = #{coupon_no}
+	</select>
+	
+	<select id="addUserCoupon" parameterType="com.hta.lecture.dto.UserCouponDto">
+		insert into final_user_coupon_tb
+		(user_coupon_no, user_no, coupon_no)
+		values
+		(user_coupon_no_seq.nextval,#{userNo},#{couponNo})
+	</select>
+	
+	<select id="deleteUserCoupon" parameterType="int">
+		delete final_user_coupon_tb
+		where user_no = #{userNo}
+		and coupon_no = #{couponNo}
+	</select>
 	
 </mapper>

@@ -11,6 +11,8 @@ import com.hta.lecture.dto.CouponDto;
 import com.hta.lecture.dto.CouponPosessUserDto;
 import com.hta.lecture.dto.MonthIncomeDto;
 import com.hta.lecture.dto.ReviewDto;
+import com.hta.lecture.dto.UserCouponDto;
+import com.hta.lecture.vo.Coupon;
 import com.hta.lecture.web.form.ClassCriteria;
 import com.hta.lecture.web.form.CouponCriteria;
 import com.hta.lecture.web.form.UserCouponCriteria;
@@ -68,5 +70,9 @@ public interface AdminMapper {
 	List<CouponPosessUserDto> getCouponPosessUsers(UserCouponCriteria userCriteria);
 	int getCouponUsersTotalRows(UserCouponCriteria userCriteria);
 	
+	void addCoupon(Coupon coupon);
+	void deleteCoupon(int couponNo);
 	
+	void addUserCoupon(UserCouponDto userCoupon);
+	void deleteUserCoupon(int userNo, int couponNo);
 }

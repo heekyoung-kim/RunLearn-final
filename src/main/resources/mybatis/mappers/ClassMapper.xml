@@ -143,7 +143,6 @@
 		select
 			class_no				as no,
 			class_title				as title,
-			class_content			as content,
 			class_difficultly		as difficultly,
 			class_image				as image,
 			class_video				as video,
@@ -175,7 +174,6 @@
 				(select
                     distinct A.class_no,
 					A.class_title,
-					A.class_content,
 					A.class_difficultly,
 					A.class_image,	
 					A.class_video,
@@ -223,7 +221,6 @@
 			select
                 distinct A.class_no,
 				A.class_title,
-				A.class_content,
 				A.class_difficultly,
 				A.class_image,	
 				A.class_video,
@@ -298,7 +295,6 @@
 		select
 			class_no				as no,
 			class_title				as title,
-			class_content			as content,
 			class_difficultly		as difficultly,
 			class_image				as image,
 			class_video				as video,
@@ -331,7 +327,6 @@
 					select
 	                    distinct A.class_no,
 						A.class_title,
-						A.class_content,
 						A.class_difficultly,
 						A.class_image,	
 						A.class_video,

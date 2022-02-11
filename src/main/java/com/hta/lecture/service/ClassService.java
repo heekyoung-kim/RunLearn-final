@@ -112,8 +112,8 @@ public class ClassService {
 		}
 		
 	// 커리큘럼 만들기
-		public void addNewDetails(ClassDetail classDetail) {
-			classMapper.insertDetails(classDetail);
+		public void addNewDetail(ClassDetail classDetail) {
+			classMapper.insertDetail(classDetail);
 		}
 		
 }

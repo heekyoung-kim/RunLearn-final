@@ -27,10 +27,6 @@
 					<label class="form-label">수업 1:첫번째 수업 만들어주세요.</label>
 					<input type="text" class="form-control" name="chapterTitle" />
 				</div>
-				<div class="mb-3">
-					<label class="form-label">수업 2:두번째 수업 만들어주세요.</label>
-					<input type="text" class="form-control" name="chapterTitle" />
-				</div>
 			</form>
 		</div>
 	</div>

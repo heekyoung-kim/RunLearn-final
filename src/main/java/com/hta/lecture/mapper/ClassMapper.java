@@ -57,6 +57,6 @@ public interface ClassMapper {
 	void insertChapter(ClassChapter classChpater);
 	
 	// 커리큘럼 만들기
-	void insertDetails(ClassDetail classDetail);
+	void insertDetail(ClassDetail classDetail);
 	
 }

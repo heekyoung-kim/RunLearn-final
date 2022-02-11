@@ -90,14 +90,17 @@ public class ClassController {
 	}
 	
 	@GetMapping("/insert.do")
-	public String insert() {
+	public String insert(@RequestParam(name = "no") int no, Model model) {
+		
+		int teacherNo = classService.getTeacherNoByUserNo(no);
+		model.addAttribute("teacherNo", teacherNo);
 		
 		return "courses/insertForm";
 	}
 	
 	@PostMapping("/insert.do")
 	public String save(ClassInsertForm form) throws IOException{
-		String saveDirectory = "C:\\Users\\HOME\\git\\final-project\\src\\main\\webapp\\resources\\images\\course";
+		String saveDirectory = "C:\\projects\\vue-workspace\\final-project\\src\\main\\webapp\\resources\\images\\course";
 		
 		List<ClassFiles> classFiles = new ArrayList<ClassFiles>();
 		
@@ -121,6 +124,7 @@ public class ClassController {
 		Classes classes = new Classes();
 		BeanUtils.copyProperties(form, classes);
 		classService.addNewClass(classes, classFiles);
+		
 		
 		
 		return "redirect:";

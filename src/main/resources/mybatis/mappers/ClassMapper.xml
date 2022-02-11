@@ -461,5 +461,14 @@
 			class_no = #{value}
 	</select>
 	
+	<select id="getTeacherNoByUserNo" parameterType="int" resultType="int">
+		select
+		    b.teacher_no as teacherNo
+		from
+		    final_user_tb a, final_teacher_tb b
+		where
+		    a.user_no = b.user_no
+		    and a.user_no = #{no}
+	</select>
 	
 </mapper>

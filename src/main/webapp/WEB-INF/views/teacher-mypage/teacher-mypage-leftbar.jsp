@@ -28,7 +28,7 @@
 	</dl>
 	<dl>
 		<dt class="px-1 py-2">강의 만들기</dt>
-		<dd class="px-4 py-1"><a href="/course/insert.do">강의 만들기</a></dd>
+		<dd class="px-4 py-1"><a href="/course/insert.do?no=${LOGIN_USER.no }">강의 만들기</a></dd>
 	</dl>
 </div>
 </body>

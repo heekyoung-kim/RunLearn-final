@@ -14,6 +14,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/067cf61548.js" ></script>
+<script src="https://cdn.tiny.cloud/1/8a09qtqq8gwqfnj049ypv7aiyphqexh8n4rtbyw3xvs59wtj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- 카카오 로그인지원 자바스크립트 라이브러리를 포함시킨다. -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>

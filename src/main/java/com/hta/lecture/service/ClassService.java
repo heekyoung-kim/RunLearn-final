@@ -80,11 +80,15 @@ public class ClassService {
 		return classMapper.countAllClassStudent(no);
 	}
 	
-  public List<Classes> getAllClassByNo(int no) {
+	public List<Classes> getAllClassByNo(int no) {
 		List<Classes> classes = classMapper.getAllClassByNo(no);
 		
 		return classes;
-  }
+	}
+	
+	public int getTeacherNoByUserNo(int no) {
+		return classMapper.getTeacherNoByUserNo(no);
+	}
   
 	// 새 강의 만들기
 		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {

@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+ a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: black; text-decoration: none;}
+</style>
 </head>
 <body>
 <%@ include file="../../common/nav.jsp"%>
@@ -90,6 +95,7 @@
 </div>
 		<!-- 질문답변글 전체출력 -->
 	<c:forEach var="board" items="${boardLists}">
+		<a href="/community/detail?boardNo=${board.boardNo}">
 			<div class="row border-top border-1 ">
 				<div class=" col-8 mt-3">
 					<h3>${board.title }</h3>
@@ -105,6 +111,7 @@
 					<p><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
 				</div>
 			</div>
+		</a>
 	</c:forEach>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

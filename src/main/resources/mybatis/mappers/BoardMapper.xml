@@ -72,9 +72,51 @@
 	</insert>
 
 <!--글번호로 글상세정보를 조회-->
+<select id="getBoardDetailDto" parameterType="int" resultType="com.hta.lecture.dto.BoardDetailDto">
+	select 
+		A.board_no					boardNo,
+		A.board_title				title,
+		B.user_name					name,
+		A.board_content				content,
+		A.board_status				status,
+		A.board_created_date		createdDate,
+		A.board_update_date			updateDate,
+		A.board_delete_date			deleteDate,
+		A.board_like_cnt			boardLikeCnt,
+		A.board_class_title			classTitle,
+		A.class_no			classNo
+	from 
+		final_board_tb A, final_user_tb B
+	where 
+		A.user_No = b.user_No
+		and A.board_no = #{value}
+	</select>
+
+<!--글번호로 태그조회 -->
+<select id="getBoardTags" parameterType="int" resultType="com.hta.lecture.vo.Tag">
+	select 
+		tag_no 			tagNo,
+		tag_name		tagName
+	from
+		 final_tag_tb
+	where
+		 board_no = #{value}
+</select>
 
 <!-- 해당글번호의 댓글정보 조회 -->
-
+<select id="getBoardComments" parameterType="int" resultType="com.hta.lecture.vo.BoardComment">
+	select 
+		comment_no						commentNo,
+		comment_sub_no					commentSubNo,
+		comment_content					commentContent,
+		comment_registration_date		registrationDate,
+		comment_cnt						commentCnt,
+		comment_like_cnt				commentLikeCnt
+	from
+		final_comment_tb
+	where
+		board_no = #{value}
+</select>
 
 
 

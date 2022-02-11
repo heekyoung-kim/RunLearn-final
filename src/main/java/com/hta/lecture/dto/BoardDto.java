@@ -19,11 +19,12 @@ import lombok.ToString;
 	@Setter
 	@Getter
 	public class BoardDto {
-		
+		private int boardNo;
 		private String category;
 		private String title;
 		private String name;
 		private String content;
+		private String commentContent;
 		private String classTitle;
 		private String status;		
 		private Date createdDate;

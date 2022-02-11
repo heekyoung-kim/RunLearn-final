@@ -406,7 +406,7 @@
 	        final_class_tb A
         order by A.class_no asc
 	</select>
-	
+	<!-- 강의 만들기 -->
 	<insert id="insertClass" parameterType="com.hta.lecture.vo.Classes">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select class_no_seq.nextval
@@ -444,11 +444,28 @@
              )
 	</insert>
 	
+	<!-- 첨부파일 저장 -->
 	<insert id="insertClassFile" parameterType="com.hta.lecture.vo.ClassFiles">
 		insert into FINAL_CLASS_UPFILES
 			(class_no, class_uploadFiles)
 		values
 			(#{no}, #{uploadFiles})	
+	</insert>
+	
+	<!-- 챕터 만들기 -->
+	<insert id="insertChapter" parameterType="com.hta.lecture.vo.ClassChapter">
+		insert into FINAL_CHAPTER_TB
+			(chapter_no, chapterTitle, chapterContent, class_no)
+		values
+			(#{chapterNo}, #{chapterTitle}, #{chapterContent}, #{no})		
+	</insert>
+	
+	<!-- 커리큘럼 만들기 -->
+	<insert id="insertDetail" parameterType="com.hta.lecture.vo.ClassDetail">
+		insert into FINAL_CLASS_DETAIL_TB
+			(class_detail_no, class_detail_title, class_detail_content, class_detail_free, chapter_no )
+		values
+			(#{detailNo}, #{detailTitel}, #{detailContent}, #{detailFree}, #{chapterNo})		
 	</insert>
 	
 	<select id="getClassFilesByClassNo" parameterType="int" resultType="com.hta.lecture.vo.ClassFiles">

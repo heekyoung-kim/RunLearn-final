@@ -14,6 +14,7 @@ public class ClassInsertForm {
 	private String content;
 	private String difficultly;
 	private int categoryNo;
+	private int teacherNo;
 	private int price;
 	private int discountPrice;
 	private List<MultipartFile> uploadFiles;
@@ -51,6 +52,14 @@ public class ClassInsertForm {
 		this.categoryNo = categoryNo;
 	}
 	
+	public int getTeacherNo() {
+		return teacherNo;
+	}
+	
+	public void setTeacherNo(int teacherNo) {
+		this.teacherNo = teacherNo;
+	}
+	
 	public int getPrice() {
 		return price;
 	}
@@ -75,10 +84,11 @@ public class ClassInsertForm {
 	@Override
 	public String toString() {
 		return "ClassInsertForm [no=" + no + ", title=" + title + ", content=" + content + ", difficultly="
-				+ difficultly + ", categoryNo=" + categoryNo + ", price=" + price + ", discountPrice=" + discountPrice
-				+ ", uploadFiles=" + uploadFiles + "]";
+				+ difficultly + ", categoryNo=" + categoryNo + ", teacherNo=" + teacherNo + ", price=" + price
+				+ ", discountPrice=" + discountPrice + ", uploadFiles=" + uploadFiles + "]";
 	}
 
+	
 	
 	
 

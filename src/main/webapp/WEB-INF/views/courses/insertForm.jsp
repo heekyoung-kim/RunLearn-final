@@ -99,10 +99,6 @@
 								<label class="form-label">대표 이미지</label> 
 								<input type="file" class="form-control" name="uploadFiles">
 							</div>
-							<div class="mb-3">
-								<label class="form-label">동영상 업로드</label> 
-								<input type="file" class="form-control" name="uploadFiles">
-							</div>
 							<div class="d-inline-flex p-1 bd-highlight">
 								<label class="form-label">가격</label>
 								<input type="number" class="form-control" name="price"/>

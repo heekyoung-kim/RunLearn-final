@@ -2,7 +2,7 @@ package com.hta.lecture.vo;
 
 public class ClassDetail {
 	
-	private int detailNo;
+	private int detailsNo;
 	private String detailTitle;
 	private String detailContent;
 	private String detailFree;
@@ -10,12 +10,12 @@ public class ClassDetail {
 	
 	public ClassDetail() {}
 
-	public int getDetailNo() {
-		return detailNo;
+	public int getDetailsNo() {
+		return detailsNo;
 	}
 
 	public void setDetailNo(int detailNo) {
-		this.detailNo = detailNo;
+		this.detailsNo = detailNo;
 	}
 
 	public String getDetailTitle() {
@@ -52,7 +52,7 @@ public class ClassDetail {
 
 	@Override
 	public String toString() {
-		return "ClassDetail [detailNo=" + detailNo + ", detailTitle=" + detailTitle + ", detailContent=" + detailContent
+		return "ClassDetail [detailNo=" + detailsNo + ", detailTitle=" + detailTitle + ", detailContent=" + detailContent
 				+ ", detailFree=" + detailFree + ", chapterNo=" + chapterNo + "]";
 	}
 }

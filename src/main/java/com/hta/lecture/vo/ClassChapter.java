@@ -2,19 +2,19 @@ package com.hta.lecture.vo;
 
 public class ClassChapter {
 
-	private int chapterNo;
+	private int chaptersNo;
 	private String chapterTitle;
 	private String chapterContent;
 	private int no;
 	
 	public ClassChapter() {}
 
-	public int getChapterNo() {
-		return chapterNo;
+	public int getChaptersNo() {
+		return chaptersNo;
 	}
 
-	public void setChapterNo(int chapterNo) {
-		this.chapterNo = chapterNo;
+	public void setChaptersNo(int chapterNo) {
+		this.chaptersNo = chapterNo;
 	}
 
 	public String getChapterTitle() {
@@ -43,7 +43,7 @@ public class ClassChapter {
 
 	@Override
 	public String toString() {
-		return "ClassChapter [chapterNo=" + chapterNo + ", chapterTitle=" + chapterTitle + ", chapterContent="
+		return "ClassChapter [chapterNo=" + chaptersNo + ", chapterTitle=" + chapterTitle + ", chapterContent="
 				+ chapterContent + ", no=" + no + "]";
 	}
 	

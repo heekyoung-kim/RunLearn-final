@@ -17,7 +17,6 @@ public class ClassInsertForm {
 	private int teacherNo;
 	private int price;
 	private int discountPrice;
-	private int teacherNo;
 	private List<MultipartFile> uploadFiles;
 	
 	public ClassInsertForm () {}

@@ -67,6 +67,17 @@
         order by A.class_no asc
 	</select>
 	
+	<!-- 개설 제출 된 강의 수 -->
+	<select  id="getStopClassCount" resultType="int">
+		select
+			count(*)
+		from 
+	        final_class_tb A
+        where 
+            A.class_status = '중지'
+        order by A.class_no asc
+	</select>
+	
 	<!-- 강의 총 수익 -->
 	<select id="getTotalIncome" resultType="int">
 		select sum(order_sum_price)
@@ -176,7 +187,7 @@
 		union                        
 		select category_no
 		from final_category_tb
-		where category_no = any(select category_no
+		where category_no =  any(select category_no
 		                        from final_category_tb
 		                        where category_par_no = any(select category_no
 		                        from final_category_tb
@@ -184,7 +195,7 @@
 		and order_no = any(
 		select order_no
 		from final_payment_tb
-		where TO_CHAR(payment_date, 'YYYY/MM') = TO_CHAR(SYSDATE, 'YYYY/MM'))
+		where TO_CHAR(payment_date, 'YYYY/MM') =  TO_CHAR(SYSDATE, 'YYYY/MM'))
 	</select>
 	
 	<select id="getMonthIncome" resultType="com.hta.lecture.dto.MonthIncomeDto">
@@ -205,40 +216,6 @@
 	</select> 
 	
 	
-	<select id="getUsersTotalRows" parameterType="com.hta.lecture.web.form.ClassCriteria" resultType="int">
-		select count(*)
-		from
-		(
-			select
-                distinct A.class_no,
-				A.class_title,
-				A.class_content,
-				A.class_difficultly,
-				A.class_image,	
-				A.class_video,
-				A.class_income,
-				A.class_period,
-				A.class_price,
-				A.class_discountprice,
-				A.class_permission,
-				A.class_filter,
-				A.class_status,
-				A.class_application_date,
-				A.class_open_date,
-				A.class_updated_date,
-				A.class_deleted_date,
-				A.class_total_count,
-				A.class_total_time,
-				A.class_isdeleted,
-				B.teacher_no,
-				B.teacher_name,
-				C.category_no,
-				C.category_name,
-				C.category_par_no
-		    from final_class_tb A, final_teacher_tb B, final_category_tb C
-		    where A.teacher_no = B.teacher_no and A.category_no = C.category_no
-		
-	</select>
 	
 	<select id="getAllCoupon" parameterType="com.hta.lecture.web.form.CouponCriteria" resultType="com.hta.lecture.dto.CouponDto">
 		select
@@ -359,6 +336,243 @@
 		delete final_user_coupon_tb
 		where user_no = #{userNo}
 		and coupon_no = #{couponNo}
+	</select>
+	
+	
+	<select id="getAdminClass" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.AdminClassDto">
+		select  
+			CLASS_NO 		as no, 
+			CLASS_IMAGE 	as image, 
+			CLASS_TITLE 	as title, 
+			TEACHER_NAME 	as teacher,
+			CLASS_PRICE	as price,
+			CLASS_INCOME	as income,
+			CLASS_TOTAL_STUDENT as student,
+			CLASS_STATUS	as status,
+			CLASS_REVIEW_SCORE	as reviewScore
+	from ( 
+			select
+				row_number() over (order by class_no ASC) rn,
+	            C.CLASS_NO, 
+				C.CLASS_IMAGE, 
+				C.CLASS_TITLE, 
+				T.TEACHER_NAME,
+				C.CLASS_PRICE,
+				C.CLASS_INCOME,
+				C.CLASS_TOTAL_STUDENT,
+				C.CLASS_STATUS,
+				C.CLASS_REVIEW_SCORE
+			from 
+				final_class_tb C , final_teacher_tb T
+		<where>
+			 <if test="opt!=null and value !=null">
+			 	<choose>
+					<when test="opt == '강의이름'">
+						C.class_title like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강사이름'">
+						T.teacher_name like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강의번호'">
+						C>class_no = #{value}
+					</when>		 	
+					<when test="opt == '강의상태'">
+						C.class_status like  '%' || #{value} || '%'
+					</when>		 	
+			 	</choose>
+			 </if>
+			 and c.teacher_no=t.teacher_no
+		 </where>)
+		 where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="getClassTotalRows" parameterType="com.hta.lecture.web.form.Criteria" resultType="int">
+		select count(*)
+		from ( 
+			select
+	            C.CLASS_NO, 
+				C.CLASS_IMAGE, 
+				C.CLASS_TITLE, 
+				T.TEACHER_NAME,
+				C.CLASS_PRICE,
+				C.CLASS_INCOME,
+				C.CLASS_TOTAL_STUDENT,
+				C.CLASS_STATUS,
+				C.CLASS_REVIEW_SCORE
+			from 
+				final_class_tb C , final_teacher_tb T
+		<where>
+			 <if test="opt!=null and value !=null">
+			 	<choose>
+					<when test="opt == '강의이름'">
+						C.class_title like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강사이름'">
+						T.teacher_name like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강의번호'">
+						C>class_no = #{value}
+					</when>		 	
+					<when test="opt == '강의상태'">
+						C.class_status like  '%' || #{value} || '%'
+					</when>		 	
+			 	</choose>
+			 </if>
+			 and c.teacher_no=t.teacher_no
+		 </where>)
+	</select>
+	
+	
+	<select id="getAdminUser" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.AdminUserDto">
+		select 
+			user_no 	as no,
+			user_name	as name,
+			user_tel	as tel, 
+			TO_CHAR(user_created_date,'YYYY/MM/DD') as createdDate,
+			TO_CHAR(user_updated_date,'YYYY/MM/DD') as updatedDate,
+			user_point	as point, 
+			teacher_yn	as teacherYN,	 
+			user_deleted_yn	as deletedYN
+		from ( 
+			select
+				row_number() over (order by user_no ASC) rn,
+				user_no,
+				user_name,
+				user_tel, 
+				user_created_date,
+				user_updated_date,
+				user_point, 
+				teacher_yn,	 
+				user_deleted_yn
+			from 
+				final_user_tb
+			<where>
+				 <if test="opt!=null and value !=null">
+				 	<choose>
+						<when test="opt == '이름'">
+							user_name like  '%' || #{value} || '%'				
+						</when>		 	
+						<when test="opt == '유저번호'">
+							user_no = #{value}
+						</when>		 	
+						<when test="opt == '전화번호'">
+							user_tel like  '%' || #{value} || '%'
+						</when>		 	
+						<when test="opt == '가입일'">
+							user_created_date like  '%' || #{value} || '%'
+						</when>		 	
+				 	</choose>
+				 </if>
+			 </where>)
+		  where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="getUserTotalRows" parameterType="com.hta.lecture.web.form.Criteria" resultType="int">
+		select count(*)
+		from final_user_tb B
+		<where>
+			 <if test="opt!=null and value !=null">
+			 	<choose>
+					<when test="opt == '이름'">
+						user_name like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '유저번호'">
+						user_no = #{value}
+					</when>		 	
+					<when test="opt == '전화번호'">
+						user_tel like  '%' || #{value} || '%'
+					</when>		 	
+					<when test="opt == '가입일'">
+						user_created_date like  '%' || #{value} || '%'
+					</when>		 	
+			 	</choose>
+			 </if>
+		 </where>
+	</select>
+	
+	<select id="getAdminReview" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.AdminReviewDto">
+		select 
+			review_no 		as no, 
+			review_content 	as content, 
+			review_grade		as grade, 
+			user_name 		as userName, 
+			class_title		as className
+			from ( 
+			select
+				row_number() over (order by review_no ASC) rn,
+				r.review_no, 
+				r.review_content, 
+				r.review_grade, 
+				u.user_name, 
+				c.class_title
+			from 
+				final_review_tb R , final_class_tb C, final_user_tb U
+		<where>
+			 <if test="opt!=null and value !=null">
+			 	<choose>
+					<when test="opt == '회원이름'">
+						u.user_name like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강의이름'">
+						c.class_title = #{value}
+					</when>		 	
+			 	</choose>
+			 </if>
+			and r.class_no = c.class_no
+			and r.user_no = u.user_no
+		 </where>
+		 <if test="sort == 'reviewGrade'">
+			order by review_grade ASC
+		</if>
+		)
+		  where
+			rn between #{beginIndex} and #{endIndex}
+		
+	</select>
+	
+	<select id="getReviewTotalRows" parameterType="com.hta.lecture.web.form.Criteria" resultType="int">
+		select count(*)
+		from final_review_tb R , final_class_tb C, final_user_tb U
+		<where>
+			 <if test="opt!=null and value !=null">
+			 	<choose>
+					<when test="opt == '회원이름'">
+						u.user_name like  '%' || #{value} || '%'				
+					</when>		 	
+					<when test="opt == '강의이름'">
+						c.class_title = #{value}
+					</when>		 	
+			 	</choose>
+			 </if>
+			and r.class_no = c.class_no
+			and r.user_no = u.user_no
+		 </where>
+	</select>
+	
+	<select id="stopClass" parameterType="int">
+		update 	final_class_tb
+		set		class_status = '중지'
+		where	class_no = #{classNo} 
+	</select>
+	
+	<select id="openClass" parameterType="int">
+		update 	final_class_tb
+		set		class_status = '개설'
+		where	class_no = #{classNo} 
+	</select>
+	
+	<select id="restoreUser" parameterType="int">
+		update 	final_user_tb
+		set		user_deleted_yn = 'N'
+		where	user_no = #{userNo} 
+	</select>
+	
+	<select id="deleteUser" parameterType="int">
+		update 	final_user_tb
+		set		user_deleted_yn = 'Y'
+		where	user_no = #{userNo} 
 	</select>
 	
 </mapper>

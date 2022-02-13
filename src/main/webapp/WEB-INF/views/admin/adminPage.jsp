@@ -414,10 +414,6 @@
 		              <div class="card">
 			               <div class="card-header">
 			               		<h3 class="card-title">평점</h3>
-			               		<a href="" class="move-button">
-			               			<p class="move-button-text">더보기</p>
-			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-			               		</a>
 			               	</div>
 			                
 			                <div class="card-body d-flex flex-column justify-content-end">
@@ -471,7 +467,7 @@
 		      
 		      <h3 class="dashboard-title ms-4 mt-4">처리</h3>
 			      <section class="dashboard-summary">
-			      		<div class="card-wrapper" style="width: 25%">
+			      		<div class="card-wrapper" style="width: 50%">
 				              <div class="card">
 					               <div class="card-header">
 					               		<h3 class="card-title">강의 개설 요청</h3>
@@ -490,65 +486,14 @@
 							                    </div>
 							                    <div class="process-card-body-content col-6">
 								                    	<h5>중지</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
+								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.stopClassCount }건</p>
 							                    </div>
 							                 </div>
 					                  </div>
 					                </div>
 					           </div>
 			      		</div>
-					    <div class="card-wrapper" style="width: 25%">
-				              <div class="card">
-					               <div class="card-header">
-					               		<h3 class="card-title">결제 요청</h3>
-					               		<a href="" class="move-button">
-					               			<p class="move-button-text">더보기</p>
-					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-					               		</a>
-					               	</div>
-					                
-					                <div class="card-body d-flex flex-column justify-content-end">
-					                  <div class="card-summary-body">
-											<div class="row" style="width: 100%;">
-							                    <div class="process-card-body-content col-6">
-							                    		<h5>미처리</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
-							                    </div>
-							                    <div class="process-card-body-content col-6">
-								                    	<h5>전체</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
-							                    </div>
-							                 </div>
-					                  </div>
-					                </div>
-					           </div>
-					     </div>
-					    <div class="card-wrapper"  style="width: 25%">
-				              <div class="card">
-					               <div class="card-header">
-					               		<h3 class="card-title">환불 요청</h3>
-					               		<a href="" class="move-button">
-					               			<p class="move-button-text">더보기</p>
-					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-					               		</a>
-					               	</div>
-					                <div class="card-body d-flex flex-column justify-content-end">
-						                  <div class="card-summary-body">
-						                  	<div class="row" style="width: 100%;">
-							                    <div class="process-card-body-content col-6">
-							                    		<h5>미처리</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4" style="color: red;">건</p>
-							                    </div>
-							                    <div class="process-card-body-content col-6">
-								                    	<h5>전체</h5>
-								                      	<p class="font-sans-serif lh-1 mb-1 fs-4">건</p>
-							                    </div>
-							                 </div>
-						                  </div>
-					                </div>
-					           </div>
-					     </div>
-					    <div class="card-wrapper" style="width: 25%">
+					    <div class="card-wrapper" style="width: 50%">
 				              <div class="card">
 					               <div class="card-header">
 					               		<h3 class="card-title">미답변 질문 리스트</h3>
@@ -642,22 +587,21 @@
 	
 	var date= new Date();
 	
+	let monthIncomes = [];
+	let hi = ["hi","hello"];
 	$(function(){
-		let monthIncomes = [];
-		alert(${monthIncome});
-		$.getJSON("/admin",function(){
-			$.each(${monthIncome}, function(key, item){
-				monthIncomes=${monthIncome};
+		
+		$.getJSON('/rest/admin', function(MonthIocomeDto){
+			$.each(MonthIocomeDto,function(index,item){
+				monthIncomes.push(item);
 			})
-
 		})
 		
-		console.log(monthIncomes);
 	});
 	
+	console.log(monthIncomes);
+	console.log(monthIncomes[0]);
 	
-	
-		
 	const pieLabels = [
 	    '개발 · 프로그래밍',
 	    '보안 · 네트워크',
@@ -665,12 +609,12 @@
 	  ];
 	
 	const barLabels = [
-		getFormatDate(date,1),
-		getFormatDate(date,2),
-		getFormatDate(date,3),
-		getFormatDate(date,4),
+		getFormatDate(date,6),
 		getFormatDate(date,5),
-		getFormatDate(date,6)
+		getFormatDate(date,4),
+		getFormatDate(date,3),
+		getFormatDate(date,2),
+		getFormatDate(date,1)
 	    
 	  ];
 

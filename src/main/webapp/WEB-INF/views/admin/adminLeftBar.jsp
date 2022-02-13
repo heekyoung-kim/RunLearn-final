@@ -131,7 +131,13 @@
 					          <ul class="menu-list">
 					            
 					                <li>
-					                  <a class="btn_wrap"  href="/admin/classList" >
+					                  <a class="btn_wrap"  href="/admin/adminUser" >
+					                    <span>유저 관리</span> 
+					                  </a>
+					                </li>
+					            
+					                <li>
+					                  <a class="btn_wrap"  href="/admin/adminClass" >
 					                    <span>강의 관리</span> 
 					                  </a>
 					                </li>
@@ -140,13 +146,8 @@
 					                    <span>쿠폰 관리</span> 
 					                  </a>
 					                </li>
-					                <li>
-					                  <a class="btn_wrap  " href="" >
-					                    <span>수익 확인</span> 
-					                  </a>
-					                </li>
 					                  <li>
-					                  <a class="btn_wrap  " href="" >
+					                  <a class="btn_wrap  " href="/admin/adminReview" >
 					                    <span>수강평 리스트</span> 
 					                  </a>
 					                </li>

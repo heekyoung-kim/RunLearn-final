@@ -36,4 +36,5 @@ public class AdminPageDto {
 	private int totalOrderCount;
 	
 	private int submitClassCount;
+	private int stopClassCount;
 }

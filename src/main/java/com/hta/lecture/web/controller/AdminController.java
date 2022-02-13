@@ -10,18 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hta.lecture.dto.AdminClassDto;
 import com.hta.lecture.dto.AdminPageDto;
+import com.hta.lecture.dto.AdminReviewDto;
+import com.hta.lecture.dto.AdminUserDto;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
 import com.hta.lecture.dto.CouponDto;
 import com.hta.lecture.dto.CouponPagination;
 import com.hta.lecture.dto.CouponPosessUserDto;
 import com.hta.lecture.dto.MonthIncomeDto;
+import com.hta.lecture.dto.Pagination;
 import com.hta.lecture.dto.UserCouponPagination;
 import com.hta.lecture.service.AdminService;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.web.form.ClassCriteria;
 import com.hta.lecture.web.form.CouponCriteria;
+import com.hta.lecture.web.form.Criteria;
 import com.hta.lecture.web.form.UserCouponCriteria;
 
 
@@ -46,46 +51,97 @@ public class AdminController {
 		adminPage.setTotalClassCount(adminService.getTotalClassCount());
 		adminPage.setTotalOrderCount(adminService.getTotalOrderCount());
 		adminPage.setTotalIncome(adminService.getTotalIncome());
+		
 		adminPage.setTotalClassGradeAvr(adminService.getGradeAvr());
 		adminPage.setSubmitClassCount(adminService.getSubmitClassCount());
+		adminPage.setStopClassCount(adminService.getStopClassCount());
+		
 		adminPage.setGetIncomeForThisMonth(adminService.getIncomeForThisMonth());
 
 		adminPage.setDeveloperIncomeForThisMonth(adminService.getDeveloperIncomeForThisMonth());
 		adminPage.setSecurityIncomeForThisMonth(adminService.getSecurityIncomeForThisMonth());
 		adminPage.setDataScienceIncomeForThisMonth(adminService.getDataScienceIncomeForThisMonth());
 		
-		List<MonthIncomeDto> monthIncome = adminService.getMonthIncome();
+		//List<MonthIncomeDto> monthIncome = adminService.getMonthIncome();
 		
 		model.addAttribute("adminPage",adminPage);
-		model.addAttribute("monthIncome",monthIncome);
+		//model.addAttribute("monthIncome",monthIncome);
 		
 		return "/admin/adminPage";
 	}
 	
-	@GetMapping("/admin/classList")
+	
+	
+	@GetMapping("/admin/adminClass")
 	public String adminClassList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-			ClassCriteria criteria, Model model) {
+			Criteria criteria, Model model) {
 
-		logger.info("요청 페이지번호 : " + page);
-		logger.info("검색조건 및 값 :" + criteria);
 		
 		// 검색조건에 해당하는 총 데이터 갯수 조회
-		int totalRecords = classService.getTotalRows(criteria);
+		int classRecords = adminService.getClassTotalRows(criteria);
 		// 현재 페이지번호와 총 데이터 갯수를 전달해서 페이징 처리에 필요한 정보를 제공하는 Pagination객체 생성
-		ClassPagination pagination = new ClassPagination(page, totalRecords);
+		Pagination pagination = new Pagination(page,classRecords);
 		
-		// 요청한 페이지에 대한 조회범위를 criteria에 저장
 		criteria.setBeginIndex(pagination.getBegin());
 		criteria.setEndIndex(pagination.getEnd());
-		logger.info("검색조건 및 값 :" + criteria);
-
-		// 검색조건(value)과 조회범위(beginIndex, endIndex)가 포함된 Criteria를 서비스에 전달해서 데이터 조회
-		List<ClassCourseDto> classes = classService.getAllCourseInfo(criteria);
+		
+		List<AdminClassDto> classes = adminService.getAdminClass(criteria);
 		
 		model.addAttribute("classes", classes);		
 		model.addAttribute("pagination", pagination);
 		
-		return "/admin/classList"; // classList.jsp
+		return "/admin/adminClass";	
+		}
+	
+	@GetMapping("/admin/adminUser")
+	public String adminUserList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			Criteria criteria, Model model) {
+		
+		logger.info("요청 페이지번호 : " + page);
+		logger.info("검색조건 및 값 :" + criteria);
+		
+		// 검색조건에 해당하는 총 데이터 갯수 조회
+		int userRecords = adminService.getUserTotalRows(criteria);
+		// 현재 페이지번호와 총 데이터 갯수를 전달해서 페이징 처리에 필요한 정보를 제공하는 Pagination객체 생성
+		Pagination pagination = new Pagination(page,userRecords);
+		
+		criteria.setBeginIndex(pagination.getBegin());
+		criteria.setEndIndex(pagination.getEnd());
+		
+		// 요청한 페이지에 대한 조회범위를 criteria에 저장
+		logger.info("검색조건 및 값 :" + criteria);
+		
+		List<AdminUserDto> users = adminService.getAdminUser(criteria);
+		
+		model.addAttribute("users", users);		
+		model.addAttribute("pagination", pagination);
+		
+		return "/admin/adminUser"; // 
 	}
+	
+	@GetMapping("/admin/adminReview")
+	public String adminReviewList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			Criteria criteria, Model model) {
+		
+		logger.info("요청 페이지번호 : " + page);
+		logger.info("검색조건 및 값 :" + criteria);
+		
+		// 검색조건에 해당하는 총 데이터 갯수 조회
+		int reviewRecords = adminService.getClassTotalRows(criteria);
+		// 현재 페이지번호와 총 데이터 갯수를 전달해서 페이징 처리에 필요한 정보를 제공하는 Pagination객체 생성
+		Pagination pagination = new Pagination(page,reviewRecords);
+				
+		criteria.setBeginIndex(pagination.getBegin());
+		criteria.setEndIndex(pagination.getEnd());
+		
+		List<AdminReviewDto> reviews = adminService.getAdminReview(criteria);
+		
+		model.addAttribute("reviews", reviews);	
+		model.addAttribute("pagination", pagination);
+		
+		return "/admin/adminReview"; // 
+	}
+	
+	
 	
 }

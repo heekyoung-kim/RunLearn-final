@@ -89,6 +89,7 @@ public class AdminController {
 		
 		model.addAttribute("classes", classes);		
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", criteria);
 		
 		return "/admin/adminClass";	
 		}
@@ -115,6 +116,7 @@ public class AdminController {
 		
 		model.addAttribute("users", users);		
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", criteria);
 		
 		return "/admin/adminUser"; // 
 	}
@@ -138,6 +140,7 @@ public class AdminController {
 		
 		model.addAttribute("reviews", reviews);	
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("criteria", criteria);
 		
 		return "/admin/adminReview"; // 
 	}

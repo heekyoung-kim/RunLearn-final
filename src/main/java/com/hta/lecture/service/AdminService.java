@@ -185,4 +185,8 @@ public class AdminService {
 	public void deleteUser(int userNo) {
 		adminMapper.deleteUser(userNo);
 	}
+	
+	public void deleteReview(int reviewNo) {
+		adminMapper.deleteReview(reviewNo);
+	}
 }

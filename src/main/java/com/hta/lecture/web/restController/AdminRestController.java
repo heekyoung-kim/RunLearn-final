@@ -50,6 +50,29 @@ public class AdminRestController {
 		}
 	}
 	
+	@PostMapping("/deleteReview")
+	public ResponseDto<?> deleteReview(@RequestParam(name ="deleteReview") String deleteReview) {
+		
+		ResponseDto<?> response = new ResponseDto<>();
+		
+		
+		String[] deleteReviews = deleteReview.split(" ");
+		
+		
+		try {
+			
+			for(String deleteReviewNo: deleteReviews) {
+				adminService.deleteReview(Integer.parseInt(deleteReviewNo));
+			}
+			response.setStatus("OK");
+			return response;
+		} catch (RuntimeException e) {
+			response.setStatus("FAIL");
+			response.setError(e.getMessage());
+			return response;
+		}
+	}
+	
 	@PostMapping("/openClass")
 	public ResponseDto<?> openClass(@RequestParam(name ="openClass") String openClass) {
 		

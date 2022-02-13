@@ -51,6 +51,11 @@
 			<nav class="navbar navbar-light bg-light">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">강의 소개</a>
+					<c:if test="${LOGIN_USER.managerStatus eq 'Y'}">
+						<li class="nav-item">
+							<a  href="/admin/adminClass"><button class="btn btn-primary btn-sm m-1">뒤로</button></a>
+						</li>							
+					</c:if>
 				</div>
 			</nav>
 		</div>

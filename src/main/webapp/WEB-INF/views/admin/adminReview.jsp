@@ -379,8 +379,8 @@
 						<input type="hidden" name="classPage" value="1"/>
 						<div class="col-12">
 							<select class="form-select" name="opt">
-								<option value="회원이름" selected ${'회원이름' eq param.couponOpt ? 'selected' : ''}>회원 이름</option>
-								<option value="강의이름" ${'강의이름' eq param.couponOpt ? 'selected' : ''}>강의 이름</option>
+								<option value="회원이름" selected ${'회원이름' eq param.opt ? 'selected' : ''}>회원 이름</option>
+								<option value="강의이름" ${'강의이름' eq param.opt ? 'selected' : ''}>강의 이름</option>
 							</select>
 						</div>
 						<div class="col-12">
@@ -395,11 +395,11 @@
 					</form>
 				</div>
 				<div class="col-2 text-end" id="sort-form">
-						<form class="" method="get" action="adminReview">
-							<input type="hidden" value="${param.sort }" name="sort" />
-							<select class="form-select-sm" aria-label="Default select example">
-								<option selected>리뷰번호순</option>
-								<option value="reviewGrade">평점순</option>
+						<form class="sort" method="get" action="adminReview">
+							<select class="form-select-sm" name="sort">
+								<option value="리뷰번호순" ${'리뷰번호순' eq param.sort ? 'selected' : ''}>리뷰번호순</option>
+								<option value="낮은평점순" ${'낮은평점순' eq param.sort ? 'selected' : ''}>평점▽</option>
+								<option value="높은평점순" ${'높은평점순' eq param.sort ? 'selected' : ''}>평점△</option>
 							</select>
 						</form>
 				</div>
@@ -442,17 +442,17 @@
 									  			</label>
 									  		</td>
 									  		<td>
-									  			<label class="form-check-label" for="coupon-check-${classes.no}">
+									  			<label class="form-check-label" for="coupon-check-${reviews.no}">
 									  				${reviews.grade }
 									  			</label>
 									  		</td>
 									  		<td>
-									  			<label class="form-check-label" for="coupon-check-${classes.no}">
+									  			<label class="form-check-label" for="coupon-check-${reviews.no}">
 									    			${reviews.userName }
 									  			</label>
 									  		</td>
 									  		<td>
-									  			<label class="form-check-label" for="coupon-check-${classes.no}">
+									  			<label class="form-check-label" for="coupon-check-${reviews.no}">
 									  				${reviews.className }
 									  			</label>
 									  		</td>
@@ -473,17 +473,17 @@
 							<nav>
 					  			<ul class="pagination justify-content-center">
 					    			<li class="page-item ${pagination.existPrev ? '' : 'disabled' }">
-					      				<a class="page-link" href="/admin/adminReview?page=${pagination.prevPage }" data-page="${pagination.prevPage }">이전</a>
+					      				<a class="page-link" href="/admin/adminReview?page=${pagination.prevPage }&sort=${criteria.sort}" data-page="${pagination.prevPage }&sort=${criteria.sort}">이전</a>
 					    			</li>
 				
 					    			<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
 						    			<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-						    				<a class="page-link" href="/admin/adminReview?page=${num }" data-page="${num }">${num }</a>
+						    				<a class="page-link" href="/admin/adminReview?page=${num }&sort=${criteria.sort}" data-page="${num }">${num }</a>
 						    			</li>	    			
 					    			</c:forEach>
 				
 					    			<li class="page-item ${pagination.existNext ? '' : 'disabled' }">
-					      				<a class="page-link" href="/admin/adminReview?page=${pagination.nextPage }" data-page="${pagination.nextPage }">다음</a>
+					      				<a class="page-link" href="/admin/adminReview?page=${pagination.nextPage }&sort=${criteria.sort}" data-page="${pagination.nextPage }">다음</a>
 					    			</li>
 					  			</ul>
 							</nav>
@@ -515,12 +515,39 @@
 	
 	});
 	
+	// 리뷰 삭제 버튼
+	$("#btn-delete-review").click(function(){
+		
+		var reviews ="";
+		$(".checkbox .form-checkbox-input").each(function(){
+			if($(this).is(":checked"))  // ":checked"를 이용하여 체크가 되어있는지 아닌지 확인한다.
+				reviews += $(this).val() + " "; 
+		})
+		
+		$.getJSON({
+			type: "post"
+			,url: "/rest/deleteReview"
+			,dataType: "json"
+			,data: {
+				deleteReview: reviews
+			},
+			success : function(response){
+				if(response.status == "OK"){
+					alert("리뷰가 삭제 되었습니다.");
+					location.reload(true);
+				}else{
+					$("#alert-error-register").show().text(response.error);
+				}	
+			}
+		})
+	});
+	
 	// sort 정보를 서버에 전달
 	$("#sort-form select").on("change", function(){
 		var sortValue = $(this).val();
-		$("#sort-form input[name=sort]").val(sortValue);
-		$("#").trigger("submit");
-	})
+		
+		$(".sort").trigger("submit");
+	});
 	
 	
 </script>

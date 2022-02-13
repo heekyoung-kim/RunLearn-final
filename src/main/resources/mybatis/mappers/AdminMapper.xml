@@ -352,7 +352,23 @@
 			CLASS_REVIEW_SCORE	as reviewScore
 	from ( 
 			select
-				row_number() over (order by class_no ASC) rn,
+				row_number() over (
+							<choose>
+								<when test="sort == '낮은평점순'">
+									order by CLASS_REVIEW_SCORE ASC,class_no ASC
+								</when>
+								<when test="sort == '높은평점순'">
+									order by CLASS_REVIEW_SCORE DESC,class_no ASC
+								</when>
+								<when test="sort == '강의번호순'">
+									order by class_no ASC
+								</when>
+								 <otherwise>
+									order by class_no ASC
+								</otherwise>
+							</choose>	
+
+				) rn,
 	            C.CLASS_NO, 
 				C.CLASS_IMAGE, 
 				C.CLASS_TITLE, 
@@ -436,7 +452,28 @@
 			user_deleted_yn	as deletedYN
 		from ( 
 			select
-				row_number() over (order by user_no ASC) rn,
+				row_number() over (
+							<choose>
+								<when test="sort == '번호순'">
+									order by user_no ASC
+								</when>
+								<when test="sort == '높은가입일'">
+									order by user_created_date DESC
+								</when>
+								<when test="sort == '낮은가입일'">
+									order by user_created_date ASC
+								</when>
+								<when test="sort == '지식공유자순'">
+									order by teacher_yn ASC, user_no ASC
+								</when>
+								<when test="sort == '삭제여부순'">
+									order by user_deleted_yn ASC, user_no ASC
+								</when>
+								 <otherwise>
+									order by user_no ASC
+								</otherwise>
+							</choose>	
+				) rn,
 				user_no,
 				user_name,
 				user_tel, 
@@ -499,9 +536,24 @@
 			review_grade		as grade, 
 			user_name 		as userName, 
 			class_title		as className
-			from ( 
+		from ( 
 			select
-				row_number() over (order by review_no ASC) rn,
+				row_number() over (
+							<choose>
+								<when test="sort == '낮은평점순'">
+									order by review_grade ASC
+								</when>
+								<when test="sort == '높은평점순'">
+									order by review_grade DESC
+								</when>
+								<when test="sort == '리뷰번호순'">
+									order by review_no ASC
+								</when>
+								 <otherwise>
+									order by review_no ASC
+								</otherwise>
+							</choose>	
+							) rn,
 				r.review_no, 
 				r.review_content, 
 				r.review_grade, 
@@ -509,23 +561,20 @@
 				c.class_title
 			from 
 				final_review_tb R , final_class_tb C, final_user_tb U
-		<where>
-			 <if test="opt!=null and value !=null">
-			 	<choose>
-					<when test="opt == '회원이름'">
-						u.user_name like  '%' || #{value} || '%'				
-					</when>		 	
-					<when test="opt == '강의이름'">
-						c.class_title = #{value}
-					</when>		 	
-			 	</choose>
-			 </if>
-			and r.class_no = c.class_no
-			and r.user_no = u.user_no
-		 </where>
-		 <if test="sort == 'reviewGrade'">
-			order by review_grade ASC
-		</if>
+			<where>
+				 <if test="opt!=null and value !=null">
+				 	<choose>
+						<when test="opt == '회원이름'">
+							u.user_name like  '%' || #{value} || '%'				
+						</when>		 	
+						<when test="opt == '강의이름'">
+							c.class_title = #{value}
+						</when>		 	
+				 	</choose>
+				 </if>
+				and r.class_no = c.class_no
+				and r.user_no = u.user_no
+			 </where>
 		)
 		  where
 			rn between #{beginIndex} and #{endIndex}
@@ -573,6 +622,11 @@
 		update 	final_user_tb
 		set		user_deleted_yn = 'Y'
 		where	user_no = #{userNo} 
+	</select>
+	
+	<select id="deleteReview" parameterType="int">
+		delete from final_review_tb
+		where review_no = #{reviewNo} 
 	</select>
 	
 </mapper>

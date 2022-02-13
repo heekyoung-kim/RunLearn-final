@@ -398,11 +398,11 @@
 					</form>
 				</div>
 				<div class="col-2 text-end" id="sort-form">
-						<form id=form-sort-filter class="" method="get" action="/class">
-							<input type="hidden" value="${param.sort }" name="sort" />
-							<select class="form-select-sm" aria-label="Default select example">
-								<option selected>강의 번호 순</option>
-								<option value="studentCount">평점 순</option>
+						<form class="sort" method="get" action="adminClass">
+							<select class="form-select-sm" name="sort">
+								<option value="강의번호순" ${'강의번호순' eq param.sort ? 'selected' : ''}>강의번호순</option>
+								<option value="낮은평점순" ${'낮은평점순' eq param.sort ? 'selected' : ''}>평점▽</option>
+								<option value="높은평점순" ${'높은평점순' eq param.sort ? 'selected' : ''}>평점△</option>
 							</select>
 						</form>
 				</div>
@@ -591,6 +591,13 @@
 				}	
 			}
 		})
+	});
+	
+	// sort 정보를 서버에 전달
+	$("#sort-form select").on("change", function(){
+		var sortValue = $(this).val();
+		
+		$(".sort").trigger("submit");
 	});
 	
 	

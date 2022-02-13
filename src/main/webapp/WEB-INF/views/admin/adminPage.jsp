@@ -375,7 +375,7 @@
 		              <div class="card">
 			               <div class="card-header">
 			               		<h3 class="card-title">총 수강생 수</h3>
-			               		<a href="" class="move-button">
+			               		<a href="/admin/adminUser" class="move-button">
 			               			<p class="move-button-text">더보기</p>
 			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
 			               		</a>
@@ -395,7 +395,7 @@
 		              <div class="card">
 			               <div class="card-header">
 			               		<h3 class="card-title">총 강의 수</h3>
-			               		<a href="" class="move-button">
+			               		<a href="/admin/adminClass" class="move-button">
 			               			<p class="move-button-text">더보기</p>
 			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
 			               		</a>
@@ -429,10 +429,6 @@
 		              <div class="card">
 			               <div class="card-header">
 			               		<h3 class="card-title">총 결제 건수</h3>
-			               		<a href="" class="move-button">
-			               			<p class="move-button-text">더보기</p>
-			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-			               		</a>
 			               	</div>
 			                
 			                <div class="card-body d-flex flex-column justify-content-end">
@@ -448,10 +444,6 @@
 		              <div class="card">
 			               <div class="card-header">
 			               		<h3 class="card-title">강의 총 수익</h3>
-			               		<a href="" class="move-button">
-			               			<p class="move-button-text">더보기</p>
-			               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-			               		</a>
 			               	</div>
 			                
 			                <div class="card-body d-flex flex-column justify-content-end">
@@ -471,7 +463,7 @@
 				              <div class="card">
 					               <div class="card-header">
 					               		<h3 class="card-title">강의 개설 요청</h3>
-					               		<a href="" class="move-button">
+					               		<a href="/admin/adminClass?opt=강의상태&value=제출" class="move-button">
 					               			<p class="move-button-text">더보기</p>
 					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
 					               		</a>

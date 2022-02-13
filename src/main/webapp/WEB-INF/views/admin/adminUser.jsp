@@ -398,13 +398,13 @@
 					</form>
 				</div>
 				<div class="col-2 text-end" id="sort-form">
-						<form id=form-sort-filter class="" method="get" action="/adminUser">
-							<input type="hidden" value="${param.sort }" name="sort" />
-							<select class="form-select-sm" aria-label="Default select example">
-								<option selected>번호순</option>
-								<option value="createdDate">가입일</option>
-								<option value="teacherYN">지식공유자순</option>
-								<option value="deletedYN">삭제여부순</option>
+						<form class="sort" method="get" action="adminUser">
+							<select class="form-select-sm" name="sort">
+								<option value="번호순" ${'번호순' eq param.sort ? 'selected' : ''}>번호순</option>
+								<option value="낮은가입일" ${'낮은가입일' eq param.sort ? 'selected' : ''}>가입일▽</option>
+								<option value="높은가입일" ${'높은가입일' eq param.sort ? 'selected' : ''}>가입일△</option>
+								<option value="지식공유자순" ${'지식공유자순' eq param.sort ? 'selected' : ''}>지식공유자순</option>
+								<option value="삭제여부순" ${'삭제여부순' eq param.sort ? 'selected' : ''}>삭제여부순</option>
 							</select>
 						</form>
 				</div>
@@ -488,17 +488,17 @@
 							<nav>
 					  			<ul class="pagination justify-content-center">
 					    			<li class="page-item ${pagination.existPrev ? '' : 'disabled' }">
-					      				<a class="page-link" href="/admin/adminUser?page=${pagination.prevPage }" data-page="${pagination.prevPage }">이전</a>
+					      				<a class="page-link" href="/admin/adminUser?page=${pagination.prevPage }&sort=${criteria.sort}" data-page="${pagination.prevPage }&sort=${criteria.sort}">이전</a>
 					    			</li>
 				
 					    			<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
 						    			<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-						    				<a class="page-link" href="/admin/adminUser?page=${num }" data-page="${num }">${num }</a>
+						    				<a class="page-link" href="/admin/adminUser?page=${num }&sort=${criteria.sort}" data-page="${num }&sort=${criteria.sort}">${num }</a>
 						    			</li>	    			
 					    			</c:forEach>
 				
 					    			<li class="page-item ${pagination.existNext ? '' : 'disabled' }">
-					      				<a class="page-link" href="/admin/adminUser?page=${pagination.nextPage }" data-page="${pagination.nextPage }">다음</a>
+					      				<a class="page-link" href="/admin/adminUser?page=${pagination.nextPage }&sort=${criteria.sort}" data-page="${pagination.nextPage }&sort=${criteria.sort}">다음</a>
 					    			</li>
 					  			</ul>
 							</nav>
@@ -574,7 +574,12 @@
 		})
 	});
 	
-	
+	// sort 정보를 서버에 전달
+	$("#sort-form select").on("change", function(){
+		var sortValue = $(this).val();
+		
+		$(".sort").trigger("submit");
+	});
 	
 </script>
 </body>

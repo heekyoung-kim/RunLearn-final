@@ -96,4 +96,6 @@ public interface AdminMapper {
 	
 	void restoreUser(int userNo);
 	void deleteUser(int userNo);
+	
+	void deleteReview(int reviewNo);
 }

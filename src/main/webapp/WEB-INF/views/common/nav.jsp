@@ -92,6 +92,11 @@
 									<a class="nav-link btn btn-success btn-sm m-1" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
 								</li>							
 							</c:if>
+							<c:if test="${LOGIN_USER.managerStatus eq 'Y'}">
+								<li class="nav-item">
+									<a class="nav-link btn btn-danger btn-sm m-1" href="/admin">관리자</a>
+								</li>							
+							</c:if>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm  m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>

@@ -8,7 +8,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hta.lecture.dto.AdminBoardDto;
+import com.hta.lecture.dto.AdminClassDto;
 import com.hta.lecture.dto.AdminPageDto;
+import com.hta.lecture.dto.AdminReviewDto;
+import com.hta.lecture.dto.AdminUserDto;
 import com.hta.lecture.dto.ClassDetailDto;
 import com.hta.lecture.dto.ClassListDto;
 import com.hta.lecture.dto.CouponDto;
@@ -22,6 +26,7 @@ import com.hta.lecture.mapper.UserCouponMapper;
 import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.Coupon;
 import com.hta.lecture.web.form.CouponCriteria;
+import com.hta.lecture.web.form.Criteria;
 import com.hta.lecture.web.form.ProfitByCategory;
 import com.hta.lecture.web.form.UserCouponCriteria;
 
@@ -56,6 +61,11 @@ public class AdminService {
 	// 개설 제출된 강의의 수
 	public int getSubmitClassCount(){
 		return  adminMapper.getSubmitClassCount();
+	}
+	
+	// 개설 제출된 강의의 수
+	public int getStopClassCount(){
+		return  adminMapper.getStopClassCount();
 	}
 	
 	// 강의 수익 합을 가져온다
@@ -122,6 +132,15 @@ public class AdminService {
 		return getCouponPosessUserList;
 	}
 	
+	public List<AdminBoardDto> getNoAnswerList(){
+		
+		List<AdminBoardDto> noAnswer = adminMapper.getNoAnswerList();
+		return noAnswer;
+	}
+	public int getNoAnswerCount() {
+		return adminMapper.getNoAnswerCount();
+	}
+	
 	
 	public int getCouponUsersTotalRows(UserCouponCriteria userCriteria) {
 		return adminMapper.getCouponUsersTotalRows(userCriteria);
@@ -141,5 +160,43 @@ public class AdminService {
 	
 	public void deleteUserCoupon(int userNo, int couponNo) {
 		adminMapper.deleteUserCoupon(userNo, couponNo);
+	}
+	
+	public List<AdminClassDto> getAdminClass(Criteria criteria){
+		return adminMapper.getAdminClass(criteria);
+	}
+	public int getClassTotalRows (Criteria criteria) {
+		return adminMapper.getClassTotalRows(criteria);
+	}
+	
+	public List<AdminUserDto> getAdminUser(Criteria criteria){
+		return adminMapper.getAdminUser(criteria);
+	}
+	public int getUserTotalRows (Criteria criteria) {
+		return adminMapper.getUserTotalRows(criteria);
+	}
+	
+	public List<AdminReviewDto> getAdminReview(Criteria criteria){
+		return adminMapper.getAdminReview(criteria);
+	}
+	public int getReviewTotalRows (Criteria criteria) {
+		return adminMapper.getReviewTotalRows(criteria);
+	}
+	
+	public void openClass(int classNo) {
+		adminMapper.openClass(classNo);
+	}
+	public void stopClass(int classNo) {
+		adminMapper.stopClass(classNo);
+	}
+	public void restoreUser(int userNo) {
+		adminMapper.restoreUser(userNo);
+	}
+	public void deleteUser(int userNo) {
+		adminMapper.deleteUser(userNo);
+	}
+	
+	public void deleteReview(int reviewNo) {
+		adminMapper.deleteReview(reviewNo);
 	}
 }

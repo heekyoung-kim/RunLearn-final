@@ -14,5 +14,5 @@ public class Criteria {
 	private String value;
 	private int beginIndex;
 	private int endIndex;
-	
+	private String sort;
 }

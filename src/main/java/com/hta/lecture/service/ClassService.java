@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
 import com.hta.lecture.vo.ClassChapter;
@@ -49,7 +50,7 @@ public class ClassService {
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	
-	public Classes getClassDetail(int no) {
+	public ClassesDto getClassDetail(int no) {
 		return classMapper.getClassDetail(no);
 	}
 	
@@ -119,5 +120,12 @@ public class ClassService {
 		public void addNewDetail(ClassDetail classDetail) {
 			classMapper.insertDetail(classDetail);
 		}
+		
+	// 회원번호로 해당 회원이 수강하는 모든 강의 조회
+	public List<Classes> getAllClassToStudentByUserNo(int no) {
+		List<Classes> classesList = classMapper.getAllClassToStudentByUserNo(no);
+		
+		return classesList;
+	}
 		
 }

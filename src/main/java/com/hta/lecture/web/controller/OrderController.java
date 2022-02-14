@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hta.lecture.dto.CartDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.dto.OrderDto;
 import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.service.CartService;
@@ -123,7 +124,7 @@ public class OrderController {
 		
 		for( int classNo : orderClassNos) {
 			// 강의정보 구하기.
-			Classes classInfo = classService.getClassDetail(classNo);
+			ClassesDto classInfo = classService.getClassDetail(classNo);
 			
 			// 2. orderItem 저장.
 			// orderNo, classNo, orderDetailPrice

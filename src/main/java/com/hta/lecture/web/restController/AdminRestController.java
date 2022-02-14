@@ -112,7 +112,7 @@ public class AdminRestController {
 			return response;
 		}
 	}
-	@PostMapping("/deleteUser")
+	@PostMapping("/deleteUserByAdmin")
 	public ResponseDto<?> deleteUser(int userNo) {
 		
 		ResponseDto<?> response = new ResponseDto<>();

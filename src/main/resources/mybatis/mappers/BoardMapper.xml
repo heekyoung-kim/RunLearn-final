@@ -58,9 +58,9 @@
 			from dual
 		</selectKey>
 		insert into final_board_tb
-		(board_no, board_category, board_title, board_content, board_status)
+		(user_no,board_no, board_category, board_title, board_content, board_status)
 		values
-		(#{boardNo}, #{category}, #{title}, #{content}, #{status})
+		(#{userNo},#{boardNo}, #{category}, #{title}, #{content}, #{status})
 	</insert>
 	
 <!-- Tag 추가 -->	
@@ -107,23 +107,37 @@
 <select id="getBoardComments" parameterType="int" resultType="com.hta.lecture.vo.BoardComment">
 	select 
 		comment_no						commentNo,
-		comment_sub_no					commentSubNo,
+		nvl(comment_sub_no,0)			commentSubNo,
 		comment_content					commentContent,
 		comment_registration_date		registrationDate,
 		comment_cnt						commentCnt,
-		comment_like_cnt				commentLikeCnt
+		comment_like_cnt				commentLikeCnt,
+		comment_registration_date		registrationDate
 	from
 		final_comment_tb
 	where
 		board_no = #{value}
+	order by comment_no asc, comment_sub_no asc
 </select>
 
+<!-- 답변(댓글)comment 추가 -->
+	<insert id="addComment" parameterType="com.hta.lecture.vo.BoardComment" >
+		insert into final_comment_tb
+		(user_no, board_no, comment_no, comment_content )
+		values
+		(#{userNo},#{boardNo}, comment_no_seq.nextval, #{commentContent})
+	</insert>
+	
+<!-- 대댓글 Recomment 추가 -->
+	<insert id="addRecomment" parameterType="com.hta.lecture.vo.BoardComment" >
+		insert into final_comment_tb
+		(board_no, comment_no, comment_content, comment_sub_no )
+		values
+		(#{boardNo}, comment_no_seq.nextval, #{commentContent}, #{commentSubNo})
+	</insert>
 
 
-
-
-
-<!-- 
+<!-- 게시글 수정, 삭제
 	<update id="updateBoardByCriteria" parameterType="com.hta.lecture.web.form.BoardCriteria" >
 	</update>
 	

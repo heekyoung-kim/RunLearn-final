@@ -15,15 +15,27 @@ import com.hta.lecture.web.form.Criteria;
 @Mapper
 public interface BoardMapper {
 
-	
+// 게시판리스트조회, 모달게시글 추가	
 	List<BoardDto> getBoardByCriteria(BoardCriteria criteria);
 	void addBoard(Board board);
 	void addTag(Tag tag);
-	
+// 게시글 조회,태그조회,댓글조회	
 	BoardDetailDto getBoardDetailDto(int boardNo);
 	List<Tag> getBoardTags(int boardNo);
 	List<BoardComment> getBoardComments(int boardNo);
 	
+// 댓글, 대댓글 추가
+	void addComment(BoardComment boardComment);
+	void addRecomment(BoardComment boardComment);
+	
+	
+// 댓글, 대댓글 수정, 삭제
+	void updateComment();
+	void deleteComment();
+	
+// 좋아요 
+	
+// 게시글 수정, 삭제, 상태변경
 //	void deleteBoardByCriteria(int boardNo);
 //	void updateBoardByCriteria(Board board);
 }

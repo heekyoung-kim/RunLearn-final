@@ -12,6 +12,7 @@ import com.hta.lecture.dto.BoardDto;
 import com.hta.lecture.dto.ResponseDto;
 import com.hta.lecture.service.BoardService;
 import com.hta.lecture.vo.Board;
+import com.hta.lecture.vo.BoardComment;
 import com.hta.lecture.vo.Tag;
 import com.hta.lecture.web.form.BoardCriteria;
 
@@ -36,7 +37,8 @@ public class BoardRestController {
 						.category(board.getCategory())
 						.status(board.getStatus())
 						.build();
-	
+		
+		log.info("카테고리:"+ addboard.getCategory());
 		List<String> tagNames = board.getTagName();
 		
 		List<Tag> tags = new ArrayList<Tag>();
@@ -58,5 +60,23 @@ public class BoardRestController {
 			return response;
 		}
 		
+	}
+	
+	@PostMapping("/addComment")
+	public ResponseDto<?> addComment(BoardComment boardComment) {
+		ResponseDto<?> response = new ResponseDto<>();
+		
+		boardService.addComment(boardComment);
+		
+		return response;
+	}
+
+	@PostMapping("/addRecomment")
+	public ResponseDto<?> addRecomment(BoardComment boardComment) {
+		ResponseDto<?> response = new ResponseDto<>();
+		
+		boardService.addRecomment(boardComment);
+		
+		return response;
 	}
 }

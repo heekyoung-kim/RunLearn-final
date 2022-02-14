@@ -15,6 +15,9 @@ import com.hta.lecture.web.form.Criteria;
 @Mapper
 public interface BoardMapper {
 
+// 글 조회
+	Board getBoardByNo(int boardNo);
+	
 // 게시판리스트조회, 모달게시글 추가	
 	List<BoardDto> getBoardByCriteria(BoardCriteria criteria);
 	void addBoard(Board board);
@@ -36,7 +39,7 @@ public interface BoardMapper {
 // 좋아요 
 	
 // 게시글 수정, 삭제, 상태변경
-//	void deleteBoardByCriteria(int boardNo);
-//	void updateBoardByCriteria(Board board);
+	void updateBoard(Board board);
+	void deleteBoard(int boardNo);
 }
 

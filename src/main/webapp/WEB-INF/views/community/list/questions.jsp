@@ -70,6 +70,8 @@
 							<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
 							<input type="hidden" name="category" value="질문답변"/>
 							<input type="hidden" name="status" value="미해결"/>
+							<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">
+							
 						</div>			
 						<div class="form-group mb-3">
 							<label for="title">제목</label>
@@ -205,6 +207,7 @@ $(function(){
 	$("#btn-addBoard").click(function(event){
 		
 		$("#alert-error-addBoard").hide();
+		
 		var category = $("#addBoard-form [name=category]").val();
 		var status = $("#addBoard-form [name=status]").val();		
 		var title = $("#addBoard-form [name=title]").val();	
@@ -216,7 +219,7 @@ $(function(){
 		if(title == ""){
 			$("#alert-error-addBoard").show().text("빈칸을 입력해주세요.");
 			return;
-		}		
+		}	
 		$.getJSON({
 			type: "post"
 			,url: "/rest/addBoard"

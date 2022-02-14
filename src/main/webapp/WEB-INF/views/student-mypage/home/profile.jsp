@@ -245,7 +245,7 @@
 
 			$.ajax({
 				type:"Post"
-				,url:"/rest/deleteUser"
+				,url:"/rest/deleteUserByUser"
 				,dataType: "json"	
 				,data:{
 					password : orginPwd

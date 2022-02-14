@@ -640,20 +640,47 @@
 	
 	var date= new Date();
 	
+	let monthIncome = [];
 	let monthIncomes = [];
-	let hi = ["hi","hello"];
+	
+	
 	$(function(){
 		
-		$.getJSON('/rest/admin', function(MonthIocomeDto){
-			$.each(MonthIocomeDto,function(index,item){
+		$.getJSON({
+			type: "get"
+			,url: "/rest/admin"
+			,dataType: "json"
+			,data: {
+				monthIncome : monthIncome
+				}
+		success : function(monthIocome){
+			$.each(monthIocome,function(index,item){
 				monthIncomes.push(item);
 			})
-		})
+		}
+				
+	})
 		
 	});
 	
-	console.log(monthIncomes);
-	console.log(monthIncomes[0]);
+	console.log(monthIncome);
+	let result = monthIncome.find( (some) => some.payMonth === "2022/01");
+	console.log(result); 
+	
+	let result2 = monthIncomes.find( (monthIncome) => monthIncome.totalPrice === 500000);
+	console.log(result2); 
+	
+	const inventory = [
+		  {name : 'apples', quantity : 2},
+		  {name : 'bananas', quantity : 4},
+		  {name : 'cherries', quantity : 9},
+		  {name : 'cherries', quantity : 9}
+		  ];
+	
+		const result3 = inventory.find(fruit => fruit.name === 'cherries');
+
+		console.log(inventory); 
+		console.log(result3); 
 	
 	const pieLabels = [
 	    '개발 · 프로그래밍',

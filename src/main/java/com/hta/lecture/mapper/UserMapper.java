@@ -17,5 +17,6 @@ public interface UserMapper {
 	User getUserByTel(String tel);			// 회원가입시 tel중복 조회
 	void addUser(User user);				// 회원가입
 	void updateUser(User user);				// 회원정보 수정, 회원 탈퇴여부수정(탈퇴처리)
+	
 }
  

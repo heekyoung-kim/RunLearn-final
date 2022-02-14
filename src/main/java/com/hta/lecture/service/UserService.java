@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hta.lecture.exception.LoginErrorException;
 import com.hta.lecture.mapper.UserMapper;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.UserRegisterForm;
 
@@ -23,6 +24,7 @@ public class UserService {
 	// 카카오 로그인
 	public User loginWithKakao(User user) {
 		User savedUser = userMapper.getUserByEmail(user.getEmail());
+		
 		if(savedUser == null) {
 			userMapper.addUser(user);
 		}
@@ -61,7 +63,7 @@ public class UserService {
 		if(telCheck != null) {
 			throw new RuntimeException("이미 존재하는 전화번호입니다.");
 		}
-		
+		//비밀번호 암호화
 		user.setPassword(DigestUtils.sha256Hex(user.getPassword())); // 비밀번호암호화
 		
 		userMapper.addUser(user);
@@ -70,13 +72,7 @@ public class UserService {
 	}
 	// 회원정보 수정
 	public void updateUser(User user) {
-		User usercheck = userMapper.getUserByEmail(user.getEmail());
-		if(usercheck != null) {
-			throw new RuntimeException("이미 가입한 이메일입니다.");
-		}
-		if(usercheck.getTel().equals(user.getTel())) {
-			throw new RuntimeException("이미 존재하는 전화번호입니다.");
-		}
+		
 		userMapper.updateUser(user);
 	}
 	

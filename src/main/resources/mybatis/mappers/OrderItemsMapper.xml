@@ -3,7 +3,7 @@
 <mapper namespace="com.hta.lecture.mapper.OrderItemsMapper">
 
 <insert id="insertOrderItem" parameterType="com.hta.lecture.vo.OrderItem">
-	insert into final_orderItems_tb
+	insert into final_order_items_tb
 	(order_items_no, order_no, class_no, order_detail_price, order_detail_deleted_date)
 	values
 	(order_items_no_seq.nextval, #{orderNo},#{classNo},#{orderDetailPrice},#{orderItemDeletedDate})
@@ -14,5 +14,21 @@
 
 <delete id="deleteOrderitemsByOrderNoItemsNo" parameterType="com.hta.lecture.vo.OrderItem">
 </delete>
+
+<select id="getOrderItemsByOrderNo" parameterType="int" resultType="com.hta.lecture.dto.OrderDto">
+	select
+		A.order_no					orderNo
+		,A.class_no					classNo			
+		,A.order_items_no			orderItemNo
+		,A.order_detail_price		orderDetailPrice
+		,B.class_title				orderClassDetailName
+		,C.class_uploadfiles		classImg
+	from
+		final_order_items_tb A, final_class_tb B, final_class_upfiles C
+	where
+		A.class_no = B.class_no
+	and B.class_no = C.class_no
+	and A.order_no = #{value}
+</select>
 
 </mapper>

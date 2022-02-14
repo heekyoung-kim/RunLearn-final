@@ -32,12 +32,13 @@
 	                 ,A.class_period			as period
 	                 ,A.class_price				as price
 	                 ,A.class_discountprice  	as discountPrice
-	                 ,A.class_image				as img
+	                 ,c.class_uploadfiles		as img
 	                 ,B.cart_no					as cartNo
 	             from
-	                 final_class_tb A, final_cart_tb B
+	                 final_class_tb A, final_cart_tb B, final_class_upfiles C
 	             where
 	                 A.class_no = B.class_no
+	                 and A.class_no = c.class_no
 	                 and user_no = #{value}		
 	</select>
 	

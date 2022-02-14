@@ -21,7 +21,7 @@ public class Order {
 	
 	private int orderNo;
 	private int userNo;
-	private String PayUserName;
+	private String payUserName;
 	private int sumPrice;		// 총합 
 	private int discountPrice;  // 할인
 	private int totalPrice;	// 최종결제금액
@@ -33,6 +33,7 @@ public class Order {
 	private Date refundStauts;
 	private int refundPrice;
 	private int refundFee;
-	private int useCouponNo;
+	private int useCouponNo; // 유저가 사용한 유저쿠폰테이블의 유저쿠폰넘버
 	
 }
+

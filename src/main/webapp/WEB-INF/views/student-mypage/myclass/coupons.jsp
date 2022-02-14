@@ -43,7 +43,7 @@
 								<c:forEach var="coupon" items="${coupons}">
 									<c:choose>
 										<c:when test="${coupon.discountRate eq 0 }">
-											<c:if test="${coupon.useStatus eq 'N' || coupon.periodStatus eq 'N'}">
+											<c:if test="${coupon.useStatus eq 'N' && coupon.periodStatus eq 'N'}">
 												<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 													<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
 													<h6><strong>${coupon.couponName}</strong></h6>
@@ -55,7 +55,7 @@
 											</c:if>
 										</c:when>
 										<c:otherwise>
-											<c:if test="${coupon.useStatus eq 'N' || coupon.periodStatus eq 'N'}">
+											<c:if test="${coupon.useStatus eq 'N' && coupon.periodStatus eq 'N'}">
 												<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 													<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
 													<h6><strong>${coupon.couponName}</strong></h6>
@@ -79,10 +79,18 @@
 												<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 													<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
 													<h6><strong>${coupon.couponName}</strong></h6>
-													<div class="d-flex justify-content-between mt-3 rounded">
-														<p class="text-secondary"><small>기간만료</small></p>
-														<h5 class="text-success"><strong> ${coupon.discountPrice}원</strong></h5>
-													</div>
+													<c:if test="${coupon.useStatus eq 'Y'}">
+														<div class="d-flex justify-content-between mt-3 rounded">
+															<p class="text-secondary"><small>사용만료</small></p>
+															<h5 class="text-success"><strong> ${coupon.discountPrice}원</strong></h5>
+														</div>
+													</c:if>
+													<c:if test="${coupon.periodStatus eq 'Y'}">
+														<div class="d-flex justify-content-between mt-3 rounded">
+															<p class="text-secondary"><small>기간만료</small></p>
+															<h5 class="text-success"><strong> ${coupon.discountPrice}원</strong></h5>
+														</div>
+													</c:if>
 												</div>
 											</c:if>
 										</c:when>
@@ -91,10 +99,18 @@
 												<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 													<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
 													<h6><strong>${coupon.couponName}</strong></h6>
-													<div class="d-flex justify-content-between mt-3 rounded">
-														<p class="text-secondary"><small>기간만료</small></p>
-														<h5 class="text-success"><strong> ${coupon.discountRate}%</strong></h5>
-													</div>
+													<c:if test="${coupon.useStatus eq 'Y'}">													
+														<div class="d-flex justify-content-between mt-3 rounded">
+															<p class="text-secondary"><small>사용만료</small></p>
+															<h5 class="text-success"><strong> ${coupon.discountRate}%</strong></h5>
+														</div>
+													</c:if>
+													<c:if test="${coupon.periodStatus eq 'Y'}">													
+														<div class="d-flex justify-content-between mt-3 rounded">
+															<p class="text-secondary"><small>기간만료</small></p>
+															<h5 class="text-success"><strong> ${coupon.discountRate}%</strong></h5>
+														</div>
+													</c:if>
 												</div>
 											</c:if>
 										</c:otherwise>
@@ -109,7 +125,7 @@
 										<c:when test="${coupon.discountRate eq 0 }">
 											<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 												<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
-												<h6><strong>${coupon.couponName}</strong></h6>
+												<h6 class="${coupon.useStatus eq 'Y' || coupon.periodStatus eq 'Y'  ? 'text-secondary' : ''}"><strong>${coupon.couponName}</strong></h6>
 												<div class="d-flex justify-content-between mt-3 rounded">
 													<p class="text-secondary"><small>D-${coupon.getRemainDate()}</small></p>
 													<h5 class="text-success"><strong> ${coupon.discountPrice}원</strong></h5>
@@ -119,9 +135,17 @@
 										<c:otherwise>
 											<div class="col-4 shadow-sm p-3 mb-5 bg-body rounded m-2">
 												<p class="text-secondary"><small><fmt:formatDate value="${coupon.periodDate}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>까지</small></p>
-												<h6><strong>${coupon.couponName}</strong></h6>
+												<h6 class="${coupon.useStatus eq 'Y' || coupon.periodStatus eq 'Y'  ? 'text-secondary' : ''}"><strong>${coupon.couponName}</strong></h6>
 												<div class="d-flex justify-content-between mt-3 rounded">
-													<p class="text-secondary"><small>D-${coupon.getRemainDate()}</small></p>
+													<c:if test="${coupon.useStatus eq 'Y'}">													
+															<p class="text-secondary"><small>사용완료</small></p>
+													</c:if>
+													<c:if test="${coupon.periodStatus eq 'Y'}">													
+															<p class="text-secondary"><small>기간만료</small></p>
+													</c:if>
+													<c:if test="${coupon.useStatus eq 'N' && coupon.periodStatus eq 'N'}">
+														<p class="text-secondary"><small>D-${coupon.getRemainDate()}</small></p>
+													</c:if>												
 													<h5 class="text-success"><strong> ${coupon.discountRate}%</strong></h5>
 												</div>
 											</div>

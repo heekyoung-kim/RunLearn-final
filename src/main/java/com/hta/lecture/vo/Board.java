@@ -24,11 +24,8 @@ public class Board {
 	private String title;
 	private String content;
 	private String status;
-	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date createdDate;
-	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date updateDate;
-	@JsonFormat(pattern = "yyyy년 M월 d일")
 	private Date deleteDate;
 	private int boardLikeCnt;
 	private int commentCnt;

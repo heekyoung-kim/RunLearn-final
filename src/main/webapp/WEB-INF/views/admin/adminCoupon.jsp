@@ -503,7 +503,7 @@
 	</div>
 </div>
 					<div class="col-12 checkbox">
-						<table class="table" id="table-books">
+						<table class="table" id="table-coupon">
 							<thead>
 								<tr>
 									<th style="width: 5%;">
@@ -529,7 +529,7 @@
 											<td>
 							  					<input class="form-checkbox-input" type="checkbox" name="userCoupon" id="user-check-${loop.count}" value="${couponUsers.userNo}" >
 							  				</td>
-											<td>${loop.count }</td>
+											<td>${couponUsers.userNo }</td>
 											<td>${couponUsers.userName }</td>
 											<td>${couponUsers.userEmail }</td>
 											<td>
@@ -628,7 +628,7 @@
 		var couponOpt = $("select[name=couponOpt]").val();
 		var couponValue = $.trim((":input[name=couponValue]").val());
 		
-		if(opt && value){
+		if(couponOpt && couponValue){
 			$("#form-search-coupon").trigger("submit");
 		}
 		
@@ -640,7 +640,7 @@
 		var userCouponOpt = $("select[name=userCouponOpt]").val();
 		var userValue = $.trim((":input[name=userCouponValue]").val());
 		
-		if(opt&&value){
+		if(userCouponOpt&&userValue){
 		$("#form-search-coupon").trigger("submit");
 		}
 		

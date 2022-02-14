@@ -10,11 +10,15 @@
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="m-3 p-5">
-	<%@include file="../student-mypage-leftbar.jsp" %>
-</div>
 <div class="container">
-  
+  	<div class="row mt-3">
+		<div class="col-3">
+			<%@include file="../student-mypage-leftbar.jsp" %>
+		</div>
+		<div class="col-9 my-4">
+		<!-- 이 안에 구현 -->
+		</div>
+	</div>
 </div>
 </body>
 </html>

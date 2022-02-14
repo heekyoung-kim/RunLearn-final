@@ -107,6 +107,19 @@
     /*width: 16.6666666667%;*/
     padding: .5rem;
     }
+    
+    .section-bg .bg-1{background:#333b3d;}
+	.section-bg .bg-2{background:#f7f7f7; height:100vh;}
+	.navbar-dashboard p{color:#fff;}
+	
+	.right-instructor .card{height:182px; border-radius:8px; flex-direction:column;}
+	.right-instructor .card-header{background:transparent;}
+	.right-instructor .card-header .card-title h6{display:inline-block;}
+	.right-instructor .card-header .card-title a{font-size:.9rem; text-decoration:none;}
+	.right-instructor .card-body{display:flex; width:100%; height:100%;}
+	.right-instructor .card-body .card-text{position:relative; width:100%; height:100%;}
+	.right-instructor .card-body .card-text div{display:flex; justify-content:center; align-items:center; flex-direction:column; width:100%; height:100%;}
+	.right-instructor .card-body p{font-weight:700; font-size:1.5rem; color:#adb5bd;}
 </style>
 <html>
 <head>
@@ -132,7 +145,7 @@
 			          <p class="menu-label">학습관리</p>
 				          <ul class="menu-list">
 			                <li>
-			                  <a class="btn_wrap is_active " href="" >
+			                  <a class="btn_wrap is_active " href="../my-course?no=${LOGIN_USER.no }" >
 			                    <span>내학습</span> 
 			                  </a>
 			                </li>

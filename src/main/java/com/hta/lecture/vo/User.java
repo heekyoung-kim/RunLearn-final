@@ -21,6 +21,7 @@ public class User{
 
 	private int no;
 	private String email;
+	private String orignPwd; //비밀번호변경시 현재비밀번호 확인용.
 	private String password;
 	private String name;
 	private String tel;

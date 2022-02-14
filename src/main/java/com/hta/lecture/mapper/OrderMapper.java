@@ -14,6 +14,6 @@ public interface OrderMapper {
 	void deleteOrderByOrderItemNo(int orderitemNo);	// 주문아이템 번호로 주문아이템 중 일부 아이템 삭제.
 	void updateOrder(Order order);					// 주문상태 update (환불신청, 환불완료로 변경시 사용.)
 	void insertOrder(Order order);					// 주문정보 저장.(결제후)
-	List<OrderDto> getOrderList(int userNo);			// 주문정보 조회.(주문결제내역)
+	List<OrderDto> getOrderListByUserNo(int userNo);			// 주문정보 조회.(주문결제내역)
 	
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hta.lecture.mapper.ChapterMapper">
+	
+	<!-- 강의번호로 해당 강의의 챕터정보를 조회 -->
+	<select id="getChapterByClassNo" parameterType="int" resultType="com.hta.lecture.dto.ChapterDto">
+		select
+			chapter_no				as no,
+			chapter_title 			as title,
+			chapter_content 		as content,
+			b.class_no 				as classNo
+		from
+			final_class_tb a, final_chapter_tb b
+		where
+			a.class_no = b.class_no
+			and b.class_no = #{no}
+	</select>
+	
+	<!-- 챕터정보로 해당 챕터의 상세 수업정보를 조회 -->
+	<select id="getClassDetailByChapterNo" parameterType="int" resultType="com.hta.lecture.vo.ClassDetail">
+		select
+			class_detail_no 		as detailNo,
+			class_detail_title 		as detailTitle,
+			class_detail_content 	as detailContent,
+			class_detail_free 		as free,
+			a.chapter_no			as chapterNo
+		from
+			final_chapter_tb a, final_class_detail_tb b
+		where
+			a.chapter_no = b.chapter_no
+			and a.chapter_no = #{value}
+	</select>
+	
+</mapper>

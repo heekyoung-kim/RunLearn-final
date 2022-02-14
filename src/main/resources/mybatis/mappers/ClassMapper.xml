@@ -3,9 +3,9 @@
 <mapper namespace="com.hta.lecture.mapper.ClassMapper">
 	
 	<!-- 강의번호로 강의정보를 조회 -->
-	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.vo.Classes">
+	<select id="getClassDetail" parameterType="int" resultType="com.hta.lecture.dto.ClassesDto">
 		select
-			class_no				as no,
+			a.class_no				as no,
 			class_title				as title,
 			class_content			as content,
 			class_difficultly		as difficultly,
@@ -26,11 +26,13 @@
 			class_total_time		as totalTime,
 			class_isdeleted			as isDeleted,
 			teacher_no				as teacherNo,
-			b.category_no			as categoryNo
+			b.category_no			as categoryNo,
+			class_uploadfiles 		as uploadfiles
 		from
-			final_class_tb a, final_category_tb b
+			final_class_tb a, final_category_tb b, final_class_upfiles c
 		where
-			a.category_no = b.category_no and class_no = #{value}
+			a.category_no = b.category_no and a.class_no = c.class_no
+			and a.class_no = #{value}
 	</select>
 	
 	<!-- 회원 번호로 해당 강사의 강의 수를 조회 -->
@@ -374,33 +376,6 @@
 		group by class_no) RC
 	-->
 
-	<!-- 전체 강의 리스트 -->
-	<select id="getAllClass" resultType="com.hta.lecture.dto.ClassListDto">
-		select
-			A.class_no				as no,
-			A.class_title				as title,
-			A.class_content			as content,
-			A.class_difficultly		as difficultly,
-			A.class_image				as image,
-			A.class_video				as video,
-			A.class_income			as income,
-			A.class_period			as period,
-			A.class_price				as price,
-			A.class_discountprice		as discountPrice,
-			A.class_permission		as permission,
-			A.class_filter			as filter,
-			A.class_status			as status,
-			A.class_application_date	as applicationDate,
-			A.class_open_date			as openDate,
-			A.class_updated_date		as updatedDate,
-			A.class_deleted_date		as deletedDate,
-			A.class_total_count		as totalCount,
-			A.class_total_time		as totalTime,
-			A.class_isdeleted			as isDeleted
-		from 
-	        final_class_tb A
-        order by A.class_no asc
-	</select>
 	<!-- 강의 만들기 -->
 	<insert id="insertClass" parameterType="com.hta.lecture.vo.Classes">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
@@ -481,6 +456,7 @@
 			class_no = #{value}
 	</select>
 	
+	<!-- 회원번호로 강사(지식공유자)번호 조회 -->
 	<select id="getTeacherNoByUserNo" parameterType="int" resultType="int">
 		select
 		    b.teacher_no as teacherNo
@@ -506,6 +482,37 @@
 			B.chapter_no as chapterNo
 		from
 			final_chapter_tb A , final_class_detail_tb B	
+
+	<!-- 회원번호로 해당 회원이 수강하는 강의 리스트 조회 -->
+	<select id="getAllClassToStudentByUserNo" parameterType="int" resultType="com.hta.lecture.vo.Classes">
+		select
+			b.class_no				as no,
+			class_title				as title,
+			class_content			as content,
+			class_difficultly		as difficultly,
+			class_image				as image,
+			class_video				as video,
+			class_income			as income,
+			class_period			as period,
+			class_price				as price,
+			class_discountprice		as discountPrice,
+			class_permission		as permission,
+			class_filter			as filter,
+			class_status			as status,
+			class_application_date	as applicationDate,
+			class_open_date			as openDate,
+			class_updated_date		as updatedDate,
+			class_deleted_date		as deletedDate,
+			class_total_count		as totalCount,
+			class_total_time		as totalTime,
+			class_isdeleted			as isDeleted,
+			teacher_no				as teacherNo,
+			c.category_no			as categoryNo
+		from
+			final_user_tb a,final_class_tb b, final_category_tb c, final_progress_tb d
+		where
+			a.user_no = d.user_no and b.class_no = d.class_no and b.category_no = c.category_no
+			and a.user_no = #{no}
 	</select>
 	
 </mapper>

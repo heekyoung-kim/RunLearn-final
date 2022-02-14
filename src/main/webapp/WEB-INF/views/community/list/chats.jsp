@@ -17,29 +17,22 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp"%>
-<div class="container-fluid">
-	<section class="community-header" style="background: black">
-		<div class="community-header__content">
-			<h2 class="fs-4 my-3 text-light fw-bold" style="color:white; font-size:30px;">이야기를 나눠요</h2>
-			<p class="fs-6 text-light" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
+<div class="container" >
+		<div class="bg-black" >
+			<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">이야기를 나눠요</h2>
+			<p class="fs-6 text-light" style="color:white;">82만명의 커뮤니티!! 함께 토론해봐요.</p>
 		</div>
-	</section>
 <%@ include file="../../community/left.jsp"%>
 <!-- 검색, 태그창 -->
 <div class="row">
-	<form id="form-search"  class= "col-lg-6" method="get" action="questions">
+	<form id="form-search"  class= "col-lg-6" method="get" action="chats">
 		<input type="hidden" name="status" value="${param.status}" />
 		<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
 		<input type="text" name="search" class= "col-lg-9" value="${param.search}" placeholder="대화내용을 검색해보세요!" />
 		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
 	</form>
 </div>  
-<div class="row" id="search-tag-box">	
-	<form id="form-search-class" class="col-lg-4" method="get" action="/tag">
-		<input class="form-control" name="search-tag" value="${param.tag }" type="search" placeholder="태그로 검색해보세요!" aria-label="Search-Tags"/>
-		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-clear">초기화</button>
-	</form>
-</div>	
+
 
 <!-- 최신순, 답변많은순, 좋아요순 버튼 -->
 <div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
@@ -62,10 +55,10 @@
 				<div class="modal-body">
 						<div class="form-group mb-3">
 							<label for="category">카테고리</label>
-							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문</button>
+							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문답변</button>
 							<button type="button" class="btn btn-outline-success" id="btn-freeTalk" >자유주제</button>
 							<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
-							<input type="hidden" name="category" value="질문"/>
+							<input type="hidden" name="category" value="질문답변"/>
 							<input type="hidden" name="status" value="미해결"/>
 						</div>			
 						<div class="form-group mb-3">
@@ -134,7 +127,7 @@ $(function(){
 	});
 
 	$("#btn-questions").click(function(){
-		$("#addBoard-form [name=category]").val("질문");
+		$("#addBoard-form [name=category]").val("질문답변");
 		$("#addBoard-form [name=status]").val("미해결");	
 		$('#btn-freeTalk').removeClass('active');
 	    $('#btn-study').removeClass('active');

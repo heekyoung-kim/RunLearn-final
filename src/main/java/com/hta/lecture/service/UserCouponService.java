@@ -69,9 +69,14 @@ public class UserCouponService {
 	}
 	
 	// 총 보유쿠폰갯수조회
-	public int totalCouponCntByUserNo(int userNo) {
-		int totalCoupon = userCouponMapper.totalCouponCntByUserNo(userNo);
-		return totalCoupon;
+	public int totalUseCouponCntByUserNo(int userNo) {
+		int totalUseCoupon = userCouponMapper.totalUseCouponCntByUserNo(userNo);
+		return totalUseCoupon;
+	}
+	
+	public int totalNoUseCouponCntByUserNo(int userNo) {
+		int totalNoUseCoupon = userCouponMapper.totalNoUseCouponCntByUserNo(userNo);
+		return totalNoUseCoupon;
 	}
 	
 }

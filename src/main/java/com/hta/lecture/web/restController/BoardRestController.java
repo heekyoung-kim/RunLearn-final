@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hta.lecture.dto.BoardDto;
 import com.hta.lecture.dto.ResponseDto;
 import com.hta.lecture.service.BoardService;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Board;
+import com.hta.lecture.vo.BoardComment;
 import com.hta.lecture.vo.Tag;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.BoardCriteria;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +33,17 @@ public class BoardRestController {
 	
 		ResponseDto<?> response = new ResponseDto<>();
 		
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		
 		Board addboard = Board.builder()
+						.userNo(user.getNo())
 						.title(board.getTitle())
 						.content(board.getContent())
 						.category(board.getCategory())
 						.status(board.getStatus())
 						.build();
-	
+		
+		log.info("카테고리:"+ addboard.getCategory());
 		List<String> tagNames = board.getTagName();
 		
 		List<Tag> tags = new ArrayList<Tag>();
@@ -59,4 +66,50 @@ public class BoardRestController {
 		}
 		
 	}
+	
+	@PostMapping("/addComment")
+	public ResponseDto<?> addComment(BoardComment boardComment) {
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		
+		ResponseDto<?> response = new ResponseDto<>();
+		boardComment.setUserNo(user.getNo());
+		boardService.addComment(boardComment);
+		
+		return response;
+	}
+
+	@PostMapping("/addRecomment")
+	public ResponseDto<?> addRecomment(BoardComment boardComment) {
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		
+		ResponseDto<?> response = new ResponseDto<>();
+		boardComment.setUserNo(user.getNo());
+		boardService.addRecomment(boardComment);
+		
+		return response;
+	}
+	
+	// 게시글 수정
+	
+	
+	// 게시글 삭제
+	
+	
+	// 답변 수정
+	
+	
+	// 답변 삭제
+	
+	
+	// 대댓글 수정
+	
+	
+	
+	// 대댓글 삭제
+	
+	
+	// 상태 수정
+	
+	
+	// (좋아요)
 }

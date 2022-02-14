@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hta.lecture.exception.LoginErrorException;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.utils.SessionUtils;
+import com.hta.lecture.vo.Teacher;
 import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.KakaoLoginForm;
 import com.hta.lecture.web.form.UserRegisterForm;
@@ -71,19 +72,32 @@ public class HomeController {
 					.build();
 		
 		User savedUser = userService.loginWithKakao(user);
-		
-		// 저장된 회원정보가 없으면 전달받은 회원정보를 세션에 저장, 있으면 기존 정보 저장.
-		if(savedUser != null) {
-			SessionUtils.addAttribute("LOGIN_USER", savedUser);
-		}else {
+		if (savedUser != null) {
+
+			if(savedUser.getDeletedStatus().equals("Y")) {
+				/*	throw new RuntimeException("탈퇴된 회원입니다.");*/
+				return"redirect:/?error=deleted";
+			} else  {
+				SessionUtils.addAttribute("LOGIN_USER", savedUser);
+			}
+			
+		} else {
 			SessionUtils.addAttribute("LOGIN_USER", user);
 		}
 		
+		
 		return "redirect:/";
 	}
-	
+	// 강사신청페이지
 	@GetMapping("/open-knowledge")
 	public String openKnowledge() {
+		return"openKnowledge";
+	}
+	// 강사등록
+	@PostMapping("/addTeacher")
+	public String addTeacher(Teacher teacher) {
+		
+		
 		return"openKnowledge";
 	}
 }

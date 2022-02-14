@@ -96,7 +96,7 @@ public class AdminRestController {
 		}
 	}
 	
-	@PostMapping("/restoreUser")
+	@PostMapping("/restoreUserByAdmin")
 	public ResponseDto<?> restoreUser(int userNo) {
 		
 		ResponseDto<?> response = new ResponseDto<>();

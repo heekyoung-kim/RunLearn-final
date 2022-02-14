@@ -79,7 +79,7 @@
 	
 	<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mt-3 gx-4">
 		<input type="hidden" value="${param.category }" name="category" />
-		<c:forEach var="course" items="${classes }">					
+		<c:forEach var="course" items="${classes }">
 			<div class="col mb-3" id="card-${course.no }">
 				<div class="card h-100">
 					<a href="/course/${course.no }" class="stretched-link" data-course-no="${course.no }"></a>

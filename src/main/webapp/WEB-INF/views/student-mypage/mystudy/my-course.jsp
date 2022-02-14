@@ -48,6 +48,9 @@
 							    </div>
 							  </div>
 						    </c:forEach>
+						    <c:forEach var="test" items="${chapterList }">
+						    	${test.title }
+						    </c:forEach>
 						</div>
 					</div>
 				</div>

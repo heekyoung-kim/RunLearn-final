@@ -10,6 +10,15 @@ public class ClassDetail {
 	
 	public ClassDetail() {}
 
+	public ClassDetail(int detailNo, String detailTitle, String detailContent, String detailFree, int chapterNo) {
+		super();
+		this.detailNo = detailNo;
+		this.detailTitle = detailTitle;
+		this.detailContent = detailContent;
+		this.detailFree = detailFree;
+		this.chapterNo = chapterNo;
+	}
+
 	public int getDetailNo() {
 		return detailNo;
 	}

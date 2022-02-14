@@ -123,7 +123,7 @@ public class ClassController {
 			progressService.insertPrgoressByUserNoClassNo(progress);
 		}
 		
-		return "redirect:/courses/detail";
+		return "redirect:/course/" + no;
 	}
 	
 	@GetMapping("/insert.do")
@@ -163,16 +163,6 @@ public class ClassController {
 		classService.addNewClass(classes, classFiles);
 		
 		return "redirect:";
-	}
-	
-	@GetMapping("{no}/dashboard")
-	public String courseDetail(@PathVariable(name = "no") int no, Model model) {
-		
-		ClassesDto classes = classService.getClassDetail(no);
-		
-		model.addAttribute("classes", classes);
-		
-		return "courses/dashboard";
 	}
 	
 }

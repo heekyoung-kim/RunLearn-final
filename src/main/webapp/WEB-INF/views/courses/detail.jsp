@@ -80,7 +80,7 @@
 								<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }" id="is-priced">수강신청</a><br>
 							</c:if>
 							<c:if test="${classes.price le 0 }">
-								<form method="get" action="insert-progress" id="free-form">
+								<form method="post" action="insert-progress" id="free-form">
 									<input type="hidden" name="no" value="${classes.no }" />
 									<h3 class="card-title"><strong>무료</strong></h3>
 									<button type="submit" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" id="is-free">바로 학습하기</button><br>

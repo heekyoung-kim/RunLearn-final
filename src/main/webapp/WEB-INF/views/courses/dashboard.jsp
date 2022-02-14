@@ -58,51 +58,23 @@
 	<div class="row">
 		<div class="col class-dashboard my-3 p-3">
 			<p class="fs-3 mb-3">교육과정</p>
-			<div class="list-group mb-2">
-				<div>
-					<a id="section-btn-1" class="list-group-item bg-light d-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapseExample">
-						<span class="toggle-text minus">
-							<i class="i-1"></i>
-							<i class="i-2"></i>
-						</span>
-						<span class="section-text">섹션0. 1강</span>
-						<span class="float-end fs-6"></span>	
-					</a>
+			<c:forEach var="chapter" items="${chapterList }">
+				<div class="list-group mb-2">
+					<div>
+						<a id="section-btn-${chapter.no }" class="list-group-item bg-light d-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#collapse-${chapter.no }" role="button" aria-expanded="false" aria-controls="collapse-${chapter.no }">
+							<span class="toggle-text minus">
+								<i class="i-1"></i>
+								<i class="i-2"></i>
+							</span>
+							<span class="section-text">${chapter.title }</span>
+							<span class="float-end fs-6"></span>	
+						</a>
+					</div>
+					<div class="collapse show" id="collapse-${chapter.no }">
+						<a href="" class="list-group-item d-block text-decoration-none text-secondary">${chapter.classDetail }</a>
+					</div>
 				</div>
-				<div class="collapse show" id="collapse-1">
-					<a href="" class="list-group-item d-block text-decoration-none text-secondary">자바스크립트 입문자들께 드리는 말씀</a>
-				</div>
-			</div>
-			<div class="list-group">
-				<div>
-					<a id="section-btn-1" class="list-group-item bg-light d-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapseExample">
-						<span class="toggle-text minus">
-							<i class="i-1"></i>
-							<i class="i-2"></i>
-						</span>
-						<span class="section-text">섹션1. 2강</span>
-						<span class="float-end fs-6"></span>	
-					</a>
-				</div>
-				<div class="collapse show" id="collapse-1">
-					<a href="" class="list-group-item d-block text-decoration-none text-secondary">자바스크립트 입문자들께 드리는 말씀</a>
-				</div>
-			</div>
-			<div class="list-group">
-				<div>
-					<a id="section-btn-1" class="list-group-item bg-light d-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapseExample">
-						<span class="toggle-text minus">
-							<i class="i-1"></i>
-							<i class="i-2"></i>
-						</span>
-						<span class="section-text">섹션2. 3강</span>
-						<span class="float-end fs-6"></span>	
-					</a>
-				</div>
-				<div class="collapse show" id="collapse-1">
-					<a href="" class="list-group-item d-block text-decoration-none text-secondary">자바스크립트 입문자들께 드리는 말씀</a>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>

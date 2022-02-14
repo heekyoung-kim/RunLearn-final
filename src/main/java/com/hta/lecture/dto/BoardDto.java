@@ -20,6 +20,7 @@ import lombok.ToString;
 	@Getter
 	public class BoardDto {
 		private int boardNo;
+		private int userNo;
 		private String category;
 		private String title;
 		private String name;

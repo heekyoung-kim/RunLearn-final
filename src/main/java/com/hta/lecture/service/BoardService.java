@@ -62,6 +62,12 @@ public class BoardService {
 	
 	}
 	
+	public void addComment(BoardComment boardComment) {
+		boardMapper.addComment(boardComment);		
+	}
+	public void addRecomment(BoardComment boardComment) {
+		boardMapper.addRecomment(boardComment);		
+	}
 	//public void updateBoard()
 
 }

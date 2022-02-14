@@ -488,8 +488,8 @@
 					    <div class="card-wrapper" style="width: 50%">
 				              <div class="card">
 					               <div class="card-header">
-					               		<h3 class="card-title">미답변 질문 리스트</h3>
-					               		<a href="" class="move-button">
+					               		<h3 class="card-title">미해결 질문 리스트</h3>
+					               		<a href="" class="move-button" id="btn-noAnswer-list" data-bs-toggle="modal" data-bs-target="#noAnswerListModal">
 					               			<p class="move-button-text">더보기</p>
 					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
 					               		</a>
@@ -498,7 +498,7 @@
 					                <div class="card-body d-flex flex-column justify-content-end">
 					                  <div class="card-summary-body">
 					                    <div class="card-body-content">
-					                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.totalClassCount }개</p>
+					                      <p class="font-sans-serif lh-1 mb-1 fs-4">${adminPage.noAnswerCount }개</p>
 					                    </div>
 					                  </div>
 					                </div>
@@ -559,6 +559,67 @@
 							<p>${monthIncome.totalPrice}</p>
 					</c:forEach>-->
 					
+		</div>
+		<div class="modal fade" id="noAnswerListModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="writeBoardLabel">미답변 리스트</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<table class="table" id="table-books">
+				<thead>
+					<tr>
+						<th style="width: 5%;">번호</th>
+						<th style="width: 7%;">분류</th>
+						<th style="width: 20%;">제목</th>
+						<th style="width: 10%;">상태</th>
+						<th style="width: 5%">글쓴이</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:choose>
+						<c:when test="${empty noAnswer }">
+							<tr>
+								<td class="text-center" colspan="6">미해결 글이 없습니다.</td>
+							</tr>
+							</c:when>
+								<c:otherwise>
+									<c:forEach var="noAnswer" items="${noAnswer }" varStatus="loop">
+										 <tr>
+							  				<td>
+									  			<label class="form-check-label" for="coupon-check-${noAnswer.no}}">
+									    			${noAnswer.no }
+									  			</label>
+							  				</td>
+							  				<td>
+									  			<label class="form-check-label" for="coupon-check-${noAnswer.no}">
+									    			${noAnswer.category}
+									  			</label>
+									  		</td>
+									  		<td>
+									  			<label class="form-check-label" for="coupon-check-${noAnswer.no}">
+									    			${noAnswer.title}
+									  			</label>
+									  		</td>
+									  		<td>
+									  			<label class="form-check-label" for="coupon-check-${noAnswer.no}">
+									    			${noAnswer.status}
+									  			</label>
+									  		</td>
+									  		<td>
+									  			<label class="form-check-label" for="coupon-check-${noAnswer.no}">
+									    			${noAnswer.name}
+									  			</label>
+									  		</td>
+							  			</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+							</tbody>
+						</table>
+				</div>
+			</div>			
 		</div>
 	</div>
 <script type="text/javascript">

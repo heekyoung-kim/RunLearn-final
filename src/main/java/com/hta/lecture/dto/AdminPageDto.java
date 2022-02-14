@@ -37,4 +37,6 @@ public class AdminPageDto {
 	
 	private int submitClassCount;
 	private int stopClassCount;
+	
+	private int noAnswerCount;
 }

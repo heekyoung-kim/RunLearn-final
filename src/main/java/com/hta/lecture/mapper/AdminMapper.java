@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.hta.lecture.dto.AdminBoardDto;
 import com.hta.lecture.dto.AdminClassDto;
 import com.hta.lecture.dto.AdminReviewDto;
 import com.hta.lecture.dto.AdminUserDto;
@@ -98,4 +99,7 @@ public interface AdminMapper {
 	void deleteUser(int userNo);
 	
 	void deleteReview(int reviewNo);
+	
+	List<AdminBoardDto> getNoAnswerList();
+	int getNoAnswerCount();
 }

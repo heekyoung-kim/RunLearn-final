@@ -629,4 +629,25 @@
 		where review_no = #{reviewNo} 
 	</select>
 	
+	<select id="getNoAnswerList" resultType="com.hta.lecture.dto.AdminBoardDto">
+		select
+			B.board_no 			as no, 
+			B.board_category	as category, 
+			B.board_title		as title, 
+			B.board_status		as status, 
+			u.user_name			as name
+		from final_board_tb B, final_user_tb U
+		where board_status='미해결'
+		and U.user_no = B.user_no
+		order by board_category ASC,board_no ASC
+	</select>
+	<select id="getNoAnswerCount" resultType="int">
+		select
+			count(*)
+		from final_board_tb B, final_user_tb U
+		where board_status='미해결'
+		and U.user_no = B.user_no
+	</select>
+	
+	
 </mapper>

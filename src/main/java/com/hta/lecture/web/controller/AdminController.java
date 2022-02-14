@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hta.lecture.dto.AdminBoardDto;
 import com.hta.lecture.dto.AdminClassDto;
 import com.hta.lecture.dto.AdminPageDto;
 import com.hta.lecture.dto.AdminReviewDto;
@@ -61,11 +62,12 @@ public class AdminController {
 		adminPage.setDeveloperIncomeForThisMonth(adminService.getDeveloperIncomeForThisMonth());
 		adminPage.setSecurityIncomeForThisMonth(adminService.getSecurityIncomeForThisMonth());
 		adminPage.setDataScienceIncomeForThisMonth(adminService.getDataScienceIncomeForThisMonth());
+		adminPage.setNoAnswerCount(adminService.getNoAnswerCount());
 		
-		//List<MonthIncomeDto> monthIncome = adminService.getMonthIncome();
+		List<AdminBoardDto> noAnswer = adminService.getNoAnswerList();
 		
 		model.addAttribute("adminPage",adminPage);
-		//model.addAttribute("monthIncome",monthIncome);
+		model.addAttribute("noAnswer",noAnswer);
 		
 		return "/admin/adminPage";
 	}

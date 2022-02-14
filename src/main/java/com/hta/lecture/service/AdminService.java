@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hta.lecture.dto.AdminBoardDto;
 import com.hta.lecture.dto.AdminClassDto;
 import com.hta.lecture.dto.AdminPageDto;
 import com.hta.lecture.dto.AdminReviewDto;
@@ -129,6 +130,15 @@ public class AdminService {
 		}
 		
 		return getCouponPosessUserList;
+	}
+	
+	public List<AdminBoardDto> getNoAnswerList(){
+		
+		List<AdminBoardDto> noAnswer = adminMapper.getNoAnswerList();
+		return noAnswer;
+	}
+	public int getNoAnswerCount() {
+		return adminMapper.getNoAnswerCount();
 	}
 	
 	

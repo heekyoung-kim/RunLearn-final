@@ -94,8 +94,8 @@ public class UserInfoRestController {
 		}
 	}
 	
-	// 새비밀번호로 변경.
-	@PostMapping("/deleteUser")
+	// 탈퇴하기
+	@PostMapping("/deleteUserByUser")
 	public ResponseDto<?> deleteUser(User user){
 		ResponseDto<?> response = new ResponseDto<>();
 		try {

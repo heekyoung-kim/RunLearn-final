@@ -16,7 +16,7 @@
 			user_coupon_use_yn = 'Y'
 			,user_coupon_use_date = sysdate
 		where
-			user_coupon_no = #{userCouponNO}
+			user_coupon_no = #{userCouponNo}
 	</update>
 	
 	<select id="getCouponByUserNo" parameterType="int" resultType="com.hta.lecture.dto.UserCouponDto">
@@ -40,7 +40,7 @@
 			and user_no = #{value}
 		order by A.coupon_no	
 	</select>
-	<select id="totalCouponCntByUserNo" parameterType="int" resultType="int">
+	<select id="totalUseCouponCntByUserNo" parameterType="int" resultType="int">
 		select 
 			count(*)
 		from(
@@ -60,7 +60,32 @@
 				final_user_coupon_tb A , final_coupon_tb B
 			where
 				A.coupon_no = B.coupon_no 
-				and user_no = #{value}	
+				and user_no = #{value}
+				and user_coupon_use_yn = 'Y'	
+			)
+	</select>
+	<select id="totalNoUseCouponCntByUserNo" parameterType="int" resultType="int">
+		select 
+			count(*)
+		from(
+			select
+				A.user_coupon_no					userCouponNO
+				,A.user_no							userNo
+				,A.coupon_no 						couponNo
+				,A.user_coupon_use_yn 				useStatus
+				,A.user_coupon_use_date				useDate
+				,A.user_coupon_deleted_date_yn		periodStatus
+				,A.coupon_pub_date					pubDate
+				,B.coupon_name						couponName
+				,B.coupon_discount_rate				discountRate
+				,B.coupon_discount_price			discountPrice
+				,B.coupon_use_period				usePeriod
+			from
+				final_user_coupon_tb A , final_coupon_tb B
+			where
+				A.coupon_no = B.coupon_no 
+				and user_no = #{value}
+				and user_coupon_use_yn = 'N'	
 			)
 	</select>
 </mapper>

@@ -32,7 +32,7 @@
 				<c:forEach var="coupon" items="${coupons}">	
 					<c:choose>
 						<c:when test="${coupon.discountRate eq 0}">					
-							<c:if test="${coupon.useStatus eq 'N'|| coupon.periodStatus eq 'N'}">
+							<c:if test="${coupon.useStatus eq 'N'}">
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="price" data-discount="${coupon.discountPrice}" value="${coupon.userCouponNo}">
 							  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
@@ -42,12 +42,14 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-						<div class="form-check">
-						  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="rate"data-discount="${coupon.discountRate}" value="${coupon.userCouponNo}">
-						  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
-						    ${coupon.discountRate} % | ${coupon.couponName}
-						  </label>
-						</div>
+							<c:if test="${coupon.useStatus eq 'N'}">
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="rate"data-discount="${coupon.discountRate}" value="${coupon.userCouponNo}">
+								  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
+								    ${coupon.discountRate} % | ${coupon.couponName}
+								  </label>
+								</div>
+							</c:if>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -57,7 +59,7 @@
 			<c:if test="${not empty carts}">
 				<label id="">사용할 포인트</label>
 				<div class="mt-1">
-					<input class="form-control" type="number" id="point-use"  placeholder="사용가능포인트 ${LOGIN_USER.point}" min="0" max="${LOGIN_USER.point}" />
+					<input class="form-control" type="number" id="point-use"  placeholder="사용가능포인트 ${LOGIN_USER.point}" value = "0" min="0" max="${LOGIN_USER.point}" />
 				</div>
 			</c:if>
 		</div>
@@ -113,34 +115,30 @@
 				</div>
 				<div class="col-5 mt-3 ">
 					<div class="border p-3">
-						<form class="p-3" id="form-payment" method action="/payment">
-							<input type="hidden" name="classNo" value="">
-							<input type="hidden" name="classTitle" value="">
-							<input type="hidden" name="cartNo" value="">
-							<input type="hidden" name="couponNo" value="">
-		
+						<form class="p-3" id="form-payment">
+							
 							<div class=" d-flex justify-content-between border-bottom">
 								<h4><strong>총 결재금액</strong></h4>
-								<h4 id="total-pay-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h4>
+								<h4> &#8361; <strong id="total-pay-price"><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h4>
 							</div>
 							<div class=" d-flex justify-content-between mt-3">
 								<h6>구매 금액</h6>
-								<h6 id="total-price"> &#8361; <strong><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h6>
+								<h6> &#8361; <strong id="total-price"><fmt:formatNumber pattern="##,###">${cartTotalPrice}</fmt:formatNumber></strong></h6>
 							</div>
 							<div class=" d-flex justify-content-between">
 								<h6>쿠폰할인 </h6>
-								<h6 id="coupon-amount"> &#8361; <strong><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
+								<h6> &#8361; <strong id="coupon-amount"><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
 							</div>
 							<div class=" d-flex justify-content-between border-bottom">
 								<h6>포인트할인 </h6>
-								<h6 id="point-amount"> &#8361; <strong><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
+								<h6> &#8361; <strong id="point-amount"><fmt:formatNumber pattern="##,###">0</fmt:formatNumber></strong></h6>
 							</div>
 							<label class="form-label mt-4">이름</label>
-							<input class="form-control" type="text" name="name" value="${LOGIN_USER.name}" placeholder="이름을 적어주세요."/>
+							<input class="form-control" type="text" name="pay-name" value="${LOGIN_USER.name}" placeholder="이름을 적어주세요."/>
 							<label class="form-label mt-2">휴대폰 번호</label>
-							<input class="form-control" type="number" name="tel" value="${LOGIN_USER.tel}" placeholder="01012345678"/>
+							<input class="form-control" type="number" name="pay-tel" value="${LOGIN_USER.tel}" placeholder="01012345678"/>
 							<label class="form-label mt-2">이메일주소</label>
-							<input class="form-control" type="text" name="email" value="${LOGIN_USER.email}"/>
+							<input class="form-control" type="text" name="pay-email" value="${LOGIN_USER.email}"/>
 							<label class="form-label mt-2">결제수단</label>
 							<button class="form-control btn btn-outline-secondary" type="button" id="btn-kakao-pay">카카오페이로 결제하기</button>
 						</form>
@@ -185,7 +183,7 @@
 	// 포인트, 쿠폰 적용해서 총 결제금액 변경. 
 	// 하나의 값에 여러 기능이 포함되어있다면 하나의 function에 합쳐서 구현.
 	$(function(){
-		const orginalTotalPrice = parseInt($("#total-price strong").text().replace(/,/g, ''));
+		const orginalTotalPrice = parseInt($("#total-price").text().replace(/,/g, ''));
 		//쿠폰
 		$('input[name="userCoupon"]').change(function(){
 			changeTotalPrice();
@@ -218,7 +216,7 @@
 				if (point > maxPoint) {
 					$pointUse.val(maxPoint);
 				}
-				if (point < 0) {
+				if (point <= 0) {
 					$pointUse.val(minPoint);
 				}
 				totalPayPrice -= point;
@@ -300,24 +298,51 @@
 	$(function(){
 		$("#btn-kakao-pay").click(function(){
 			
-			var name = $("#form-payment input[name=name]").val();
-			var tel = $("#form-payment input[name=tel]").val();
-			var email = $("#form-payment input[name=email]").val();
+			// 필수입력값을 확인.
+			var name = $("#form-payment input[name='pay-name']").val();
+			var tel = $("#form-payment input[name='pay-tel']").val();
+			var email = $("#form-payment input[name='pay-email']").val();
 			
 			if(name == ""){
-				$("#form-payment input[name='name']").focus()
+				$("#form-payment input[name='pay-name']").focus()
 			}
 			if(tel == ""){
-				$("#form-payment input[name='tel']").focus()
+				$("#form-payment input[name='pay-tel']").focus()
 			}
 			if(email == ""){
-				$("#form-payment input[name='email']").focus()
+				$("#form-payment input[name='pay-email']").focus()
 			}
 			
-			// 
+			// 결제 정보를 form에 저장한다.
+			let totalPayPrice = parseInt($("#total-pay-price").text().replace(/,/g,''))
+			let totalPrice = parseInt($("#total-price").text().replace(/,/g,''))
+			let discountPrice = totalPrice - totalPayPrice 
+			let usePoint = $("#point-use").val()
+			let useUserCouponNo = $(":radio[name='userCoupon']:checked").val()
+			
+			// 카카오페이 결제전송
+			$.ajax({
+				type:'get'
+				,url:'/order/pay'
+				,data:{
+					total_amount: totalPayPrice
+					,payUserName: name
+					,sumPrice:totalPrice
+					,discountPrice:discountPrice
+					,totalPrice:totalPayPrice
+					,tel:tel
+					,email:email
+					,usePoint:usePoint
+					,useCouponNo:useUserCouponNo	
+					
+				},
+				success:function(response){
+					location.href = response.next_redirect_pc_url			
+				}
+			})
 		})
 	})
-	
+
 </script>
 </body>
 </html>

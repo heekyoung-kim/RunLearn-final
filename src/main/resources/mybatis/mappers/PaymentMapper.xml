@@ -4,9 +4,9 @@
 
 <insert id="insertPayment" parameterType="com.hta.lecture.vo.Payment">
  insert into final_payment_tb
- (order_no, payment_method, payment_class_name)
+ (order_no, payment_method, payment_item_name, payment_paycode)
  values
- (#{orderNo},#{payMathod},#{paymentClassName})
+ (#{orderNo},#{payMathod},#{paymentClassName}, #{payCode} )
 </insert>
 
 <delete id="deletePaymentByOrderNo">

@@ -66,16 +66,84 @@
 	</div>
 	<!-- 쿠폰함 모달창 -->
 	<div class="modal fade" id="open-knowledge" tabindex="-1" aria-labelledby="couponBoxModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				</div>
-				<div class="modal-footer ">
-				</div>
-			</div>
+		<div class="modal-dialog modal-dialog-centered">
+			<c:if test="${empty LOGIN_USER}">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<h5 class="fw-bolder">📌로그인한 회원만 이용가능합니다.</h5>
+							<p class=" ps-4">로그인 후 이용해주세요</p>
+						</div>
+					</div>
+							
+			</c:if>
+				<c:if test="${not empty LOGIN_USER && LOGIN_USER.teacherStatus eq 'Y'}">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<h5>👨🏻‍🏫${LOGIN_USER.name}님은 이미 지식공유자입니다.</h5>
+							<p>좋은 강의를 만들어 보상을 가져가세요:D</p>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${not empty LOGIN_USER && LOGIN_USER.teacherStatus eq 'N'}">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="fw-bolder">
+							감사합니다, ${LOGIN_USER.name}님<br>
+							지식공유자가 되기위해서<br>
+							아래 정보를 입력해주세요
+							</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form method="Post" action="/addTeacher">
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-email">인프런 계정</label>
+						        <input type="text" class="form-control" name="user-email"  value="${LOGIN_USER.email}" disabled/>
+						      </div>
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-teacher-email">연락받을 이메일<span class="text-danger">*</span></label>
+						        <input type="text" class="form-control" name="teacher-email" placeholder="자주사용하는 이메일을 입력해주세요"></input>
+						      </div>
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-teacher-name">이름(실명)<span class="text-danger">*</span></label>
+						        <input type="text" class="form-control" name="teacher-name"  placeholder="실명을 입력해주세요."/>
+						      </div>
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-teacher-tel">연락처<span class="text-danger">*</span></label>
+						        <input type="number" class="form-control" name="teacher-tel"  placeholder="01011112222"/>
+						      </div>
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-teacher-hope-category">희망분야<span class="text-danger">*</span></label>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="develop" value="개발/프로그래밍" checked>
+						      	  <label class="form-check-label"  for="develop">개발/프로그래밍</label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="secutrity-network" value="보안/네트워크">
+						      	  <label class="form-check-label"  for="secutrity-network">보안/네트워크</label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="dataScience" value="데이터 사이언스">
+						      	  <label class="form-check-label"  for="dataScience">데이터 사이언스</label>
+								</div>
+						      </div>
+						      <div class="mb-3">
+						      	<label class="form-label" id="label-teacher-intro">나를 소개하는 글<span class="text-danger">*</span></label>
+								<textarea class="form-control" name="intro" style=" width: 100%; height: 8em;"></textarea>
+						      </div>
+					 	      <button type="submit" class="btn btn-success" id="btn-register">가입하기</button>
+							</form>
+						</div>
+						<div class="modal-footer ">
+						</div>
+					</div>
+				</c:if>
 		</div>
 	</div>	
 </div>

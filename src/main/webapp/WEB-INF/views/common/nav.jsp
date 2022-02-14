@@ -99,7 +99,7 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm  m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">로그인</a></li>
+							<li class="nav-item mx-1"><a class="nav-link btn btn-outline-secondary btn-sm  m-1" id="btn-open-modal">로그인</a></li>
 							<li class="nav-item"><a class="nav-link btn btn-primary btn-sm btn-join  m-1" href="registerUser">회원가입</a></li>						
 						</c:otherwise>
 					</c:choose>
@@ -108,8 +108,8 @@
 		</div>
 	</nav>
 <!-- 로그인 모달창 -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal fade" id="model-login-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -123,27 +123,29 @@
 						<div class="mb-3">
 							<input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력하세요"></input>
 						</div>
-						<button type="button" class="btn btn-primary" id="btn-login">로그인</button>
+						<div class="text-center">
+							<button type="button" class="btn" style="width:250px; color:#ffffff; background-color:#00C471;" id="btn-login">로그인</button>
+						</div>
 					</form>
 					<div class="d-flex justify-content-center">
-						<a href="#" class="text-reset p-2" title="Tooltip">비밀번호 찾기</a> 
-						<span class="p-2"> | </span> 
 						<a href="registerUser" class="text-reset p-2" title="Tooltip">회원가입</a>
 					</div>
 				</div>
-				<div class="modal-footer ">
-	    		   <p>SNS 로그인</p>
-		    		<div class="border p-3 mb-4 bg-light d-flex justify-content-between">
-			    		<%-- 
-			    			카카오 로그인 처리중 중 오류가 발생하면 아래 경고창에 표시된다.
-			    			카카오 로그인 오류는 스크립트에서 아래 경고창에 표시합니다.
-			    		 --%>
-			    		<div class="alert alert-danger d-none" id="alert-kakao-login">오류 메세지</div>
-						    		
-		    			<a id="btn-kakao-login" href="/kakao/login">
-		  					<img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="200" alt="카카오 로그인 버튼"/>
-						</a>
-		    		</div>
+				<div class="p-3">
+	    		   <div class="text-center border-top">
+	    		   <p class="mt-3">SNS 로그인</p>
+				    	<div class="alert alert-danger d-none" id="alert-kakao-login">오류 메세지</div>
+			    		<div class="p-3 mb-4">
+				    		<%-- 
+				    			카카오 로그인 처리중 중 오류가 발생하면 아래 경고창에 표시된다.
+				    			카카오 로그인 오류는 스크립트에서 아래 경고창에 표시합니다.
+				    		 --%>
+							    		
+			    			<a id="btn-kakao-login" href="/kakao/login">
+			  					<img src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="200;" alt="카카오 로그인 버튼"/>
+							</a>
+			    		</div>
+	    		   </div>
 		    		<form id="form-kakao-login" method="post" action="/kakao-login">
 		    			<input type="hidden" name="email"/>
 		    			<input type="hidden" name="name"/>
@@ -155,8 +157,30 @@
 	</div>
 </div>
 <script type="text/javascript">
+
+
 // 일반로그인
 $(function(){
+	
+	var loginModal = new bootstrap.Modal(document.getElementById('model-login-form'));
+
+	
+	var kakaoLoginFail = '${param.error}';
+	if (kakaoLoginFail == 'deleted') {
+		$("#alert-error-login").addClass("d-none").text('');
+		$("#alert-kakao-login").addClass("d-none").text("");
+		loginModal.show();
+		$("#alert-kakao-login").removeClass("d-none").text("탈퇴처리된 회원입니다.");
+	}
+	
+	$("#btn-open-modal").click(function(e) {
+		e.preventDefault();
+		$("#alert-error-login").addClass("d-none").text('');
+		$("#alert-kakao-login").addClass("d-none").text("");
+		loginModal.show();
+	});
+	
+	
 	$("#btn-login") .click(function() {
 			$("#alert-error-login").hide();
 			

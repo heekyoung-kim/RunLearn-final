@@ -24,6 +24,7 @@ public class LoginRestController {
 		try {
 			// 로그인기능이 예외없이 처리되면 ok정보 전달, 세션저장.
 			User user = userService.login(email, password);
+			
 			response.setStatus("OK");
 			SessionUtils.addAttribute("LOGIN_USER", user);
 			return response;

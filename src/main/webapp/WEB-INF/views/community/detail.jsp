@@ -20,7 +20,6 @@
 					<div class="col">
 						<div class="mt-5 border-bottom">
 							<input type="hidden" name="boardNo" value="${dto.boardNo }">
-							<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">
 							<h3>
 								<i class="bi bi-quora" style="color: #00C471;"></i>.
 								${dto.title} 
@@ -126,16 +125,14 @@
 
 	
 	$("#comment-btn").click(function() {
-		var boardNo = $("input[name='boardNo']").val();
-		var userNo = $("input[name=board-userNo]").val();
+		var boardNo = $("input[name='boardNo']").val();		
 		var comment = $("#comment-content").val();
 		$.getJSON({
 			type : "post",
 			url : "/rest/addComment",
 			dataType : "json",
 			data : {
-				boardNo : boardNo
-				,userNo : userNo
+				boardNo : boardNo				
 				,commentContent : comment
 			},
 			success : function(response) {
@@ -146,9 +143,14 @@
 		})
 	})
 	
+	
 	$("#recomment-btn").click(function() {
-		
+	
+		var boardNo = $("input[name='boardNo']").val();
+		var comment = $("#comment-content").val();
+		var subNo =???
 	})
+	
 <!--
 	tinymce
 			.init({

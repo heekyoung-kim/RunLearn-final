@@ -63,6 +63,10 @@ public class BoardService {
 	}
 	
 	public void addComment(BoardComment boardComment) {
+		Board board = boardMapper.getBoardByNo(boardComment.getBoardNo());
+		board.setCommentCnt(board.getCommentCnt() + 1);
+		//boardMapper.updateBoard(board);
+		
 		boardMapper.addComment(boardComment);		
 	}
 	public void addRecomment(BoardComment boardComment) {

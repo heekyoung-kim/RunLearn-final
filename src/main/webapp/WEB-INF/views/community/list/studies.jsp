@@ -60,7 +60,7 @@
 				<div class="modal-body">
 						<div class="form-group mb-3">
 							<label for="category">카테고리</label>
-							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문</button>
+							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문답변</button>
 							<button type="button" class="btn btn-outline-success" id="btn-freeTalk" >자유주제</button>
 							<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
 							<input type="hidden" name="category" value="질문"/>

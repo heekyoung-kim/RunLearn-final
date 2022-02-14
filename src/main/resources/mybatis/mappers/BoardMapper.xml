@@ -31,7 +31,7 @@
 		   and (A.board_title like '%' ||  #{search} || '%')
 		</if>
 		<if test="sort == 'date'">
-		 order by A.board_no desc
+		 order by A.board_no asc
 		</if>
 		<if test="sort == 'like'">
 		 order by A.board_like_cnt desc
@@ -70,6 +70,26 @@
 		values
 		(#{boardNo}, tag_no_seq.nextval, #{tagName})
 	</insert>
+<!-- 글번호로 Board조회 -->
+	<select id="getBoardByNo" parameterType="int" resultType="com.hta.lecture.vo.Board">
+		select
+			board_no				boardNo,
+			board_category			category,
+			board_title				title,
+			board_content			content,
+			board_status			status,
+			board_created_date		createdDate,
+			board_update_date		updateDate,
+			board_delete_date		deleteDate,
+			board_like_cnt			boardLikeCnt,
+			board_comment_cnt		commentCnt,
+			board_class_no			classNo,
+			board_user_no			userNo
+		from
+			final_board_tb
+		where
+			board_no = ${boardNo}
+	</select>
 
 <!--글번호로 글상세정보를 조회-->
 <select id="getBoardDetailDto" parameterType="int" resultType="com.hta.lecture.dto.BoardDetailDto">
@@ -131,19 +151,22 @@
 <!-- 대댓글 Recomment 추가 -->
 	<insert id="addRecomment" parameterType="com.hta.lecture.vo.BoardComment" >
 		insert into final_comment_tb
-		(board_no, comment_no, comment_content, comment_sub_no )
+		(user_no, board_no, comment_no, comment_content, comment_sub_no )
 		values
-		(#{boardNo}, comment_no_seq.nextval, #{commentContent}, #{commentSubNo})
+		(#{userNo}, #{boardNo}, comment_no_seq.nextval, #{commentContent}, #{commentSubNo})
 	</insert>
 
 
-<!-- 게시글 수정, 삭제
-	<update id="updateBoardByCriteria" parameterType="com.hta.lecture.web.form.BoardCriteria" >
+
+
+
+<!-- 게시글 수정, 삭제 -->	
+	<update id="updateBoard" parameterType="com.hta.lecture.vo.Board" >
+	
 	</update>
 	
 	<delete id="deleteBoardByCriteria" parameterType="int">
 	
 	</delete>
- -->	
 
 </mapper>

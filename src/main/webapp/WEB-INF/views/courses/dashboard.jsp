@@ -71,7 +71,9 @@
 						</a>
 					</div>
 					<div class="collapse show" id="collapse-${chapter.no }">
-						<a href="" class="list-group-item d-block text-decoration-none text-secondary">${chapter.classDetail }</a>
+						<c:forEach var="chapterDetail" items="${chapter.classDetail }">
+							<a href="" class="list-group-item d-block text-decoration-none text-secondary">${chapterDetail.detailNo }강. ${chapterDetail.detailTitle }</a>
+						</c:forEach>
 					</div>
 				</div>
 			</c:forEach>

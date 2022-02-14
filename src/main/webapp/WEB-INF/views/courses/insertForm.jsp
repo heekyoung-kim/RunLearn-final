@@ -192,10 +192,13 @@
 							<div class="d-inline-flex p-1 bd-highlight">
 								<label class="form-label">할인가격</label>
 								<input type="number" class="form-control" name="discountPrice"/>
-							</div>
+							</div><br><br>
+							<div class="d-inline-flex p-1 bd-highlight">
+								<h2>커리큘럼</h2>
+							</div><br>
 								<div class="text-end">
 								<a href="list.do" class="btn btn-secondary">취소</a>
-								<button type="submit" class="btn btn-primary">등록</button>
+								<button type="submit" class="btn btn-primary">저장 후 다음</button>
 							</div>
 						</form>
 					</div>
@@ -224,6 +227,12 @@ tinymce.init({
   ],
   height: 500,
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+$.ajax({
+    type : "POST",
+    url : "insert.do", 
+    data : $('form').serialize()
 });
 
 </script>

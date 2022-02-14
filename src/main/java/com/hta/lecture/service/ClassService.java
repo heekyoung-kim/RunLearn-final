@@ -99,6 +99,14 @@ public class ClassService {
 	public int getTeacherNoByUserNo(int no) {
 		return classMapper.getTeacherNoByUserNo(no);
 	}
+	
+	public int getChapterByClassNo(int no) {
+		return classMapper.getChapterByClassNo(no); 
+	}
+	
+	public int getChapterDetailByNo(int chapterNo) {
+		return classMapper.getChapterDetailByNo(chapterNo);
+	}
   
 	// 새 강의 만들기
 		public void addNewClass(Classes classes, List<ClassFiles> classFiles) {

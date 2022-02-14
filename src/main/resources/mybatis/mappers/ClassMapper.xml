@@ -424,6 +424,10 @@
 	
 	<!-- 챕터 만들기 -->
 	<insert id="insertChapter" parameterType="com.hta.lecture.vo.ClassChapter">
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select chapter_no_seq.nextval
+			from dual
+	</selectKey>
 		insert into FINAL_CHAPTER_TB
 			(chapter_no, chapterTitle, chapterContent, class_no)
 		values
@@ -432,6 +436,10 @@
 	
 	<!-- 커리큘럼 만들기 -->
 	<insert id="insertDetail" parameterType="com.hta.lecture.vo.ClassDetail">
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select class_detail_no_seq.nextval
+			from dual
+	</selectKey>
 		insert into FINAL_CLASS_DETAIL_TB
 			(class_detail_no, class_detail_title, class_detail_content, class_detail_free, chapter_no )
 		values
@@ -459,6 +467,22 @@
 		    and a.user_no = #{no}
 	</select>
 	
+	<select id="getChapterByClassNo" parameterType="int" resultType="int">
+		select
+			B.class_no as no
+		from 
+			final_class_tb A, final_chapter_tb B	
+		where
+			A.class_no = B.class_no
+			and A.class_no = #{no}	
+	</select>
+	
+	<select id="getChapterDetailByNo" parameterType="int" resultType="int">
+		select
+			B.chapter_no as chapterNo
+		from
+			final_chapter_tb A , final_class_detail_tb B	
+
 	<!-- 회원번호로 해당 회원이 수강하는 강의 리스트 조회 -->
 	<select id="getAllClassToStudentByUserNo" parameterType="int" resultType="com.hta.lecture.vo.Classes">
 		select

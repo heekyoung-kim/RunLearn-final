@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hta.lecture.dto.CartDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.dto.OrderDto;
 import com.hta.lecture.mapper.CartMapper;
 import com.hta.lecture.mapper.ClassMapper;
@@ -108,7 +109,7 @@ public class OrderService {
 		
 		for( CartDto cart : carts) {
 			// 강의정보 구하기.
-			Classes classInfo = classMapper.getClassDetail(cart.getClassNo());
+			ClassesDto classInfo = classMapper.getClassDetail(cart.getClassNo());
 			
 			// 2. orderItem 저장.
 			// orderNo, classNo, orderDetailPrice

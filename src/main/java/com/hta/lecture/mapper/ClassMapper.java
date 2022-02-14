@@ -6,7 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassChapter;
+import com.hta.lecture.vo.ClassDetail;
 import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
@@ -18,7 +21,7 @@ public interface ClassMapper {
 	
 	List<ClassDetailDto> getClassSearch(ClassCriteria criteria);
 	
-	Classes getClassDetail(int no);
+	ClassesDto getClassDetail(int no);
 	
 	int getClassesTotalRows(ClassCriteria criteria);
 	
@@ -39,6 +42,9 @@ public interface ClassMapper {
 	
 	// 강의를 수강하는 학생의 숫자를 가져옴
 	int countAllClassStudent(int no);
+	
+	// 강사번호를 가져옴
+	Classes getTeacherByNo(int teacherNo);
   
 	// 회원번호로 해당 회원(지식공유자)의 전체 강의 정보를 조회
     List<Classes> getAllClassByNo(int no);
@@ -51,5 +57,14 @@ public interface ClassMapper {
 	// 첨부파일 
 	void insertClassFile(ClassFiles classFiles);
 	List<ClassFiles> getClassFilesByClassNo(int No);
+
+	// 섹션만들기
+	void insertChapter(ClassChapter classChpater);
+	
+	// 커리큘럼 만들기
+	void insertDetail(ClassDetail classDetail);
+	
+	// 회원번호로 해당 회원이 수강하는 모든 강의 조회
+	List<Classes> getAllClassToStudentByUserNo(int no);
 	
 }

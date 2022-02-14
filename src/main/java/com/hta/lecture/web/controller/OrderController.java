@@ -24,6 +24,7 @@ import com.hta.lecture.dto.PayReadyResponseDto;
 import com.hta.lecture.kakaopay.ApproveResponse;
 import com.hta.lecture.kakaopay.ReadyResponse;
 import com.hta.lecture.dto.CartDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.dto.OrderDto;
 import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.kakaopay.KakaoPayService;
@@ -186,7 +187,7 @@ public class OrderController {
 		
 		for( CartDto cart : carts) {
 			// 강의정보 구하기.
-			Classes classInfo = classService.getClassDetail(cart.getClassNo());
+			ClassesDto classInfo = classService.getClassDetail(cart.getClassNo());
 			
 			// 2. orderItem 저장.
 			// orderNo, classNo, orderDetailPrice

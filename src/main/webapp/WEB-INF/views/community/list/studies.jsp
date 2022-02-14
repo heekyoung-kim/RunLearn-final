@@ -17,35 +17,27 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp"%>
-<div class="container-fluid" >
-	<section class="community-header" style="background: black">
-		<div class="community-header__content">
-			<h2 class="fs-4 my-3 text-light fw-bold" style="color:white; font-size:30px;">함께 성장할 스터디를 모집해보세요</h2>
-			<p class="fs-6 text-light" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지!!</p>
+<div class="container" >
+		<div class="bg-black" >
+			<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">함께 성장할 스터디를 모집해보세요.</h2>
+			<p class="fs-6 text-light" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지~!</p>
 		</div>
-	</section>
 <%@ include file="../../community/left.jsp"%>
 <!--전체,해결,미해결 상태그룹버튼  -->	
 <div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-question">전체</button>  
-<button class="${param.status eq '해결' ? 'active' : ''}   btn btn-outline-success"  data-status="해결"     id="btn-resolved-question">해결</button>    
-<button class="${param.status eq '미해결' ? 'active' : ''}  btn btn-outline-success"  data-status="미해결"   id="btn-unresolved-question">미해결</button>    
+<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-status">전체</button>  
+<button class="${param.status eq '모집중' ? 'active' : ''}   btn btn-outline-success"  data-status="모집중"     id="btn-recruitment">모집중</button>    
+<button class="${param.status eq '모집완료' ? 'active' : ''}  btn btn-outline-success"  data-status="모집완료"   id="btn-complete-recruitment">모집완료</button>    
 </div>
 <!-- 검색, 태그창 -->
 <div class="row">
-	<form id="form-search"  class= "col-lg-6" method="get" action="questions">
+	<form id="form-search"  class= "col-lg-6" method="get" action="studies">
 		<input type="hidden" name="status" value="${param.status}" />
 		<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
 		<input type="text" name="search" class= "col-lg-9" value="${param.search}" placeholder="관심스터디를 검색해보세요!" />
 		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
 	</form>
 </div>  
-<div class="row" id="search-tag-box">	
-	<form id="form-search-class" class="col-lg-4" method="get" action="/tag">
-		<input class="form-control" name="search-tag" value="${param.tag }" type="search" placeholder="태그로 검색해보세요!" aria-label="Search-Tags"/>
-		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-clear">초기화</button>
-	</form>
-</div>	
 
 <!-- 최신순, 답변많은순, 좋아요순 버튼 -->
 <div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
@@ -126,15 +118,15 @@
 <script>
 $(function(){
 
-	<!--전체,해결, 미해결 버튼 클릭기능-->
-	$("#btn-all-question").click(function() {
-	   location.href="/community/questions"
+	<!--전체,모집중, 모집완료 버튼 클릭기능-->
+	$("#btn-all-status").click(function() {
+	   location.href="/community/studies"
 	});
-	$("#btn-resolved-question").click(function() {
-	   location.href="/community/questions?status=해결"
+	$("#btn-recruitment").click(function() {
+	   location.href="/community/studies?status=모집중"
 	});
-	$("#btn-unresolved-question").click(function() {
-	   location.href="/community/questions?status=미해결"
+	$("#btn-complete-recruitment").click(function() {
+	   location.href="/community/studies?status=모집완료"
 	});
 	
 	<!--최신순, 답변많은순, 좋아요순 필터-->	
@@ -152,7 +144,7 @@ $(function(){
 	});
 
 	$("#btn-questions").click(function(){
-		$("#addBoard-form [name=category]").val("질문");
+		$("#addBoard-form [name=category]").val("질문답변");
 		$("#addBoard-form [name=status]").val("미해결");	
 		$('#btn-freeTalk').removeClass('active');
 	    $('#btn-study').removeClass('active');

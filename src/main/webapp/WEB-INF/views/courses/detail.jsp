@@ -52,6 +52,11 @@
 			<nav class="navbar navbar-light bg-light">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="#">강의 소개</a>
+					<c:if test="${LOGIN_USER.managerStatus eq 'Y'}">
+						<li class="nav-item">
+							<a  href="/admin/adminClass"><button class="btn btn-primary btn-sm m-1">뒤로</button></a>
+						</li>							
+					</c:if>
 				</div>
 			</nav>
 		</div>
@@ -70,8 +75,18 @@
 				<c:choose>
 					<c:when test="${empty savedProgress}">
 						<div class="card-body">
-							<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
-							<a href="" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }">수강신청</a><br>
+							<c:if test="${classes.price gt 0 }">
+								<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
+								<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }" id="is-priced">수강신청</a><br>
+							</c:if>
+							<c:if test="${classes.price le 0 }">
+								<form method="post" action="insert-progress" id="free-form">
+									<input type="hidden" name="no" value="${classes.no }" />
+									<h3 class="card-title"><strong>무료</strong></h3>
+									<button type="submit" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" id="is-free">바로 학습하기</button><br>
+								</form>
+							</c:if>
+							
 							<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="" class="card-link">공유하기</a><br>
 						</div>
 					</c:when>
@@ -97,7 +112,7 @@
 <script>
 
 // 장바구니담기
-$(".btn-apply").click(function(){
+$("#is-priced").click(function(){
 	var classNo = $(this).data("no")
 	$.ajax({
 		type:"Post"
@@ -137,6 +152,9 @@ $(".wishlist-button").click(function(){
 	})
 })
 
+function freeForm() {
+	$("#free-form").submit();
+}
   </script>
 </body>
 </html>

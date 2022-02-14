@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassDetailDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.mapper.ClassMapper;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassChapter;
+import com.hta.lecture.vo.ClassDetail;
 import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.web.form.ClassCriteria;
@@ -47,7 +50,7 @@ public class ClassService {
 		return classMapper.getClassesTotalRows(criteria);
 	}
 	
-	public Classes getClassDetail(int no) {
+	public ClassesDto getClassDetail(int no) {
 		return classMapper.getClassDetail(no);
 	}
 	
@@ -81,9 +84,16 @@ public class ClassService {
 	}
 	
 	public List<Classes> getAllClassByNo(int no) {
-		List<Classes> classes = classMapper.getAllClassByNo(no);
+			List<Classes> classes = classMapper.getAllClassByNo(no);
+			
+			return classes;
+	}
+	
+	// 강사번호를 가져온다.
+	public Classes getTeacherByNo(int teacherNo) {
+		Classes teacherno = classMapper.getTeacherByNo(teacherNo);
 		
-		return classes;
+		return teacherno;
 	}
 	
 	public int getTeacherNoByUserNo(int no) {
@@ -100,5 +110,22 @@ public class ClassService {
 			} 	
 	
 		}
-
+		
+	// 섹션 만들기
+		public void addNewChapter(ClassChapter classChapter) {
+			classMapper.insertChapter(classChapter);
+		}
+		
+	// 커리큘럼 만들기
+		public void addNewDetail(ClassDetail classDetail) {
+			classMapper.insertDetail(classDetail);
+		}
+		
+	// 회원번호로 해당 회원이 수강하는 모든 강의 조회
+	public List<Classes> getAllClassToStudentByUserNo(int no) {
+		List<Classes> classesList = classMapper.getAllClassToStudentByUserNo(no);
+		
+		return classesList;
+	}
+		
 }

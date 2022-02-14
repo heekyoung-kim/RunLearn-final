@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<div class="col col-md-4 text-end" id="sort-form">
-			<form id=form-sort-filter class="" method="get" action="/course">
+			<form id= class="" method="get" action="/course">
 				<input type="hidden" value="${param.sort }" name="sort" />
 				<select class="form-select-sm" aria-label="Default select example">
 					<option selected>추천순</option>
@@ -79,7 +79,7 @@
 	
 	<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mt-3 gx-4">
 		<input type="hidden" value="${param.category }" name="category" />
-		<c:forEach var="course" items="${classes }">					
+		<c:forEach var="course" items="${classes }">
 			<div class="col mb-3" id="card-${course.no }">
 				<div class="card h-100">
 					<a href="/course/${course.no }" class="stretched-link" data-course-no="${course.no }"></a>
@@ -225,7 +225,7 @@ $("#filter-btn-group input[type=checkbox]").click(function(){
 $("#sort-form select").on("change", function(){
 	var sortValue = $(this).val();
 	$("#sort-form input[name=sort]").val(sortValue);
-	$("#form-sort-filter").trigger("submit");
+	$("#").trigger("submit");
 })
 
 </script>

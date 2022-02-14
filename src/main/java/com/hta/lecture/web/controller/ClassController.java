@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassPagination;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.service.ProgressService;
 import com.hta.lecture.utils.SessionUtils;
@@ -82,14 +83,12 @@ public class ClassController {
 		return "/courses/list"; // list.jsp
 	}
 	
-	
-	
 	// 상세페이지 이동
 	@GetMapping("/{no}")
 	public String detail(@PathVariable(name = "no") int no, Model model){
 		
 		log.info("조회할 강의번호: " + no);
-		Classes classes = classService.getClassDetail(no);
+		ClassesDto classes = classService.getClassDetail(no);
 		
 
 		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
@@ -106,6 +105,25 @@ public class ClassController {
 		model.addAttribute("classes", classes);
 		
 		return "/courses/detail";
+	}
+	
+	@PostMapping("/insert-progress")
+	public String insertProgress(@RequestParam(name = "no") int no){
+		
+		log.info("진행과정을 추가할 강의번호: " + no);
+		ClassesDto classes = classService.getClassDetail(no);
+		
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		
+		if(user != null) {
+			Progress progress = new Progress();
+			progress.setClassNo(classes.getNo());
+			progress.setUserNo(user.getNo());
+			
+			progressService.insertPrgoressByUserNoClassNo(progress);
+		}
+		
+		return "redirect:/course/" + no;
 	}
 	
 	@GetMapping("/insert.do")
@@ -144,8 +162,7 @@ public class ClassController {
 		BeanUtils.copyProperties(form, classes);
 		classService.addNewClass(classes, classFiles);
 		
-		
-		
 		return "redirect:";
 	}
+	
 }

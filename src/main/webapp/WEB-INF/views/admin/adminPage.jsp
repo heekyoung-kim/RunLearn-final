@@ -646,6 +646,8 @@
 			$.each(monthIocomes,function(index,item){
 				monthIncomes.push(item);
 			})
+			barLabel = monthIncomes.map(item => item.payMonth);
+			console.log(barLabel);
 		});
 		
 		console.log(monthIncomes);
@@ -664,7 +666,7 @@
 		getFormatDate(date,1)
 	    
 	  ];
-	console.log(barLabels);
+	
 	
 	  const monthProfitData = {
 	    datasets: [{
@@ -689,7 +691,7 @@
 			    	  	],
 			      data: [${adminPage.developerIncomeForThisMonth},${adminPage.securityIncomeForThisMonth} , ${adminPage.dataScienceIncomeForThisMonth}],
 			    }],
-			    labels: barLabels
+			    labels: barLabel
 			  };
 
 	  const config = {

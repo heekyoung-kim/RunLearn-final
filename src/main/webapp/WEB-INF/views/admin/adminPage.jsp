@@ -639,7 +639,6 @@
 	
 	var date= new Date();
 	
-	
 		let monthIncomes = [];
 		let barLabel = [];
 		$.getJSON('/rest/admin', function(monthIocomes){

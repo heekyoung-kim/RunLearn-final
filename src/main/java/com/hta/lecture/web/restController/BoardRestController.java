@@ -88,12 +88,25 @@ public class BoardRestController {
 		
 		return response;
 	}
-	
 	// 게시글 수정
+	//@PostMapping("/updateBoard")
+	//public ResponseDto<?> updateBoard(B)
 	
-	
-	// 게시글 삭제
-	
+	//게시글 삭제
+		@PostMapping("/deleteBoard")
+		public ResponseDto<?> deleteBoard(int boardNo) {
+			ResponseDto<?> response = new ResponseDto<>();
+			try {
+				response.setStatus("OK");
+				boardService.deleteBoard(boardNo);
+				return response;
+			} catch (RuntimeException e) {
+				response.setStatus("FAIL");
+				response.setError(e.getMessage());
+				return response;
+			}
+		}
+
 	
 	// 답변 수정
 	

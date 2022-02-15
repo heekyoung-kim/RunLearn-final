@@ -17,45 +17,65 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp"%>
-<div class="container" >
-		<div class="bg-black" >
-			<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">함께 성장할 스터디를 모집해보세요.</h2>
-			<p class="fs-6 text-light" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지~!</p>
-		</div>
-<%@ include file="../../community/left.jsp"%>
-<!--전체,해결,미해결 상태그룹버튼  -->	
-<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-status">전체</button>  
-<button class="${param.status eq '모집중' ? 'active' : ''}   btn btn-outline-success"  data-status="모집중"     id="btn-recruitment">모집중</button>    
-<button class="${param.status eq '모집완료' ? 'active' : ''}  btn btn-outline-success"  data-status="모집완료"   id="btn-complete-recruitment">모집완료</button>    
-</div>
-<!-- 검색, 태그창 -->
-<div class="row">
-	<form id="form-search"  class= "col-lg-6" method="get" action="studies">
-		<input type="hidden" name="status" value="${param.status}" />
-		<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
-		<input type="text" name="search" class= "col-lg-9" value="${param.search}" placeholder="관심스터디를 검색해보세요!" />
-		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
-	</form>
-</div>  
-
-<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
-<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
-<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
-<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
-</div>
- <!-- 글쓰기 버튼 -->
-<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
-<!-- 글쓰기 모달창 -->
-<div class="modal fade" id="writeBoardModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
-				<h5 class="modal-title" id="writeBoardLabel">커뮤니티</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="container-fluid" >
+	<div class="row bg-black mb-3" >
+		<div class="col">
+			<div class="container">
+				<div>
+					<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">함께 성장할 스터디를 모집해보세요.</h2>
+					<p class="fs-6 text-light" style="color:white;">강의 수강에서 더 나아가 함께 스터디까지~!</p>
+				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-2">
+			<%@ include file="../../community/left.jsp"%>
+		</div>
+		<div class="col-10">
+			<!--전체,모집중,모집완료 상태그룹버튼  -->	
+			<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+				<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-status">전체</button>  
+				<button class="${param.status eq '모집중' ? 'active' : ''}   btn btn-outline-success"  data-status="모집중"     id="btn-recruitment">모집중</button>    
+				<button class="${param.status eq '모집완료' ? 'active' : ''}  btn btn-outline-success"  data-status="모집완료"   id="btn-complete-recruitment">모집완료</button>    
+			</div>
+			<!-- 검색창 -->
+			<div class="row mb-2">
+				<div class="col">
+					<form id="form-search"  class= "col-lg-6" method="get" action="studies">
+						<input type="hidden" name="status" value="${param.status}" />
+						<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
+						<input type="text" name="search" class= "col-lg-9 float-left" value="${param.search}" placeholder="관심스터디를 검색해보세요!" />
+						<div class=" float-left d-inline ms-3">
+							<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
+						</div>
+					</form>
+				</div>  
+			</div>
+			<div class="row mb-2">
+				<div class="col">
+					<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
+					<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+						<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
+						<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
+						<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
+					</div>
+					 <!-- 글쓰기 버튼 -->
+					 <c:if test="${not empty LOGIN_USER}">
+						<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
+					 </c:if>
+				</div>
+			</div>
+			<!-- 글쓰기 모달창 -->
+			<div class="modal fade" id="writeBoardModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="writeBoardLabel">커뮤니티</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
 			<form id="addBoard-form" method="post" action="/addBoard">
 				<div class="modal-body">
 						<div class="form-group mb-3">
@@ -63,12 +83,13 @@
 							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문답변</button>
 							<button type="button" class="btn btn-outline-success" id="btn-freeTalk" >자유주제</button>
 							<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
-							<input type="hidden" name="category" value="질문"/>
-							<input type="hidden" name="status" value="미해결"/>
+							<input type="hidden" name="category" value="스터디"/>
+							<input type="hidden" name="status" value="모집중"/>
 						</div>			
 						<div class="form-group mb-3">
 							<label for="title">제목</label>
 	 						<input type="text" name="title" class="form-control" id="title" placeholder= "제목을 입력하세요">						
+							<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
 						</div>			
 					  	<div class="form-group mb-3">
 							<label for="tag">태그</label>
@@ -88,8 +109,8 @@
 					<button type= "button" class="btn btn-outline-success" id="btn-addBoard" >등록</button>
 				</div>
 			</form>
+		</div>
 	</div>
-</div>
 </div>
 		<!-- 질문답변글 전체출력 -->
 	<c:forEach var="board" items="${boardLists}">
@@ -101,8 +122,8 @@
 					<p>${board.content}</p>
 					<ul class="nav">
 						<li class="nav-item"><p><small>${board.name }</small></p></li>
-						<li class="nav-item"><p><small> / ${board.createdDate }</small></p></li>
-						<li class="nav-item"><p><small> / ${board.classTitle }</small></p></li>
+						<li class="nav-item"><p><small> / <fmt:formatDate value="${board.createdDate }" pattern="yyyy년 MM월 dd일"/></small></p></li>
+						<li class="nav-item"><p><small>  ${board.classTitle }</small></p></li>
 					</ul>
 				</div>
 				<div class="col-4 mt-3">

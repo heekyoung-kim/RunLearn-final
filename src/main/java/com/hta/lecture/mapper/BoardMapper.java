@@ -22,11 +22,19 @@ public interface BoardMapper {
 	List<BoardDto> getBoardByCriteria(BoardCriteria criteria);
 	void addBoard(Board board);
 	void addTag(Tag tag);
+	
 // 게시글 조회,태그조회,댓글조회	
 	BoardDetailDto getBoardDetailDto(int boardNo);
 	List<Tag> getBoardTags(int boardNo);
 	List<BoardComment> getBoardComments(int boardNo);
 	
+// 게시글 수정, 삭제
+	void updateBoard(Board board);
+	void deleteBoard(int boardNo);
+
+// 태그 수정
+	void updateTag(int boardNo); 
+
 // 댓글, 대댓글 추가
 	void addComment(BoardComment boardComment);
 	void addRecomment(BoardComment boardComment);
@@ -38,8 +46,5 @@ public interface BoardMapper {
 	
 // 좋아요 
 	
-// 게시글 수정, 삭제, 상태변경
-	void updateBoard(Board board);
-	void deleteBoard(int boardNo);
 }
 

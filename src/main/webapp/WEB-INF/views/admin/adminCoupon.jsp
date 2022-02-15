@@ -703,7 +703,7 @@
 		
 		$.getJSON({
 			type: "post"
-			,url: "/rest/addUserCoupon"
+			,url: "/rest/registerUserCoupon"
 			,dataType: "json"
 			,data: {
 				 userNo: userNo,
@@ -797,7 +797,7 @@
 			},
 			success : function(response){
 				if(response.status == "OK"){
-					alert("글이 등록되었습니다.");
+					alert("쿠폰이 등록되었습니다.");
 					location.reload(true);
 				}else{
 					$("#alert-error-register").show().text(response.error);

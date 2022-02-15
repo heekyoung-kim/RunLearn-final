@@ -131,7 +131,7 @@ public class AdminController {
 		logger.info("검색조건 및 값 :" + criteria);
 		
 		// 검색조건에 해당하는 총 데이터 갯수 조회
-		int reviewRecords = adminService.getClassTotalRows(criteria);
+		int reviewRecords = adminService.getReviewTotalRows(criteria);
 		// 현재 페이지번호와 총 데이터 갯수를 전달해서 페이징 처리에 필요한 정보를 제공하는 Pagination객체 생성
 		Pagination pagination = new Pagination(page,reviewRecords);
 				

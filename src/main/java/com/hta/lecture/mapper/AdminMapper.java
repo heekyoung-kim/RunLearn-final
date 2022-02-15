@@ -89,7 +89,7 @@ public interface AdminMapper {
 	void addCoupon(Coupon coupon);
 	void deleteCoupon(int couponNo);
 	
-	void addUserCoupon(UserCouponDto userCoupon);
+	void addUserCoupon(int userNo,int couponNo);
 	void deleteUserCoupon(int userNo, int couponNo);
 	
 	void openClass(int classNo);

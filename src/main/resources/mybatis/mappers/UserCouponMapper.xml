@@ -37,9 +37,11 @@
 			final_user_coupon_tb A , final_coupon_tb B
 		where
 			A.coupon_no = B.coupon_no 
+			and A.user_coupon_use_yn = 'N'
 			and user_no = #{value}
 		order by A.coupon_no	
 	</select>
+	
 	<select id="totalUseCouponCntByUserNo" parameterType="int" resultType="int">
 		select 
 			count(*)
@@ -64,6 +66,7 @@
 				and user_coupon_use_yn = 'Y'	
 			)
 	</select>
+	
 	<select id="totalNoUseCouponCntByUserNo" parameterType="int" resultType="int">
 		select 
 			count(*)

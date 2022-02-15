@@ -542,13 +542,6 @@
 					                </div>
 					           </div>
 					     </div>
-					     <div class="graph-wrapper" style="width: 100%">
-					     	<div class="card">
-					               <div class="card-header">
-					               		<h3 class="card-title">강의 수익 분포</h3>
-					               	</div>
-					         </div>
-					     </div>
 					</section>
 					
 					
@@ -645,6 +638,8 @@
 			$.each(monthIocomes,function(index,item){
 				monthIncomes.push(item);
 			})
+			barLabel = monthIncomes.map(item => item.payMonth);
+			console.log(barLabel);
 		});
 		
 		console.log(monthIncomes);
@@ -663,7 +658,7 @@
 		getFormatDate(date,1)
 	    
 	  ];
-	console.log(barLabels);
+	
 	
 	  const monthProfitData = {
 	    datasets: [{
@@ -678,18 +673,22 @@
 	    labels: pieLabels
 	  };
 	  
-	  const recentProfitData = {
+	 const recentProfitData = {
 			    datasets: [{
-			      label: 'My First dataset',
+			      label: '6개월 수익 분포',
 			      backgroundColor: [
-			    	  	'rgb(255, 99, 132)',
-			    	  	'rgb(54, 162, 235)',
-			    	  	'rgb(255, 205, 86)'
+			    	  	'rgb(100, 99, 50)',
+			    	  	'rgb(255, 99, 50)',
+			    	  	'rgb(54, 162, 335)',
+			    	  	'rgb(255, 205, 120)',
+			    	  	'rgb(255, 205, 226)',
+			    	  	'rgb(200, 205, 226)'
+			    	  	
 			    	  	],
-			      data: [${adminPage.developerIncomeForThisMonth},${adminPage.securityIncomeForThisMonth} , ${adminPage.dataScienceIncomeForThisMonth}],
+			      data: [500000,1200000,500000,1000000,2000000,1100000],
 			    }],
 			    labels: barLabels
-			  };
+	};
 
 	  const config = {
 	    type: 'doughnut',
@@ -709,15 +708,16 @@
 	    options: {}
 	  };
 
+	  const myChart2 = new Chart(
+				document.getElementById('myChart2'),
+				config2
+				);
 	  const myChart = new Chart(
 		document.getElementById('profitChartOfThisMonth'),
 		config
 		);
 	  
-	  const myChart2 = new Chart(
-		document.getElementById('myChart2'),
-		config2
-		);
+	 
 
 </script>
 </body>

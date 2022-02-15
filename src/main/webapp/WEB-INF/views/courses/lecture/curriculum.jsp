@@ -5,7 +5,6 @@
 	<title>인프런 홈페이지</title>
 	<style>
 		.section-1{background:#002333;}
-		.section-1 .section-bg{padding:1.5rem 0;}
 		.section-1 .text-box{position:relative;}
 		
 		.video-area{position:relative; width:100%; padding-bottom:56.25%;}
@@ -17,11 +16,12 @@
 <%@ include file="../../common/nav_lecture.jsp" %>
 <div class="container-fluid section-1">
 	<div class="row section-bg">
-		<div class="col">
-			<div class="container">
+		<div class="col p-0">
+			<a class="p-3 bg-primary d-inline-block text-decoration-none text-white" href="../dashboard">강의 대시보드  >></a>
+			<div class="d-inline-block ms-3">
 				<div class="row">
 					<div class="col">
-						<a href="../dashboard">강의 대시보드</a> <p class="d-inline text-white">${classDetail.detailTitle }</p>
+						<p class="d-inline text-white">${classDetail.detailTitle }</p>
 					</div>
 				</div>
 			</div>

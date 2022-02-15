@@ -90,7 +90,7 @@
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">${course.name }</li>
-						<li class="list-group-item">★★★★★()</li>
+						<li class="list-group-item">★★★★★(14)</li>
 						<c:if test="${course.discountPrice gt 0}">
 							<li class="list-group-item border-0">
 								<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${course.price }</fmt:formatNumber></span>
@@ -116,7 +116,7 @@
 					</div>
 					<div class="modal-card p-2 h-100">
 						<a href="/course/${course.no }" class="stretched-link text-light text-decoration-none" data-course-no="${course.no }">
-							<p class="course_title">모든 개발자의 실무를 위한 올인원 기본기 클래스</p>
+							<p class="course_title">${course.title }</p>
 							<p class="course_description">분야 무관! 개발자라면 실무에서 꼭 알고 있어야 할 핵심
 								기본기를 쉽게 + 코드 위주로 다루는 강의입니다. 성장하고 싶은 모든 주니어 개발자와 취준생에게 이 강의를 적극
 								추천합니다.</p>

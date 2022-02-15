@@ -294,7 +294,6 @@
 			rn between #{beginIndex} and #{endIndex}
 	</select>
 	
-	
 	<select id="getCouponUsersTotalRows" parameterType="com.hta.lecture.web.form.UserCouponCriteria" resultType="int">
 		select count(*)
 		from final_user_tb B
@@ -325,7 +324,7 @@
 		where coupon_no = #{coupon_no}
 	</select>
 	
-	<select id="addUserCoupon" parameterType="com.hta.lecture.dto.UserCouponDto">
+	<select id="addUserCoupon" parameterType="int">
 		insert into final_user_coupon_tb
 		(user_coupon_no, user_no, coupon_no)
 		values
@@ -641,6 +640,7 @@
 		and U.user_no = B.user_no
 		order by board_category ASC,board_no ASC
 	</select>
+	
 	<select id="getNoAnswerCount" resultType="int">
 		select
 			count(*)
@@ -648,6 +648,5 @@
 		where board_status='미해결'
 		and U.user_no = B.user_no
 	</select>
-	
 	
 </mapper>

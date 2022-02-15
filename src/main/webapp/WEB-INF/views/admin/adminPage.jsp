@@ -507,16 +507,12 @@
 					    
 			      </section>
 <!-- 강의 수익 시작 -->
-			      <h3 class="dashboard-title ms-4 mt-4">강의 수익</h3>
+				 <h3 class="col-2 dashboard-title ms-4 mt-4">강의 수익</h3>
 			      <section class="dashboard-summary">
 			      		<div class="graph-wrapper" style="width: 50%">
 				              <div class="card">
 					               <div class="card-header">
 					               		<h3 class="card-title">이번달 현황</h3>
-					               		<a href="" class="move-button">
-					               			<p class="move-button-text">더보기</p>
-					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-					               		</a>
 					               	</div>
 					                
 					                <div class="card-body d-flex flex-column justify-content-end">
@@ -535,10 +531,6 @@
 				              <div class="card">
 					               <div class="card-header">
 					               		<h3 class="card-title">강의 수익 분포</h3>
-					               		<a href="" class="move-button">
-					               			<p class="move-button-text">더보기</p>
-					               			<svg class="move-button-icon" fill="none" width="14" height="26" viewBox="0 0 14 26" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M.397 25.592c.529.544 1.387.544 1.916 0l11.29-11.607c.53-.544.53-1.426 0-1.97L2.313.408C1.783-.136.926-.136.397.408c-.53.544-.53 1.426 0 1.97L10.729 13 .397 23.622c-.53.544-.53 1.426 0 1.97z" fill="#495057" fill-rule="evenodd"></path></svg>
-					               		</a>
 					               	</div>
 					                
 					                <div class="card-body d-flex flex-column justify-content-end">
@@ -549,6 +541,13 @@
 					                  </div>
 					                </div>
 					           </div>
+					     </div>
+					     <div class="graph-wrapper" style="width: 100%">
+					     	<div class="card">
+					               <div class="card-header">
+					               		<h3 class="card-title">강의 수익 분포</h3>
+					               	</div>
+					         </div>
 					     </div>
 					</section>
 					
@@ -640,54 +639,22 @@
 	
 	var date= new Date();
 	
-	let monthIncome = [];
-	let monthIncomes = [];
 	
-	
-	$(function(){
-		
-		$.getJSON({
-			type: "get"
-			,url: "/rest/admin"
-			,dataType: "json"
-			,data: {
-				monthIncome : monthIncome
-				}
-		success : function(monthIocome){
-			$.each(monthIocome,function(index,item){
+		let monthIncomes = [];
+		let barLabel = [];
+		$.getJSON('/rest/admin', function(monthIocomes){
+			$.each(monthIocomes,function(index,item){
 				monthIncomes.push(item);
 			})
-		}
-				
-	})
+		});
 		
-	});
-	
-	console.log(monthIncome);
-	let result = monthIncome.find( (some) => some.payMonth === "2022/01");
-	console.log(result); 
-	
-	let result2 = monthIncomes.find( (monthIncome) => monthIncome.totalPrice === 500000);
-	console.log(result2); 
-	
-	const inventory = [
-		  {name : 'apples', quantity : 2},
-		  {name : 'bananas', quantity : 4},
-		  {name : 'cherries', quantity : 9},
-		  {name : 'cherries', quantity : 9}
-		  ];
-	
-		const result3 = inventory.find(fruit => fruit.name === 'cherries');
-
-		console.log(inventory); 
-		console.log(result3); 
+		console.log(monthIncomes);
 	
 	const pieLabels = [
 	    '개발 · 프로그래밍',
 	    '보안 · 네트워크',
 	    '데이터 사이언스'
 	  ];
-	
 	const barLabels = [
 		getFormatDate(date,6),
 		getFormatDate(date,5),
@@ -697,7 +664,8 @@
 		getFormatDate(date,1)
 	    
 	  ];
-
+	console.log(barLabels);
+	
 	  const monthProfitData = {
 	    datasets: [{
 	      label: 'My First dataset',

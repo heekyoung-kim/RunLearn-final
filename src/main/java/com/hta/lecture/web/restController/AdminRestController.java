@@ -21,9 +21,9 @@ public class AdminRestController {
 	AdminService adminService;
 	
 	@GetMapping("/admin")
-	public List<MonthIncomeDto> MonthIncome(@RequestParam(name = "monthIncome") List<MonthIncomeDto> monthIncome){
+	public List<MonthIncomeDto> MonthIncome(){
 		
-		monthIncome = adminService .getMonthIncome();
+		List<MonthIncomeDto> monthIncome = adminService.getMonthIncome();
 		return monthIncome;
 	}
 	

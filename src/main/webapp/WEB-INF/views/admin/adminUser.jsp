@@ -531,7 +531,7 @@
 		
 		$.getJSON({
 			type: "post"
-			,url: "/rest/restoreUser"
+			,url: "/rest/restoreUserByAdmin"
 			,dataType: "json"
 			,data: {
 				userNo : userNo

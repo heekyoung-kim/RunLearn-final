@@ -61,21 +61,21 @@ public class CouponRestController {
 		}
 	}
 	
-	@PostMapping("/addUserCoupon")
+	@PostMapping("/registerUserCoupon")
 	public ResponseDto<?> addUserCoupon(@RequestParam(name ="userNo") String userNo,
 			@RequestParam(name = "couponNo") int couponNo) {
 		
 		ResponseDto<?> response = new ResponseDto<>();
 		
-		UserCouponDto userCoupon= new UserCouponDto();
+		//UserCouponDto userCoupon= new UserCouponDto();
 		String[] userNoList = userNo.split(" ");
 		
 		
 		try {
 			for(String userNos : userNoList) {
-				userCoupon.setUserNo(Integer.parseInt(userNos));
-				userCoupon.setCouponNo(couponNo);
-				adminService.addUserCoupon(userCoupon);
+				//userCoupon.setUserNo(Integer.parseInt(userNos));
+				//userCoupon.setCouponNo(couponNo);
+				adminService.addUserCoupon(Integer.parseInt(userNos),couponNo);
 			}
 			response.setStatus("OK");
 			return response;

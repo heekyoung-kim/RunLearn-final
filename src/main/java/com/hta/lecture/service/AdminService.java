@@ -154,8 +154,8 @@ public class AdminService {
 		adminMapper.deleteCoupon(couponNo);
 	}
 	
-	public void addUserCoupon(UserCouponDto userCoupon) {
-		adminMapper.addUserCoupon(userCoupon);
+	public void addUserCoupon(int userNo, int couponNo) {
+		adminMapper.addUserCoupon(userNo,couponNo);
 	}
 	
 	public void deleteUserCoupon(int userNo, int couponNo) {

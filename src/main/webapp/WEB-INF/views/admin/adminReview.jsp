@@ -422,7 +422,7 @@
 					<c:choose>
 						<c:when test="${empty reviews }">
 							<tr>
-								<td class="text-center" colspan="6">등록된 강의가 없습니다.</td>
+								<td class="text-center" colspan="6">등록된 리뷰가 없습니다.</td>
 							</tr>
 							</c:when>
 								<c:otherwise>
@@ -483,10 +483,10 @@
 					    			</c:forEach>
 				
 					    			<li class="page-item ${pagination.existNext ? '' : 'disabled' }">
-					      				<a class="page-link" href="/admin/adminReview?page=${pagination.nextPage }&sort=${criteria.sort}" data-page="${pagination.nextPage }">다음</a>
+					      				<a class="page-link" href="/admin/adminRevie?page=${pagination.nextPage }&sort=${criteria.sort}" data-page="${pagination.nextPage }">다음</a>
 					    			</li>
 					  			</ul>
-							</nav>
+							</nav>w
 						</div>
 					</div>
 				</c:if>

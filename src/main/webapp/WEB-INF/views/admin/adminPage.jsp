@@ -642,6 +642,7 @@
 			barLabel = monthIncomes.map(item => item.payMonth);
 			console.log(barLabel);
 		});
+		
 		console.log(monthIncomes);
 	
 	const pieLabels = [

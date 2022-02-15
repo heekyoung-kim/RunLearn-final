@@ -9,13 +9,19 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hta.lecture.dto.BoardDetailDto;
 import com.hta.lecture.dto.BoardDto;
+import com.hta.lecture.dto.ResponseDto;
 import com.hta.lecture.service.BoardService;
+import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Board;
+import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.BoardCriteria;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/community")
 public class BoardController {
@@ -73,6 +79,10 @@ public class BoardController {
 		
 		return "/community/detail"; //detail.jsp
 	}
+	
+	
+	
+	
 	
 	
 	

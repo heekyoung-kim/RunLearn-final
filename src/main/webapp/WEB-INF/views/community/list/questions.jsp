@@ -42,6 +42,7 @@
 				<button class="${param.status eq '해결' ? 'active' : ''}   btn btn-outline-success"  data-status="해결"     id="btn-resolved-question">해결</button>    
 				<button class="${param.status eq '미해결' ? 'active' : ''}  btn btn-outline-success"  data-status="미해결"   id="btn-unresolved-question">미해결</button>    
 			</div>
+      
 			<!-- 검색, 태그창 -->
 			<div class="row mb-2">
 				<div class="col">
@@ -89,8 +90,7 @@
 									<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
 									<input type="hidden" name="category" value="질문답변"/>
 									<input type="hidden" name="status" value="미해결"/>
-									<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">
-									
+									<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">				
 								</div>			
 								<div class="form-group mb-3">
 									<label for="title">제목</label>
@@ -121,14 +121,14 @@
 			<!-- 질문답변글 전체출력 -->
 			<c:forEach var="board" items="${boardLists}">
 				<a href="/community/detail?boardNo=${board.boardNo}">
-					<div class="row border-top border-1">
+					<div class="row border-top border-1 ">
 						<div class="col-8 mt-3">
 							<h3>${board.title }</h3>
 							<p>${board.content}</p>
 							<ul class="nav">
 								<li class="nav-item"><p><small>${board.name }</small></p></li>
-								<li class="nav-item"><p><small> / ${board.createdDate }</small></p></li>
-								<li class="nav-item"><p><small> / ${board.classTitle }</small></p></li>
+								<li class="nav-item"><p><small> / <fmt:formatDate value="${board.createdDate }" pattern="yyyy년 MM월 dd일"/></small></p></li>
+								<li class="nav-item"><p><small> ${board.classTitle }</small></p></li>
 							</ul>
 						</div>
 						<div class="col-4 mt-3">
@@ -225,11 +225,9 @@ $(function(){
 		var tagValue = $(this).closest('span').find('span').text();
 		// 히든 필드 삭제 
 		$("#addBoard-form :input[name=tag][value="+tagValue+"]").remove();
-
 		// 태그 삭제 
 		$(this).closest('span').remove();
 	})
-
 	
 	$("#btn-addBoard").click(function(event){
 		
@@ -269,6 +267,10 @@ $(function(){
 		})
 	})
 })
+
+
+
+
 
 
 </script>

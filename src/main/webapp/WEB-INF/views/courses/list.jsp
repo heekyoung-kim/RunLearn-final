@@ -91,7 +91,23 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">${course.name }</li>
 						<li class="list-group-item">★★★★★()</li>
-						<li class="list-group-item">&#8361;${course.price } &#8361;${course.discountPrice }</li>
+						<c:if test="${course.discountPrice gt 0}">
+							<li class="list-group-item border-0">
+								<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${course.price }</fmt:formatNumber></span>
+								<span class="fs-5 fw-bold">&bsol; <fmt:formatNumber pattern="##,###">${course.discountPrice }</fmt:formatNumber></span>
+							</li>
+						</c:if>
+						<c:if test="${course.price gt 0 && course.discountPrice le 0}">
+							<li class="list-group-item border-0">
+								<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${course.price }</fmt:formatNumber></span>
+								<span class="fs-5 fw-bold">무료</span>
+							</li>
+						</c:if>
+						<c:if test="${course.price le 0 && course.discountPrice le 0}">
+							<li class="list-group-item border-0">
+								<span class="fs-5 fw-bold">무료</span>
+							</li>
+						</c:if>
 					</ul>
 					<div class="card-footer">
 						<span class="badge bg-info">+100명</span>
@@ -133,7 +149,7 @@
 								</div>
 							</div>
 						</a>
-						<div class="modal-active-btn p-1 m-1">
+						<!-- <div class="modal-active-btn p-1 m-1">
 							<div class="add_cart e_cart_action mb-1 me-1">
 								<i class="fas fa-cart-plus fa-lg"></i>
 							</div>
@@ -143,7 +159,7 @@
 							<div class="e-add-mylist">
 								<i class="fas fa-plus fa-lg"></i>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

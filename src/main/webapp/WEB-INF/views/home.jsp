@@ -99,127 +99,43 @@
 					<p class="fs-4 fw-bold me-2 mt-3 mb-0">여기서 시작해보세요!</p><span class="fw-bold">Ready!!</span><br>
 					<p class="fs-6 mt-0 mb-3">이미 검증된 쉽고 친절한 입문 강의!!</p>				
 				</div>
-				<div class="sub-slide">
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
+				<div class="card-group sub-slide">
+					<c:forEach var="classList" items="${classDto }">
+						<c:if test="${classList.difficultly eq '입문'}">
+							<div class="card">
+								<a class="d-block text-decoration-none text-secondary" href="course/${classList.no }">
+									<img src="/resources/images/course/${classList.uploadfiles }" class="card-img-top" alt="...">
+									<div class="card-body" style="min-height:136px;">
+										<h5 class="card-title">${classList.title }</h5>
+										<p class="card-text">${classList.teacherName }</p>
+									</div>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item border-0">&starf;&starf;&starf;&starf;&star;</li>
+										<c:if test="${classList.discountPrice gt 0}">
+											<li class="list-group-item border-0">
+												<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${classList.price }</fmt:formatNumber></span>
+												<span class="fs-5 fw-bold">&bsol; <fmt:formatNumber pattern="##,###">${classList.discountPrice }</fmt:formatNumber></span>
+											</li>
+										</c:if>
+										<c:if test="${classList.price gt 0 && classList.discountPrice le 0}">
+											<li class="list-group-item border-0">
+												<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${classList.price }</fmt:formatNumber></span>
+												<span class="fs-5 fw-bold">무료</span>
+											</li>
+										</c:if>
+										<c:if test="${classList.price le 0 && classList.discountPrice le 0}">
+											<li class="list-group-item border-0">
+												<span class="fs-5 fw-bold">무료</span>
+											</li>
+										</c:if>
+									</ul>
+									<div class="card-footer">
+										<span class="badge bg-success">${classList.difficultly }</span>
+									</div>
+								</a>
+							</div>
+						</c:if>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -229,143 +145,67 @@
 					<p class="fs-4 fw-bold me-2 mt-3 mb-0">기본부터 실무까지 제시해주는 로드맵</p><span class="fw-bold">RoadMap!!</span><br>
 					<p class="fs-6 mt-0 mb-3">아무것도 몰라도 따라오다 보면 전문가가 될 수 있어요!</p>				
 				</div>
-				<div class="sub-slide">
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
-					<div class="card">
-						<img src="/resources/images/main-slide1.gif" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
-							<p class="card-text">한정수</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">&starf;&starf;&starf;&starf;&star;</li>
-							<li class="list-group-item">&bsol; 77,000</li>
-						</ul>
-						<div class="card-body">
-							<a href="#" class="card-link">Card link</a>
-							<a href="#" class="card-link">Another link</a>
-						</div>
-					</div>
+				<div class="card-group sub-slide">
+					<c:forEach var="classList" items="${classDto }">
+						<c:if test="${classList.difficultly eq '중급'}">
+							<div class="card">
+								<a class="d-block text-decoration-none text-secondary" href="course/${classList.no }">
+									<img src="/resources/images/course/${classList.uploadfiles }" class="card-img-top" alt="...">
+									<div class="card-body" style="min-height:136px;">
+										<h5 class="card-title">${classList.title }</h5>
+										<p class="card-text">${classList.teacherName }</p>
+									</div>
+									<ul class="list-group list-group-flush">
+										<c:if test="${classList.discountPrice gt 0}">
+											<li class="list-group-item border-0">
+												<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${classList.price }</fmt:formatNumber></span>
+												<span class="fs-5 fw-bold">&bsol; <fmt:formatNumber pattern="##,###">${classList.discountPrice }</fmt:formatNumber></span>
+											</li>
+										</c:if>
+										<c:if test="${classList.price gt 0 && classList.discountPrice le 0}">
+											<li class="list-group-item border-0">
+												<span class="text-decoration-line-through text-muted">&bsol; <fmt:formatNumber pattern="##,###">${classList.price }</fmt:formatNumber></span>
+												<span class="fs-5 fw-bold">무료</span>
+											</li>
+										</c:if>
+										<c:if test="${classList.price le 0 && classList.discountPrice le 0}">
+											<li class="list-group-item border-0">
+												<span class="fs-5 fw-bold">무료</span>
+											</li>
+										</c:if>
+									</ul>
+									<div class="card-footer">
+										<span class="badge bg-success">${classList.difficultly }</span>
+									</div>
+								</a>
+							</div>
+						</c:if>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
 		<div class="row my-4 section-end">
-			<div class="col-6">
+			<div class="offset-3 col-3">
 				<div class="py-3">
 					<p class="fs-3"><span>813,481</span> 명이<br>인프런과 함께합니다.</p>
+					<!-- 
+					<span class="fs-6">
+						학교에서 배우기 어렵거나 큰 비용을<br>
+						지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>
+						오픈 플랫폼의 이점을 통해 다양성과 경제성을 모두 높입니다.
+					</span>
+					 -->
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="py-3">
 					<span class="fs-6">
 						학교에서 배우기 어렵거나 큰 비용을<br>
 						지불해야만 배울 수 있는 전문적인 지식들을 제공합니다.<br>
 						오픈 플랫폼의 이점을 통해 다양성과 경제성을 모두 높입니다.
 					</span>				
 				</div>
-			</div>
-			<div class="col-6">
-				<div class="vertical-slide my-3">
+				<!-- <div class="vertical-slide my-3">
 					<div class="card my-2">
 						<div class="card-body" style="background:#e5e5e5;">
 							<h5 class="card-title">비전공자를 위한 개발자 취업 올인원 가이드 [통합편]</h5>
@@ -409,7 +249,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 <%@ include file="common/footer.jsp" %>

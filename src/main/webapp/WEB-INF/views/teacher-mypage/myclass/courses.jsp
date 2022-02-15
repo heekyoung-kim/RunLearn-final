@@ -64,7 +64,7 @@
 									<tbody>
 										<c:forEach var="classes" items="${classes }">
 											<tr>
-												<td class="text-center course-thumbnail"><img src="/resources/images/course/${classes.image }" alt="" /></td>
+												<td class="text-center course-thumbnail"><img src="/resources/images/course/${classes.uploadfiles }" alt="" /></td>
 												<td><a href="">${classes.title }</a></td>
 												<td class="text-center"><a href="">4.5 점</a></td>
 												<td class="text-center"><a href="">1234 명</a></td>

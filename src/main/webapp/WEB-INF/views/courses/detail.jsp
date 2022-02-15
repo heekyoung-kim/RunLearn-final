@@ -74,7 +74,7 @@
 					<c:when test="${empty savedProgress}">
 						<div class="card-body">
 							<c:if test="${classes.discountPrice gt 0 }">
-								<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
+								<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.discountPrice }</fmt:formatNumber>원</strong></h3>
 								<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }" id="is-priced">수강신청</a><br>
 							</c:if>
 							<c:if test="${classes.price le 0 || classes.discountPrice le 0 }">

@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.hta.lecture.dto.OrderDto;
 import com.hta.lecture.dto.UserCouponDto;
 import com.hta.lecture.dto.WishlistDto;
+import com.hta.lecture.service.ClassService;
 import com.hta.lecture.service.OrderItemService;
 import com.hta.lecture.service.OrderService;
 import com.hta.lecture.service.UserCouponService;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.service.WishlistService;
 import com.hta.lecture.utils.SessionUtils;
+import com.hta.lecture.vo.Classes;
 import com.hta.lecture.vo.OrderItem;
 import com.hta.lecture.vo.User;
 
@@ -42,13 +44,21 @@ public class UserInfoController {
 	@Autowired
 	OrderItemService orderItemService;
 	
+	@Autowired
+	ClassService classService;
+	
 	
 	@GetMapping("/dashboard")
-	public String studentMyPage() {
-		if(SessionUtils.getAttribute("LOGIN_USER") == null) {
+	public String studentMyPage(Model model) {
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+		if(user == null) {
 			return "home";
 		}
+		List<Classes> classesList = classService.getAllClassToStudentByUserNo(user.getNo());
+		model.addAttribute("classesList", classesList);
+		
 		return "student-mypage/home/dashboard";
+		
 	}
 	
 	@GetMapping("/profile")

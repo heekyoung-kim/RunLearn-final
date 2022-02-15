@@ -7,18 +7,18 @@
 		(teacher_no, user_no, teacher_email,teacher_name,teacher_tel,teacher_hope_category 
 			,teacher_intro,teacher_intro_link,teacher_income,teacher_img)
 		values
-		(teacher_no_seq.nextval, #{userNo},#{email},#{name},#{tel},#{hopeCategory},#{intro},#{introLink},#{income},#{img})
+		(teacher_no_seq.nextval, #{userNo},#{teacherEmail},#{teacherName},#{teacherTel},#{hopeCategory},#{teacherIntro},#{introLink},0,#{img})
 	</insert>
 	
 	<update id="updateTeacher" parameterType="com.hta.lecture.vo.Teacher" >
 		UPDATE
 			final_teacher_tb
 		SET
-			teacher_email = #{email} 
-			,teacher_name = #{name} 
-			,teacher_tel = #{tel} 
+			teacher_email = #{teacherEmail} 
+			,teacher_name = #{teacherName} 
+			,teacher_tel = #{teacherTel} 
 			,teacher_hope_category = #{hopeCategory} 
-			,teacher_intro = #{intro} 
+			,teacher_intro = #{teacherIntro} 
 			,teacher_intro_link = #{introLink} 
 			,teacher_income = #{income} 
 			,teacher_img = #{img}
@@ -30,11 +30,11 @@
 		SELECT
 		    teacher_no  			no
 			,user_no				userNo
-			,teacher_email			email
-			,teacher_name			name
-			,teacher_tel			tel
+			,teacher_email			teacherEmail
+			,teacher_name			teacherName
+			,teacher_tel			teacherTel
 			,teacher_hope_category	hopeCategory
-			,teacher_intro			intro
+			,teacher_intro			teacherIntro
 			,teacher_intro_link		introLink
 			,teacher_income			income
 			,teacher_img			img

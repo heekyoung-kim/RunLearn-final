@@ -33,7 +33,7 @@
 						    <c:forEach var="classes" items="${classesList }">
 							  <div class="col">
 							    <div class="card">
-							      <a href="../../course/${classes.no }/dashboard" class="text-decoration-none text-secondary">
+							      <a href="../../course/${classes.no }" class="text-decoration-none text-secondary">
 								      <img src="../../resources/images/course/${classes.image }" class="card-img-top" alt="...">
 								      <div class="card-body">
 								        <h5 class="card-title">${classes.title }</h5>
@@ -41,7 +41,7 @@
 								        	<div class="progress">
 											  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
-											<span class="fs-6 text-secondary">진행률: 0.84% | 기간: 무제한</span>
+											<span class="fs-6 text-secondary">진행률: 0.00% | 기간: 무제한</span>
 										</div>
 								      </div>
 							      </a>

@@ -35,21 +35,27 @@ public class CartsRestController {
 	private WishlistService wishlistService;
 
 	@PostMapping("/addDeleteCart")
-	public ResponseDto<?> addDeleteCart(int calssNo, int addDelete){
+	public ResponseDto<?> addDeleteCart(int classNo, int addDelete){
 		ResponseDto<?> response = new ResponseDto<>();
 		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
 		
 		try {
 			response.setStatus("OK");
 			
-			Carts cart = Carts.builder().classNo(calssNo).userNo(user.getNo()).build();
+			Carts cart = Carts.builder().classNo(classNo).userNo(user.getNo()).build();
 			if(addDelete == 0) {
-				cartService.addCart(cart);
+				cartService.deleteItemByUserNoClassNo(cart);
 			}
-			cartService.deleteItemByUserNoClassNo(cart);
+			cartService.addCart(cart);
+			Wishlist wishlist = Wishlist.builder()
+					.classNo(classNo)
+					.userNo(user.getNo())
+					.build();
+			wishlistService.deleteItemByIcon(wishlist);
 			
 		} catch (RuntimeException e) {
-			response.setStatus("FAIL");		
+			response.setStatus("FAIL");
+			response.setError(e.getMessage());
 		}
 		
 		return response;

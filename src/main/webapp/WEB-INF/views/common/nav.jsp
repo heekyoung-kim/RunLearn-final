@@ -74,13 +74,8 @@
 					<!--// 로그인/지식공유참여자 -->
 					<c:choose>
 						<c:when test="${not empty LOGIN_USER}">
-							<li class="nav-item">
-								<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
-							</li>
 							<li class="nav-item mx-1">
-							<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent m-1" href="">최근강의</a></li>
-							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
-							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
+							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart text-black"></i></a></li>
 							<li class="nav-item">	
 								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="/logout">로그아웃</a>
 							</li>

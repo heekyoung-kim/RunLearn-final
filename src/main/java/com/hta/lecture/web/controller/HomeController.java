@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hta.lecture.exception.LoginErrorException;
+import com.hta.lecture.service.TeacherService;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Teacher;
@@ -26,6 +27,11 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private TeacherService teacherService;
+	
+	
 	
 	// 홈
 	@RequestMapping("/")
@@ -96,8 +102,9 @@ public class HomeController {
 	// 강사등록
 	@PostMapping("/addTeacher")
 	public String addTeacher(Teacher teacher) {
+		// 강사등록 서비스(유저정보의 강사여부 변경, 강사정보등록.)
+		teacherService.insertTeacher(teacher);
 		
-		
-		return"openKnowledge";
+		return"redirect:/";
 	}
 }

@@ -43,14 +43,14 @@
 				<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
 			</form>
 			<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
-				<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+				<div class="btn-group btn-group-sm mt-2" role="btn-group" aria-label="btn group">	
 					<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
 					<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
 					<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
 				</div>
 			 <!-- 글쓰기 버튼 -->
 			 <c:if test="${not empty LOGIN_USER}">
-					<button type="button" class="btn btn-outline-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>		
+					<button type="button" class="btn btn-outline-success btn-sm float-end mt-2" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>		
 			 </c:if>
 		
 			<!-- 질문답변글 전체출력 -->

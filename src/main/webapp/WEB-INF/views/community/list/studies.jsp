@@ -36,13 +36,13 @@
 		</div>
 		<div class="col-10">
 			<!--전체,모집중,모집완료 상태그룹버튼  -->	
-			<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+			<div class="btn-group btn-group-sm mb-3" role="btn-group" aria-label="btn group">	
 				<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-status">전체</button>  
 				<button class="${param.status eq '모집중' ? 'active' : ''}   btn btn-outline-success"  data-status="모집중"     id="btn-recruitment">모집중</button>    
 				<button class="${param.status eq '모집완료' ? 'active' : ''}  btn btn-outline-success"  data-status="모집완료"   id="btn-complete-recruitment">모집완료</button>    
 			</div>
 			<!-- 검색창 -->
-			<div class="row mb-2">
+			<div class="row mt-2 mb-2">
 				<div class="col">
 					<form id="form-search"  class= "col-lg-6" method="get" action="studies">
 						<input type="hidden" name="status" value="${param.status}" />
@@ -57,14 +57,14 @@
 			<div class="row mb-2">
 				<div class="col">
 					<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
-					<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+					<div class="btn-group btn-group-sm mt-2" role="btn-group" aria-label="btn group">	
 						<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
 						<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
 						<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
 					</div>
 					 <!-- 글쓰기 버튼 -->
 					 <c:if test="${not empty LOGIN_USER}">
-						<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
+						<button type="button" class="btn btn-outline-success btn-sm float-end mt-2" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
 					 </c:if>
 				</div>
 			</div>
@@ -127,8 +127,14 @@
 					</ul>
 				</div>
 				<div class="col-4 mt-3">
+					<div class="row">
+						<div class="col me-2 pe-3">
+							<div class="float-end">
 					<p><small>${board.commentCnt }<br>답변</small></p>
 					<p><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</a>

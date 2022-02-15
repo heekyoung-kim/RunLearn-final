@@ -108,36 +108,36 @@
 						      </div>
 						      <div class="mb-3">
 						      	<label class="form-label" id="label-teacher-email">연락받을 이메일<span class="text-danger">*</span></label>
-						        <input type="text" class="form-control" name="teacher-email" placeholder="자주사용하는 이메일을 입력해주세요"></input>
+						        <input type="text" class="form-control" name="teacherEmail" placeholder="자주사용하는 이메일을 입력해주세요"></input>
 						      </div>
 						      <div class="mb-3">
 						      	<label class="form-label" id="label-teacher-name">이름(실명)<span class="text-danger">*</span></label>
-						        <input type="text" class="form-control" name="teacher-name"  placeholder="실명을 입력해주세요."/>
+						        <input type="text" class="form-control" name="teacherName"  placeholder="실명을 입력해주세요."/>
 						      </div>
 						      <div class="mb-3">
 						      	<label class="form-label" id="label-teacher-tel">연락처<span class="text-danger">*</span></label>
-						        <input type="number" class="form-control" name="teacher-tel"  placeholder="01011112222"/>
+						        <input type="number" class="form-control" name="teacherTel"  placeholder="010-1111-2222"/>
 						      </div>
 						      <div class="mb-3">
 						      	<label class="form-label" id="label-teacher-hope-category">희망분야<span class="text-danger">*</span></label>
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="develop" value="개발/프로그래밍" checked>
+								  <input class="form-check-input" type="radio" name="hopeCategory" id="develop" value="개발/프로그래밍" checked>
 						      	  <label class="form-check-label"  for="develop">개발/프로그래밍</label>
 								</div>
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="secutrity-network" value="보안/네트워크">
+								  <input class="form-check-input" type="radio" name="hopeCategory" id="secutrity-network" value="보안/네트워크">
 						      	  <label class="form-check-label"  for="secutrity-network">보안/네트워크</label>
 								</div>
 								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="teacher-hope-category" id="dataScience" value="데이터 사이언스">
+								  <input class="form-check-input" type="radio" name="hopeCategory" id="dataScience" value="데이터사이언스">
 						      	  <label class="form-check-label"  for="dataScience">데이터 사이언스</label>
 								</div>
 						      </div>
 						      <div class="mb-3">
 						      	<label class="form-label" id="label-teacher-intro">나를 소개하는 글<span class="text-danger">*</span></label>
-								<textarea class="form-control" name="intro" style=" width: 100%; height: 8em;"></textarea>
+								<textarea class="form-control" name="teacherIntro" style=" width: 100%; height: 8em;"></textarea>
 						      </div>
-					 	      <button type="submit" class="btn btn-success" id="btn-register">가입하기</button>
+					 	      <button type="submit" class="btn btn-success" id="btn-teacher-register">강사신청하기</button>
 							</form>
 						</div>
 						<div class="modal-footer ">

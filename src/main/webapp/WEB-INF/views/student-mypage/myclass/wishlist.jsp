@@ -67,10 +67,12 @@
 							</a>
 							<div class="modal-active-btn p-1 m-1">
 								<div class="add_cart e_cart_action mb-1 me-1">
-									<i class="fas fa-cart-plus fa-lg text-warning" data-no="${wishlist.classNo}"></i>
+						<%--  
+									<i class="fas fa-cart-plus fa-lg" id="cart-${wishlist.classNo}" data-no="${wishlist.classNo}"></i>
+						 --%>		
 								</div>
 								<div class="add_cart e_cart_action mb-1">
-									<i class="fas fa-heart fa-lg text-danger" data-no="${wishlist.classNo}"></i>
+									<i class="fas fa-heart fa-lg text-danger" id="wishlist-${wishlist.classNo}" data-no="${wishlist.classNo}"></i>
 								</div>
 							</div>
 						</div>
@@ -91,6 +93,8 @@
 		
 		if($(this).hasClass('text-warning')){
 			$(this).removeClass('text-warning')
+			$("#wishlist-"+ classNo).trigger("click")
+			$("#wishlist-"+ classNo).removeClass()
 			addDelete = 0;
 		}else{
 			$(this).addClass('text-warning')
@@ -118,16 +122,15 @@
 	
 	// 위시리스트담기 ajax
 	$(".fa-heart").click(function(){
-		alert("기능구현")
 		var classNo = $(this).data("no")
 		var addDelete = 0;
 		
-		if($(this).hasClass('text-warning')){
-			$(this).removeClass('text-warning')
-			addDelete = 0;
-		}else{
-			$(this).addClass('text-warning')
+		if($(this).hasClass('text-danger')){
+			$(this).removeClass('text-danger')
 			addDelete = 1;
+		}else{
+			$(this).addClass('text-danger')
+			addDelete = 0;
 		}
 
 		$.ajax({
@@ -140,7 +143,7 @@
 			}
 			,success:function(response){
 				if(response.status == "OK"){
-					alert("적용되었습니다.")
+					alert("삭제되었습니다.")
 				}else{
 					alert(response.error);
 				}

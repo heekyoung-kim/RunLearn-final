@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hta.lecture.dto.ClassCourseDto;
 import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.exception.LoginErrorException;
+import com.hta.lecture.service.TeacherService;
 import com.hta.lecture.service.ClassService;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.utils.SessionUtils;
@@ -31,6 +32,11 @@ public class HomeController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private TeacherService teacherService;
+	
+	
 	
 	@Autowired
 	private ClassService classService;
@@ -108,8 +114,9 @@ public class HomeController {
 	// 강사등록
 	@PostMapping("/addTeacher")
 	public String addTeacher(Teacher teacher) {
+		// 강사등록 서비스(유저정보의 강사여부 변경, 강사정보등록.)
+		teacherService.insertTeacher(teacher);
 		
-		
-		return"openKnowledge";
+		return"redirect:/";
 	}
 }

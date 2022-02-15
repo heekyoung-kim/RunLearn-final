@@ -86,8 +86,7 @@
 									<button type="submit" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" id="is-free">바로 학습하기</button><br>
 								</form>
 							</c:if>
-							
-							<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="" class="card-link">공유하기</a><br>
+							<button class="btn btn-warning text-white w-100 fs-6 fw-bold my-1 py-2" id="wishlist-add" data-no="${classes.no }">위시리스트담기</button> 
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -133,7 +132,7 @@ $("#is-priced").click(function(){
 })
 
 // 위시리스트 담기
-$(".wishlist-button").click(function(){
+$("#wishlist-add").click(function(){
 	var classNo = $(this).data("no")
 	$.ajax({
 		type:"Post"

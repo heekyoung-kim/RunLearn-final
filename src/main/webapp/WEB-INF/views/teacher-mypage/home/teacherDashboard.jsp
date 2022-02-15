@@ -74,7 +74,7 @@
 									<div class="card-body p-0">
 										<div class="card-text p-2 text-center">
 											<div>
-												<p class="mb-0">0 개</p>
+												<p class="mb-0">0 점</p>
 											</div>
 										</div>
 										<!-- 
@@ -100,7 +100,7 @@
 									<div class="card-body p-0">
 										<div class="card-text p-2 text-center">
 											<div>
-												<p class="mb-0">0 개</p>
+												<p class="mb-0">0 명</p>
 											</div>
 										</div>
 										<!-- 
@@ -124,7 +124,7 @@
 									<div class="card-body p-0">
 										<div class="card-text p-2 text-center">
 											<div>
-												<p class="mb-0">0 개</p>
+												<p class="mb-0">0 원</p>
 											</div>
 										</div>
 										<!-- 

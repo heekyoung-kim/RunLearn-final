@@ -33,7 +33,7 @@
 						    <c:forEach var="classes" items="${classesList }">
 							  <div class="col">
 							    <div class="card">
-							      <a href="../../course/${classes.no }" class="text-decoration-none text-secondary">
+							      <a href="../../course/${classes.no }/dashboard" class="text-decoration-none text-secondary">
 								      <img src="../../resources/images/course/${classes.image }" class="card-img-top" alt="...">
 								      <div class="card-body">
 								        <h5 class="card-title">${classes.title }</h5>

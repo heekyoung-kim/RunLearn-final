@@ -77,15 +77,15 @@
 				<div class="container main-slide-side">
 					<div class="slick-side my-3">
 						<div class="slick-nav me-3">
-							<div class="slick-count">1 / 10</div>
+							<!-- <div class="slick-count">1 / 10</div> -->
 							<div class="slick-arrow">
-								<div class="slick-pause"></div>
+								<!-- <div class="slick-pause"></div> -->
 							</div>
 						</div>
 						<div class="slick-notice">
 							<div class="slick-notice-1">성장은 인프런</div>
 							<div class="slick-notice-2">신규 강의</div>
-							<div class="slick-notice-3">for All Developers</div>
+							<!-- <div class="slick-notice-3">for All Developers</div> -->
 						</div>
 					</div>
 				</div>
@@ -256,6 +256,8 @@
 <script type="text/javascript">
 	$(function(){
 		$('.main-slide').slick({
+			autoplay: true,
+			autoplaySpeed: 5000,
 			appendArrows:$(".slick-arrow"),
 			prevArrow:"<button type='button' class='main-slick-prev'>&#60;</button>",
 			nextArrow:"<button type='button' class='main-slick-next'>&#62;</button>"

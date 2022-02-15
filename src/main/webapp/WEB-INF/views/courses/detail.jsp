@@ -63,9 +63,7 @@
 	</div>
 	<div class="row">
 		<div class="col-8">
-			<p class="fs-3"><strong>${classes.difficultly }자</strong>를 위해 준비한<br><strong>[개발 도구] 강의입니다.</strong></p>
-			<p>코알못도 따라올 수 있는 친절하고 쉬운 강좌! 현업 개발자는 Git 박사로 들어주는 끝판왕 강좌!</p>
-			
+			<p class="fs-3"><strong>${classes.difficultly }자</strong>를 위해 준비한<br><strong>[${classes.categoryName }] 강의입니다.</strong></p>
 			<div>
 				${classes.content }
 			</div>
@@ -98,10 +96,10 @@
 					</c:otherwise>
 				</c:choose>
 				<div class="card-footer">
-					<span>&middot; 지식공유자: </span><a href="#" class="card-link">강사명</a><br>
-					<span>&middot; 총 xx개 수업: 총 x시간 </span><br>
-					<span>&middot; 수강기한: xxx</span><br>
-					<span>&middot; 입문 > 중급 > 중급이상 대상</span>
+					<span>&middot; 지식공유자: </span>${classes.teacherName }<br>
+					<span>&middot; 총 10개 수업</span><br>
+					<span>&middot; 수강기한: 1 개월</span><br>
+					<span>&middot; ${classes.difficultly } 대상</span>
 				</div>
 			</div>
 		</div>

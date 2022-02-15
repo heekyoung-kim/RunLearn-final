@@ -529,7 +529,7 @@
 											<td>
 							  					<input class="form-checkbox-input" type="checkbox" name="userCoupon" id="user-check-${loop.count}" value="${couponUsers.userNo}" >
 							  				</td>
-											<td>${couponUsers.userNo }</td>
+											<td>${loop.count }</td>
 											<td>${couponUsers.userName }</td>
 											<td>${couponUsers.userEmail }</td>
 											<td>

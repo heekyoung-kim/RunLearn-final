@@ -428,29 +428,29 @@
 	
 	<!-- 챕터 만들기 -->
 	<insert id="insertChapter" parameterType="com.hta.lecture.vo.ClassChapter">
-	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	<selectKey keyProperty="chapterNo" resultType="int" order="BEFORE">
 			select chapter_no_seq.nextval
 			from dual
 	</selectKey>
 		insert into FINAL_CHAPTER_TB
-			(chapter_no, chapterTitle, chapterContent, class_no)
+			(chapter_no, chapter_title, chapter_content, class_no)
 		values
 			(#{chapterNo}, #{chapterTitle}, #{chapterContent}, #{no})		
 	</insert>
 	
 	<!-- 커리큘럼 만들기 -->
 	<insert id="insertDetail" parameterType="com.hta.lecture.vo.ClassDetail">
-	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	<selectKey keyProperty="detailNo" resultType="int" order="BEFORE">
 			select class_detail_no_seq.nextval
 			from dual
 	</selectKey>
 		insert into FINAL_CLASS_DETAIL_TB
 			(class_detail_no, class_detail_title, class_detail_content, class_detail_free, chapter_no )
 		values
-			(#{detailNo}, #{detailTitel}, #{detailContent}, #{detailFree}, #{chapterNo})		
+			(#{detailNo}, #{detailTitle}, #{detailContent}, #{detailFree}, #{chapterNo})		
 	</insert>
 	
-	<select id="getClassFilesByClassNo" parameterType="int" resultType="com.hta.lecture.vo.ClassFiles">
+	<select id="getClassFilesByClassNo" parameterType="int" resultType="com.hta.lecture.vo.ClassFiles">	
 		select
 			class_no			 no,
 			class_uploadFiles	 uploadFiles

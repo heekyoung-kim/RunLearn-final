@@ -28,5 +28,9 @@ public class ChapterService {
 	public List<ClassDetail> getClassDetailByChapterNo(int no) {
 		return chapterMapper.getClassDetailByChapterNo(no);
 	}
+	
+	public ClassDetail getChapterInfoByClassDeatilNo(int no) {
+		return chapterMapper.getChapterInfoByClassDeatilNo(no);
+	}
 		
 }

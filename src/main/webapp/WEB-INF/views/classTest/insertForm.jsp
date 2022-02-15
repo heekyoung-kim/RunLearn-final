@@ -38,6 +38,10 @@
    	 
 	}
 
+	.curriculum-wrapper img {
+		width: 100%;
+	}
+	
 	.title-heading {
 		font-size: 14px;
    		color: #929292;
@@ -45,18 +49,6 @@
 	}
 	
 	.title-sub-heading {
-		font-size: 24px;
-	    color: #330;
-	    font-weight: 800;
-	    padding-bottom: 1rem;
-	}
-	
-	.w-200 {
-		width: 200px;
-		display: flex;
-	}
-	
-	.form-label {
 		font-size: 24px;
 	    color: #330;
 	    font-weight: 800;
@@ -73,9 +65,10 @@
 			<h1>내 강의 만들기</h1>
 		</div>
 	</header>
+	<div class="row mb-3">
 		<div class="curriculum-wrapper">
-			<p class="title-heading">강의제작</p>
-			<p class="title-sub-heading">강의정보</p>
+			<p>강의제작</p>
+			<p>강의정보</p>
 			<form class="border bg-light p-3" method="post" action="insert.do" enctype="multipart/form-data">
 				<div class="mb-3">
 					<label class="form-label">제목</label>
@@ -149,7 +142,7 @@
 							<div class="form-check form-check-inline">
 				  						<input class="form-check-input" type="radio" name="difficultly" id="difficultly" value="중급이상">
 				  						<label class="form-check-label" for="">중급이상</label>
-							</div><br><br>
+							</div>
 							<div class="mb-3">
 								<label class="form-label">상세 내용</label><br>
 								<textarea id="page-embed" name="content">
@@ -240,23 +233,27 @@
 								</textarea>
 							</div>
 							<div class="mb-3">
-								<label class="form-label w-200">대표 이미지</label> 
+								<label class="form-label">대표 이미지</label> 
 								<input type="file" class="form-control" name="uploadFiles">
 							</div>
 							<div class="d-inline-flex p-1 bd-highlight">
-								<label class="form-label w-200">가격</label>
+								<label class="form-label">가격</label>
 								<input type="number" class="form-control" name="price"/>
 							</div><br>
 							<div class="d-inline-flex p-1 bd-highlight">
-								<label class="form-label w-200">할인가격</label>
+								<label class="form-label">할인가격</label>
 								<input type="number" class="form-control" name="discountPrice"/>
 							</div><br><br>
+							<div class="d-inline-flex p-1 bd-highlight">
+								<h2>커리큘럼</h2>
+							</div><br>
 								<div class="text-end">
 								<a href="list.do" class="btn btn-secondary">취소</a>
 								<button type="submit" class="btn btn-primary">저장 후 다음</button>
 							</div>
 						</form>
 					</div>
+				</div>
 			</div>
 </body>
 <script type="text/javascript">

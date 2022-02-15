@@ -16,7 +16,7 @@
 			and b.class_no = #{no}
 	</select>
 	
-	<!-- 챕터정보로 해당 챕터의 상세 수업정보를 조회 -->
+	<!-- 챕터번호로 해당 챕터의 상세 수업 정보 리스트를 조회 -->
 	<select id="getClassDetailByChapterNo" parameterType="int" resultType="com.hta.lecture.vo.ClassDetail">
 		select
 			class_detail_no 		as detailNo,
@@ -29,6 +29,21 @@
 		where
 			a.chapter_no = b.chapter_no
 			and a.chapter_no = #{value}
+	</select>
+	
+	<!-- 챕터상세번호로 해당 강의의 정보를 조회 -->
+	<select id="getChapterInfoByClassDeatilNo" parameterType="int" resultType="com.hta.lecture.vo.ClassDetail">
+		select
+			class_detail_no 		as detailNo,
+			class_detail_title 		as detailTitle,
+			class_detail_content 	as detailContent,
+			class_detail_free 		as free,
+			a.chapter_no			as chapterNo
+		from
+			final_chapter_tb a, final_class_detail_tb b
+		where
+			a.chapter_no = b.chapter_no
+			and class_detail_no = #{value}
 	</select>
 	
 </mapper>

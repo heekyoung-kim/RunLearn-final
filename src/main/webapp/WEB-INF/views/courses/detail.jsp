@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-5">
 						<div class="img-box">
-							<img src="/resources/images/course/${classes.image }" class="card-img-top" alt="...">
+							<img src="/resources/images/course/${classes.uploadfiles }" class="card-img-top" alt="...">
 						</div>
 					</div>
 					<div class="col-7 text-box">
@@ -86,7 +86,6 @@
 									<button type="submit" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" id="is-free">바로 학습하기</button><br>
 								</form>
 							</c:if>
-							
 							<a href="" class="wishlist-button" data-no="${classes.no }">위시리스트담기</a> <a href="" class="card-link">공유하기</a><br>
 						</div>
 					</c:when>

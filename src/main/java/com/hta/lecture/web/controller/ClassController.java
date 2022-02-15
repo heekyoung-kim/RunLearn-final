@@ -16,10 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hta.lecture.dto.ClassCourseDto;
@@ -29,18 +31,22 @@ import com.hta.lecture.service.ClassService;
 import com.hta.lecture.service.ProgressService;
 import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Category;
+import com.hta.lecture.vo.ClassChapter;
+import com.hta.lecture.vo.ClassDetail;
 import com.hta.lecture.vo.ClassFiles;
 import com.hta.lecture.vo.Classes;
 import com.hta.lecture.vo.Progress;
 import com.hta.lecture.vo.User;
 import com.hta.lecture.web.form.ClassCriteria;
 import com.hta.lecture.web.form.ClassInsertForm;
+import com.hta.lecture.web.form.CurriculumForm;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("/course")
+@SessionAttributes("classNo")
 public class ClassController {
 	
 	static final Logger logger = LogManager.getLogger(ClassController.class);
@@ -98,7 +104,6 @@ public class ClassController {
 			savedProgress = progressService.checkProgressByUserNoClassNo(progress);
 			log.info("학습강좌 강의겁색:",progress);
 			log.info("학습중정보:",savedProgress);
-
 		}
 		model.addAttribute("savedProgress", savedProgress);
 
@@ -125,7 +130,7 @@ public class ClassController {
 		
 		return "redirect:/course/" + no;
 	}
-	
+
 	@GetMapping("/insert.do")
 	public String insert(@RequestParam(name = "no") int no, Model model) {
 		
@@ -137,7 +142,7 @@ public class ClassController {
 	
 	@PostMapping("/insert.do")
 	public String save(ClassInsertForm form) throws IOException{
-		String saveDirectory = "C:\\projects\\vue-workspace\\final-project\\src\\main\\webapp\\resources\\images\\course";
+		String saveDirectory = "C:\\Users\\HOME\\git\\final-project\\src\\main\\webapp\\resources\\images\\course";
 		
 		List<ClassFiles> classFiles = new ArrayList<ClassFiles>();
 		
@@ -155,14 +160,38 @@ public class ClassController {
 				FileCopyUtils.copy(in, out);
 			
 			}
-			
 		}
 		
 		Classes classes = new Classes();
 		BeanUtils.copyProperties(form, classes);
 		classService.addNewClass(classes, classFiles);
 		
-		return "redirect:";
+		return "redirect:insertDetail.do?no=" + classes.getNo();
 	}
 	
+		@GetMapping("/insertDetail.do")
+		public String insertDetail(@RequestParam(name = "no") int no, Model model) {
+
+			model.addAttribute("no", no);
+			
+	      return "courses/CurriculumForm";
+	   }
+	   
+	   @PostMapping("/insertDetail.do")
+	   public String saveDetail(CurriculumForm formDetail) {
+	      
+	      User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+	      
+	      ClassChapter chapter = new ClassChapter();
+			ClassDetail detail = new ClassDetail();
+			
+			BeanUtils.copyProperties(formDetail, chapter);
+			BeanUtils.copyProperties(formDetail, detail);
+			classService.addNewChapter(chapter);
+			detail.setChapterNo(chapter.getChapterNo());
+			classService.addNewDetail(detail);
+	      
+			
+	      return "redirect:/instructor/" + user.getNo();
+	   }
 }

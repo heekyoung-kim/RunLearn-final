@@ -31,7 +31,7 @@
 		   and (A.board_title like '%' ||  #{search} || '%')
 		</if>
 		<if test="sort == 'date'">
-		 order by A.board_no asc
+		 order by A.board_created_date desc
 		</if>
 		<if test="sort == 'like'">
 		 order by A.board_like_cnt desc
@@ -83,8 +83,8 @@
 			board_delete_date		deleteDate,
 			board_like_cnt			boardLikeCnt,
 			board_comment_cnt		commentCnt,
-			board_class_no			classNo,
-			board_user_no			userNo
+			class_no				classNo,
+			user_no					userNo
 		from
 			final_board_tb
 		where
@@ -130,7 +130,6 @@
 		nvl(comment_sub_no,0)			commentSubNo,
 		comment_content					commentContent,
 		comment_registration_date		registrationDate,
-		comment_cnt						commentCnt,
 		comment_like_cnt				commentLikeCnt,
 		comment_registration_date		registrationDate
 	from
@@ -143,9 +142,9 @@
 <!-- 답변(댓글)comment 추가 -->
 	<insert id="addComment" parameterType="com.hta.lecture.vo.BoardComment" >
 		insert into final_comment_tb
-		(user_no, board_no, comment_no, comment_content )
+		(user_no, board_no,comment_registration_date, comment_no, comment_content )
 		values
-		(#{userNo},#{boardNo}, comment_no_seq.nextval, #{commentContent})
+		(#{userNo},#{boardNo},sysDate,comment_no_seq.nextval, #{commentContent})
 	</insert>
 	
 <!-- 대댓글 Recomment 추가 -->
@@ -156,17 +155,33 @@
 		(#{userNo}, #{boardNo}, comment_no_seq.nextval, #{commentContent}, #{commentSubNo})
 	</insert>
 
-
-
-
-
-<!-- 게시글 수정, 삭제 -->	
+<!-- 게시글 수정, 태그수정, 게시글삭제 -->	
 	<update id="updateBoard" parameterType="com.hta.lecture.vo.Board" >
-	
+	update
+		final_board_tb
+	set
+			board_title=#{title}			
+			,board_content=#{content}		
+			,board_status=#{status}			
+			,board_update_date= sysDate
+			,board_like_cnt=#{boardLikeCnt}			
+			,board_comment_cnt=#{commentCnt}				
+	where
+		board_no = #{boardNo}	
 	</update>
 	
-	<delete id="deleteBoardByCriteria" parameterType="int">
+	<update id="updateTag" parameterType="com.hta.lecture.vo.Tag" >
+	update
+		final_tag_tb
+	set
+		tag_name=#{tagName}
+	where
+		board_no = #{boardNo}
+	</update>
 	
+	<delete id="deleteBoard" parameterType="int">
+	DELETE FROM final_board_tb
+	WHERE board_no = #{value}
 	</delete>
 
 </mapper>

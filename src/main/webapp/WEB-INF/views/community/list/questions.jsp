@@ -17,108 +17,134 @@
 <head>
 <body>  
 <%@ include file="../../common/nav.jsp"%>
-<div class="container" >
-		<div class="bg-black" >
-			<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">묻고 답해요</h2>
-			<p class="fs-6 text-light" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
-		</div>
-<%@ include file="../../community/left.jsp"%>
-
-<!--전체,해결,미해결 상태그룹버튼  -->	
-<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-question">전체</button>  
-<button class="${param.status eq '해결' ? 'active' : ''}   btn btn-outline-success"  data-status="해결"     id="btn-resolved-question">해결</button>    
-<button class="${param.status eq '미해결' ? 'active' : ''}  btn btn-outline-success"  data-status="미해결"   id="btn-unresolved-question">미해결</button>    
-</div>
-<!-- 검색, 태그창 -->
-<div class="row">
-	<form id="form-search"  class= "col-lg-6" method="get" action="questions">
-		<input type="hidden" name="status" value="${param.status}" />
-		<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
-		<input type="text" name="search" class= "col-lg-9" value="${param.search}" placeholder="궁금한 질문을 검색해보세요!" />
-		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
-	</form>
-</div>  
-
-
-<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
-<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
-<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
-<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
-</div>
-
- <!-- 글쓰기 버튼 -->
- <c:if test="${not empty LOGIN_USER}">
-<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
- </c:if>
-
-<!-- 글쓰기 모달창 -->
-<div class="modal fade" id="writeBoardModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="writeBoardLabel">커뮤니티</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="container-fluid" >
+	<div class="row bg-black mb-3">
+		<div class="col">
+			<div class="container">
+				<div>
+					<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">묻고 답해요</h2>
+					<p class="fs-6 text-light" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
+				</div>
 			</div>
-			<form id="addBoard-form" method="post" action="/addBoard">
-				<div class="modal-body">
-						<div class="form-group mb-3">
-							<label for="category">카테고리</label>
-							<button type="button" class="btn btn-outline-success" id="btn-questions" >질문답변</button>
-							<button type="button" class="btn btn-outline-success" id="btn-freeTalk" >자유주제</button>
-							<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
-							<input type="hidden" name="category" value="질문답변"/>
-							<input type="hidden" name="status" value="미해결"/>
-							<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">
-							
-						</div>			
-						<div class="form-group mb-3">
-							<label for="title">제목</label>
-	 						<input type="text" name="title" class="form-control" id="title" placeholder= "제목을 입력하세요">						
-				<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
-						</div>			
-					  	<div class="form-group mb-3">
-							<label for="tag">태그</label>
-							<div class=" border p-2">
-		 						<input type="text" name="tagfield" class="form-control  border-0" id="tag" placeholder="태그는 5개까지 입력가능합니다.">						
-								<div class="mt-2 g-3" id="tag-box">									
-								</div>
-							</div>
-						</div>				
-					  <div class="form-group mb-3">
-							<label for="content">내용</label>
-	 						<input type="text" name="content" class="form-control" id="tag" placeholder= "내용을 입력해주세요" style="width:470px; height:200px;">						
-					  </div>				
-				</div>
-				<div class="modal-footer">
-					<button type= "button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >취소</button>
-					<button type= "button" class="btn btn-outline-success" id="btn-addBoard" >등록</button>
-				</div>
-			</form>
+		</div>
 	</div>
 </div>
-</div>
-		<!-- 질문답변글 전체출력 -->
-	<c:forEach var="board" items="${boardLists}">
-			<a href="/community/detail?boardNo=${board.boardNo}">
-				<div class="row border-top border-1 ">
-					<div class=" col-8 mt-3">
-						<h3>${board.title }</h3>
-						<p>${board.content}</p>
-						<ul class="nav">
-							<li class="nav-item"><p><small>${board.name }</small></p></li>
-							<li class="nav-item"><p><small> / ${board.createdDate }</small></p></li>
-							<li class="nav-item"><p><small> / ${board.classTitle }</small></p></li>
-						</ul>
+<div class="container">
+	<div class="row">
+		<div class="col-2">
+			<%@ include file="../../community/left.jsp"%>
+		</div>
+		<div class="col-10">
+			<!--전체,해결,미해결 상태그룹버튼  -->	
+			<div class="btn-group btn-group-sm mb-2" role="btn-group" aria-label="btn group">	
+				<button class="${empty param.status ? 'active' : '' }     btn btn-outline-success"             			 id="btn-all-question">전체</button>  
+				<button class="${param.status eq '해결' ? 'active' : ''}   btn btn-outline-success"  data-status="해결"     id="btn-resolved-question">해결</button>    
+				<button class="${param.status eq '미해결' ? 'active' : ''}  btn btn-outline-success"  data-status="미해결"   id="btn-unresolved-question">미해결</button>    
+			</div>
+			<!-- 검색창 -->
+			<div class="row mb-2">
+				<div class="col">
+					<form id="form-search"  class= "col-lg-6" method="get" action="questions">
+						<input type="hidden" name="status" value="${param.status}" />
+						<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
+						<input type="text" name="search" class= "col-lg-9 float-left" value="${param.search}" placeholder="궁금한 질문을 검색해보세요!" />
+						<div class=" float-left d-inline ms-3">
+							<button class="btn btn-outline-success btn-sm" style="margin-top:-2px;" type="submit" id="btn-search">검색</button>
+						</div>
+					</form>
+				</div>
+			</div>  
+		
+		
+			<div class="row mb-2">
+				<div class="col">
+					<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
+					<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+						<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
+						<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
+						<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
 					</div>
-					<div class="col-4 mt-3">
-						<p><small>${board.commentCnt }<br>답변</small></p>
-						<p><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
+				
+					<!-- 글쓰기 버튼 -->
+					<c:if test="${not empty LOGIN_USER}">
+						<button type="button" class="btn btn-outline-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
+					</c:if>
+				</div>
+			</div>
+		
+			<!-- 글쓰기 모달창 -->
+			<div class="modal fade" id="writeBoardModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="writeBoardLabel">커뮤니티</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<form id="addBoard-form" method="post" action="/addBoard">
+							<div class="modal-body">
+								<div class="form-group mb-3">
+									<label for="category">카테고리</label>
+									<button type="button" class="btn btn-outline-success" id="btn-questions" >질문답변</button>
+									<button type="button" class="btn btn-outline-success" id="btn-freeTalk" >자유주제</button>
+									<button type="button" class="btn btn-outline-success" id="btn-study" >스터디</button>
+									<input type="hidden" name="category" value="질문답변"/>
+									<input type="hidden" name="status" value="미해결"/>
+									<input type="hidden" name="board-userNo" value="${LOGIN_USER.no}">				
+								</div>			
+								<div class="form-group mb-3">
+									<label for="title">제목</label>
+			 						<input type="text" name="title" class="form-control" id="title" placeholder= "제목을 입력하세요">						
+									<div class="alert alert-danger" id="alert-error-addBoard" style="display:none;"></div>
+								</div>			
+							  	<div class="form-group mb-3">
+									<label for="tag">태그</label>
+									<div class=" border p-2">
+				 						<input type="text" name="tagfield" class="form-control  border-0" id="tag" placeholder="태그는 5개까지 입력가능합니다.">						
+										<div class="mt-2 g-3" id="tag-box">									
+										</div>
+									</div>
+								</div>
+								<div class="form-group mb-3">
+									<label for="content">내용</label>
+									<input type="text" name="content" class="form-control" id="tag" placeholder="내용을 입력해주세요" style="width: 470px; height: 200px;">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type= "button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >취소</button>
+								<button type= "button" class="btn btn-outline-success" id="btn-addBoard" >등록</button>
+							</div>
+						</form>
 					</div>
 				</div>
-			</a>
-	</c:forEach>
+			</div>
+			<!-- 질문답변글 전체출력 -->
+			<c:forEach var="board" items="${boardLists}">
+				<a href="/community/detail?boardNo=${board.boardNo}">
+					<div class="row border-top border-1 ">
+						<div class="col-8 mt-3">
+							<h3>${board.title }</h3>
+							<p>${board.content}</p>
+							<ul class="nav">
+								<li class="nav-item"><p><small>${board.name }</small></p></li>
+								<li class="nav-item"><p><small> / <fmt:formatDate value="${board.createdDate }" pattern="yyyy년 MM월 dd일"/></small></p></li>
+								<li class="nav-item"><p><small> ${board.classTitle }</small></p></li>
+							</ul>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="row">
+								<div class="col me-2 pe-3">
+									<div class="float-end">
+										<p class="text-center"><small>${board.commentCnt }<br>답변</small></p>
+										<p class="text-center"><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
+									</div>								
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</div>
+	</div>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
@@ -198,11 +224,9 @@ $(function(){
 		var tagValue = $(this).closest('span').find('span').text();
 		// 히든 필드 삭제 
 		$("#addBoard-form :input[name=tag][value="+tagValue+"]").remove();
-
 		// 태그 삭제 
 		$(this).closest('span').remove();
 	})
-
 	
 	$("#btn-addBoard").click(function(event){
 		
@@ -242,6 +266,10 @@ $(function(){
 		})
 	})
 })
+
+
+
+
 
 
 </script>

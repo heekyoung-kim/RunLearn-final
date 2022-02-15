@@ -178,9 +178,13 @@
 		board_no = #{boardNo}
 	</update>
 	
-	<delete id="deleteBoard" parameterType="int">
-	DELETE FROM final_board_tb
+	<update id="deleteBoard" parameterType="int">
+	update final_board_tb
+	set
+		board_deleted = 'Y',
+		board_update_date = sysdate,
+		board_delete_date = sysdate
 	WHERE board_no = #{value}
-	</delete>
+	</update>
 
 </mapper>

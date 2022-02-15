@@ -183,7 +183,7 @@ $("#delete-btn").click(function() {
 		success : function(response) {
 			if(response.status == "OK"){
 				alert("게시글이 삭제되었습니다.");
-				location.href = "/community/list/question";
+				location.href = "/community/questions";
 			}
 		}
 	})	

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hta.lecture.mapper.BoardMapper">
 	
-	
 <!-- criteria로 board 조회 -->
 	 <select id="getBoardByCriteria" parameterType="com.hta.lecture.web.form.Criteria" resultType="com.hta.lecture.dto.BoardDto">
 	select 
@@ -22,22 +21,13 @@
 		final_board_tb A, final_user_tb B
 	where 
 		A.user_no = B.user_no
-		
+		and A.board_deleted = 'N'
 		and A.board_category = #{category}
 		<if test="status != null">
 		   and A.board_status = #{status}
 		</if>
 		<if test="search != null">
 		   and (A.board_title like '%' ||  #{search} || '%')
-		</if>
-		<if test="sort == 'date'">
-		 order by A.board_created_date desc
-		</if>
-		<if test="sort == 'like'">
-		 order by A.board_like_cnt desc
-		</if>
-		<if test="sort == 'reply'">
-		 order by A.board_comment_cnt desc
 		</if>
 		<if test="tags != null">
 		and A.board_boardNo in (select A.board_boardNo
@@ -48,6 +38,15 @@
 			</foreach>
 							     )
 		)
+		</if>
+		<if test="sort == 'date'">
+		 order by A.board_created_date desc
+		</if>
+		<if test="sort == 'like'">
+		 order by A.board_like_cnt desc
+		</if>
+		<if test="sort == 'reply'">
+		 order by A.board_comment_cnt desc
 		</if>
 	</select>
 	

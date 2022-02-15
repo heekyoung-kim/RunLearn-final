@@ -31,4 +31,5 @@ public class Board {
 	private int commentCnt;
 	private int classNo;
 	private int userNo;
+	private String boardDeleted;
 }

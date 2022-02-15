@@ -30,15 +30,15 @@
 				<div class="row">
 					<div class="col-5">
 						<div class="img-box">
-							<img src="/resources/images/course/${classes.uploadfiles}" class="card-img-top" alt="...">
+							<img src="/resources/images/course/${classes.uploadfiles }" class="card-img-top" alt="...">
 						</div>
 					</div>
 					<div class="col-7 text-box">
 						<div class="text-content">
-							<span class="badge bg-secondary">New</span> <span>개발&middot;프로그래밍 > 프론트엔드</span>
+							<span class="badge bg-secondary">New</span> <span>${classes.categoryName }</span>
 							<p class="fs-4 m-2">${classes.title }</p>
 							<span>★★★★★(4.9) 138개의 수강평&middot;1636명의 수강생</span><br>
-							<span>작성자명(강사이름)</span>
+							<span>${classes.teacherName }</span>
 						</div>
 					</div>
 				</div>
@@ -75,11 +75,11 @@
 				<c:choose>
 					<c:when test="${empty savedProgress}">
 						<div class="card-body">
-							<c:if test="${classes.price gt 0 }">
+							<c:if test="${classes.discountPrice gt 0 }">
 								<h3 class="card-title"><strong><fmt:formatNumber pattern="##,###">${classes.price }</fmt:formatNumber>원</strong></h3>
 								<a href="#" class="btn btn-apply w-100 fs-6 fw-bold my-3 py-2" data-no="${classes.no }" id="is-priced">수강신청</a><br>
 							</c:if>
-							<c:if test="${classes.price le 0 }">
+							<c:if test="${classes.price le 0 || classes.discountPrice le 0 }">
 								<form method="post" action="insert-progress" id="free-form">
 									<input type="hidden" name="no" value="${classes.no }" />
 									<h3 class="card-title"><strong>무료</strong></h3>

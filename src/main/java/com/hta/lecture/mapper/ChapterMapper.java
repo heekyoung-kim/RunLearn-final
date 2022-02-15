@@ -14,4 +14,6 @@ public interface ChapterMapper {
 	
 	List<ClassDetail> getClassDetailByChapterNo(int no);
 	
+	ClassDetail getChapterInfoByClassDeatilNo(int no);
+	
 }

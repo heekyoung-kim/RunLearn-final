@@ -80,16 +80,16 @@
 								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="/logout">로그아웃</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="/dashboard">학생</a>
+								<a class="nav-link btn btn-primary btn-sm btn-student m-1 text-white" href="/dashboard">학생</a>
 							</li>							
 							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-success btn-sm m-1" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
+									<a class="nav-link btn btn-success btn-sm m-1 text-white" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
 								</li>							
 							</c:if>
 							<c:if test="${LOGIN_USER.managerStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-danger btn-sm m-1" href="/admin">관리자</a>
+									<a class="nav-link btn btn-danger btn-sm m-1 text-white" href="/admin">관리자</a>
 								</li>							
 							</c:if>
 						</c:when>
@@ -274,7 +274,7 @@ $(function(){
 							$.each(secondSubCategoryList, function(index, secondSubCategory) {
 				           	 	let secondSubNo = secondSubCategory.no;
 					            let secondSubName = secondSubCategory.name;
-					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?category='+secondSubNo+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
+					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?category='+secondSubName+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
 					            $secondSubcategoryUl.append(secondSubLi);
 								
 							})

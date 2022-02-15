@@ -160,9 +160,24 @@ public class ClassController {
 		
 		Classes classes = new Classes();
 		BeanUtils.copyProperties(form, classes);
+		
 		classService.addNewClass(classes, classFiles);
 		
-		return "redirect:";
+		return "redirect:insertDetail.do?no=" + classes.getNo();
+	}
+	
+	@GetMapping("/insertDetail.do")
+	public String insertDetail(@RequestParam(name = "no") int no) {
+
+		return "courses/CurriculumForm";
+	}
+	
+	@PostMapping("/insertDetail.do")
+	public String saveDetail(@RequestParam(name = "no") int no) {
+		
+		User user = (User)SessionUtils.getAttribute("LOGIN_USER");
+
+		return "redirect:teacher-mypage/home/dashboard/" + user.getNo();
 	}
 	
 }

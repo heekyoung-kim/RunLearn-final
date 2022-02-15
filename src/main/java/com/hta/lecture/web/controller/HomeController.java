@@ -1,5 +1,7 @@
 package com.hta.lecture.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hta.lecture.dto.ClassCourseDto;
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.exception.LoginErrorException;
 import com.hta.lecture.service.TeacherService;
+import com.hta.lecture.service.ClassService;
 import com.hta.lecture.service.UserService;
 import com.hta.lecture.utils.SessionUtils;
 import com.hta.lecture.vo.Teacher;
@@ -33,9 +38,16 @@ public class HomeController {
 	
 	
 	
+	@Autowired
+	private ClassService classService;
+	
 	// 홈
 	@RequestMapping("/")
-	public String home() {
+	public String home(Model model) {
+		
+		List<ClassesDto> classDto = classService.getAllCourseData();
+		
+		model.addAttribute("classDto", classDto);
 		
 		return "home";
 	}

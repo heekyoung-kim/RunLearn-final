@@ -43,10 +43,10 @@
 					</div>
 					<div class="col-7 text-box">
 						<div class="text-content">
-							<span class="badge bg-secondary">New</span> <span>개발&middot;프로그래밍 > 프론트엔드</span>
+							<span class="badge bg-secondary">New</span> <span>${classes.categoryName }</span>
 							<p class="fs-4 m-2">${classes.title }</p>
 							<span>★★★★★(4.9) 138개의 수강평&middot;1636명의 수강생</span><br>
-							<span>작성자명(강사이름)</span>
+							<span>${classes.teacherName }</span>
 						</div>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 	<div class="row">
 		<div class="col class-dashboard my-3 p-3">
 			<p class="fs-3 mb-3">교육과정</p>
-			<c:forEach var="chapter" items="${chapterList }">
+			<c:forEach var="chapter" items="${chapterList }" varStatus="chapterStatus">
 				<div class="list-group mb-2">
 					<div>
 						<a id="section-btn-${chapter.no }" class="list-group-item bg-light d-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#collapse-${chapter.no }" role="button" aria-expanded="false" aria-controls="collapse-${chapter.no }">
@@ -71,8 +71,8 @@
 						</a>
 					</div>
 					<div class="collapse show" id="collapse-${chapter.no }">
-						<c:forEach var="chapterDetail" items="${chapter.classDetail }">
-							<a href="" class="list-group-item d-block text-decoration-none text-secondary">${chapterDetail.detailNo }강. ${chapterDetail.detailTitle }</a>
+						<c:forEach var="chapterDetail" items="${chapter.classDetail }" varStatus="status">
+							<a href="curriculum/${chapterDetail.detailNo}" class="list-group-item d-block text-decoration-none text-secondary">${status.count }강. ${chapterDetail.detailTitle }</a>
 						</c:forEach>
 					</div>
 				</div>

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hta.lecture.dto.ClassesDto;
 import com.hta.lecture.service.ClassService;
-import com.hta.lecture.vo.Classes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +44,7 @@ public class TeacherController {
 	public String cources(@PathVariable(name = "no") int no, Model model) {
 		
 		log.info("회원 번호 조회: " + no);
-		List<Classes> classes = classService.getAllClassByNo(no);
+		List<ClassesDto> classes = classService.getAllClassByNo(no);
 		
 		model.addAttribute("classes", classes);
 		

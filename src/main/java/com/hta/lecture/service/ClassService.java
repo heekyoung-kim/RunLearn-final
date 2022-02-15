@@ -83,8 +83,8 @@ public class ClassService {
 		return classMapper.countAllClassStudent(no);
 	}
 	
-	public List<Classes> getAllClassByNo(int no) {
-			List<Classes> classes = classMapper.getAllClassByNo(no);
+	public List<ClassesDto> getAllClassByNo(int no) {
+			List<ClassesDto> classes = classMapper.getAllClassByNo(no);
 			
 			return classes;
 	}
@@ -134,6 +134,10 @@ public class ClassService {
 		List<Classes> classesList = classMapper.getAllClassToStudentByUserNo(no);
 		
 		return classesList;
+	}
+	
+	public List<ClassesDto> getAllCourseData() {
+		return classMapper.getAllCourseData();
 	}
 		
 }

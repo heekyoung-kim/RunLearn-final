@@ -76,4 +76,14 @@ public class StudentController {
 		
 		return "courses/dashboard";
 	}
+	
+	@GetMapping("course/{no}/curriculum/{chapterNo}")
+	public String curriculum(@PathVariable(name = "no") int no, @PathVariable(name = "chapterNo") int chapterNo, Model model) {
+		
+		ClassDetail classDetail = chapterService.getChapterInfoByClassDeatilNo(chapterNo);
+		
+		model.addAttribute("classDetail", classDetail);
+		
+		return "courses/lecture/curriculum";
+	}
 }

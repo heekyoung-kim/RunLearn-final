@@ -17,11 +17,11 @@ public class Teacher {
 
 	private int no;
 	private int userNo;
-	private String email;
-	private String name;
-	private String tel;
+	private String teacherEmail;
+	private String teacherName;
+	private String teacherTel;
 	private String hopeCategory;
-	private String intro;
+	private String teacherIntro;
 	private String introLink;
 	private int income;
 	private String img;

@@ -38,6 +38,8 @@ public class ClassesDto {
 	private int totalTime;
 	private String isDeleted;
 	private int teacherNo;
+	private String teacherName;
 	private int categoryNo;
+	private String categoryName;
 	private String uploadfiles;
 }

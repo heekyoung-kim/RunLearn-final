@@ -13,6 +13,7 @@
  a:link { color: black; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
  a:hover { color: black; text-decoration: none;}
+ 
 </style>
 <head>
 <body>  
@@ -21,8 +22,8 @@
 	<div class="row bg-black mb-3">
 		<div class="col">
 			<div class="container">
-				<div>
-					<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">묻고 답해요</h2>
+				<div class="" >
+					<h2 class="fs-4 my-3 fw-bold" style="color:white; font-size:30px;">묻고 답해요</h2>
 					<p class="fs-6 text-light" style="color:white;">81만명의 커뮤니티!! 함께 토론해봐요.</p>
 				</div>
 			</div>
@@ -41,7 +42,8 @@
 				<button class="${param.status eq '해결' ? 'active' : ''}   btn btn-outline-success"  data-status="해결"     id="btn-resolved-question">해결</button>    
 				<button class="${param.status eq '미해결' ? 'active' : ''}  btn btn-outline-success"  data-status="미해결"   id="btn-unresolved-question">미해결</button>    
 			</div>
-			<!-- 검색창 -->
+      
+			<!-- 검색, 태그창 -->
 			<div class="row mb-2">
 				<div class="col">
 					<form id="form-search"  class= "col-lg-6" method="get" action="questions">
@@ -54,7 +56,6 @@
 					</form>
 				</div>
 			</div>  
-		
 		
 			<div class="row mb-2">
 				<div class="col">

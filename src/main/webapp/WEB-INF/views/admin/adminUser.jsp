@@ -558,7 +558,7 @@
 		
 		$.getJSON({
 			type: "post"
-			,url: "/rest/deleteUser"
+			,url: "/rest/deleteUserByAdmin"
 			,dataType: "json"
 			,data: {
 				userNo : userNo

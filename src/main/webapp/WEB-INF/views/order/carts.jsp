@@ -215,9 +215,11 @@
 			if (point) {
 				if (point > maxPoint) {
 					$pointUse.val(maxPoint);
+					point = maxPoint;
 				}
 				if (point <= 0) {
 					$pointUse.val(minPoint);
+					point = 0;
 				}
 				totalPayPrice -= point;
 				

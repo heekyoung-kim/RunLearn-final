@@ -74,27 +74,22 @@
 					<!--// 로그인/지식공유참여자 -->
 					<c:choose>
 						<c:when test="${not empty LOGIN_USER}">
-							<li class="nav-item">
-								<a class="nav-link profile-cover p-0" href="#"><img src="/resources/images/default_profile.png"></a>
-							</li>
 							<li class="nav-item mx-1">
-							<li class="nav-item"><a class="nav-link btn btn-success btn-sm btn-recent m-1" href="">최근강의</a></li>
-							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart  m-1"></i></a></li>
-							<li class="nav-item"><a class="nav-link" href=""><i class="fas fa-bell  m-1"></i></a></li>
+							<li class="nav-item"><a class="nav-link" href="/carts"><i class="fas fa-shopping-cart text-black"></i></a></li>
 							<li class="nav-item">	
 								<a class="nav-link btn btn-outline-secondary btn-sm btn-login  m-1" href="/logout">로그아웃</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link btn btn-primary btn-sm btn-student m-1" href="/dashboard">학생</a>
+								<a class="nav-link btn btn-primary btn-sm btn-student m-1 text-white" href="/dashboard">학생</a>
 							</li>							
 							<c:if test="${LOGIN_USER.teacherStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-success btn-sm m-1" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
+									<a class="nav-link btn btn-success btn-sm m-1 text-white" href="/instructor/${LOGIN_USER.no }">지식공유자</a>
 								</li>							
 							</c:if>
 							<c:if test="${LOGIN_USER.managerStatus eq 'Y'}">
 								<li class="nav-item">
-									<a class="nav-link btn btn-danger btn-sm m-1" href="/admin">관리자</a>
+									<a class="nav-link btn btn-danger btn-sm m-1 text-white" href="/admin">관리자</a>
 								</li>							
 							</c:if>
 						</c:when>
@@ -279,7 +274,7 @@ $(function(){
 							$.each(secondSubCategoryList, function(index, secondSubCategory) {
 				           	 	let secondSubNo = secondSubCategory.no;
 					            let secondSubName = secondSubCategory.name;
-					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?category='+secondSubNo+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
+					            let secondSubLi = '<li class="nav-item" id="sub-nav-item-'+secondSubNo+'"><a class="nav-link" href="/course?category='+secondSubName+'" data-menu-3="'+secondSubNo+'">'+secondSubName+'</a></li>';   
 					            $secondSubcategoryUl.append(secondSubLi);
 								
 							})

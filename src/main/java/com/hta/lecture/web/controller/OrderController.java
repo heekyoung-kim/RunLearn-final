@@ -154,6 +154,12 @@ public class OrderController {
 		
 		return "redirect:/orders";
 	}
+	
+	@GetMapping("/order/pay/cancel")
+	public String payCancel() {
+		return "redirect:/carts";
+	}
+	
 /*	
 	// 주문정보 저장하기
 	@PostMapping("/orderItems")

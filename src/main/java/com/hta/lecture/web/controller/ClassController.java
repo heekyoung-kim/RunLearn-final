@@ -164,6 +164,7 @@ public class ClassController {
 		
 		Classes classes = new Classes();
 		BeanUtils.copyProperties(form, classes);
+		
 		classService.addNewClass(classes, classFiles);
 		
 		return "redirect:insertDetail.do?no=" + classes.getNo();

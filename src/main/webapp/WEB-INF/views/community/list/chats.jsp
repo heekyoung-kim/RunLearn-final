@@ -17,31 +17,75 @@
 </head>
 <body>
 <%@ include file="../../common/nav.jsp"%>
-<div class="container" >
-		<div class="bg-black" >
-			<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">이야기를 나눠요</h2>
-			<p class="fs-6 text-light" style="color:white;">82만명의 커뮤니티!! 함께 토론해봐요.</p>
+<div class="container-fluid" >
+	<div class="row bg-black mb-3" >
+		<div class="col">
+			<div class="container">
+				<div>
+					<h2 class="fs-4 my-3 fw-bold" style="color:white;  font-size:30px;">이야기를 나눠요</h2>
+					<p class="fs-6 text-light" style="color:white;">82만명의 커뮤니티!! 함께 토론해봐요.</p>
+				</div>
+			</div>
 		</div>
-<%@ include file="../../community/left.jsp"%>
-<!-- 검색, 태그창 -->
-<div class="row">
-	<form id="form-search"  class= "col-lg-6" method="get" action="chats">
-		<input type="hidden" name="status" value="${param.status}" />
-		<input type="hidden" name="sort" value="${empty param.sort ? 'date' : param.sort}" />
-		<input type="text" name="search" class= "col-lg-9" value="${param.search}" placeholder="대화내용을 검색해보세요!" />
-		<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
-	</form>
-</div>  
-
-
-<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
-<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
-<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
-<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
-<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
+	</div>
 </div>
- <!-- 글쓰기 버튼 -->
-<button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>
+<div class="container">
+	<div class="row">
+		<div class="col-2">
+			<%@ include file="../../community/left.jsp"%>
+		</div>
+			<!-- 검색창 -->
+		<div class="col-10">
+			<form id="form-search" class="col-lg-6" method="get" action="chats">
+				<input type="hidden" name="status" value="${param.status}" />
+				<input type="hidden" name="sort"   value="${empty param.sort ? 'date' : param.sort}" /> 
+				<input type="text" name="search" class="col-lg-9" value="${param.search}" placeholder="대화내용을 검색해보세요!" />
+				<button class="btn btn-outline-success btn-sm" type="submit" id="btn-search">검색</button>
+			</form>
+			<!-- 최신순, 답변많은순, 좋아요순 버튼 -->
+				<div class="btn-group btn-group-sm" role="btn-group" aria-label="btn group">	
+					<button   class="${param.sort eq 'date' ? 'active' : '' }  btn btn-outline-success"      id="btn-latest">최신순</button>  
+					<button   class="${param.sort eq 'reply' ? 'active' : '' }btn btn-outline-success"  	   id="btn-answer">답변많은순</button>    
+					<button   class="${param.sort eq 'like' ? 'active' : '' }btn btn-outline-success"      id="btn-like">좋아요순</button>    
+				</div>
+			 <!-- 글쓰기 버튼 -->
+			 <c:if test="${not empty LOGIN_USER}">
+					<button type="button" class="btn btn-outline-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#writeBoardModal" >글쓰기</button>		
+			 </c:if>
+		
+			<!-- 질문답변글 전체출력 -->
+			<c:forEach var="board" items="${boardLists}">
+				<a href="/community/detail?boardNo=${board.boardNo}">
+					<div class="row border-top border-1 ">
+						<div class=" col-8 mt-3">
+							<h3>${board.title }</h3>
+							<p>${board.content}</p>
+							<ul class="nav">
+								<li class="nav-item"><p><small>${board.name }</small></p></li>
+								<li class="nav-item"><p><small> / <fmt:formatDate value="${board.createdDate }" pattern="yyyy년 MM월 dd일"/></small></p></li>
+								<li class="nav-item"><p><small>  ${board.classTitle }</small></p></li>
+							</ul>
+						</div>
+						<div class="col-4 mt-3">
+							<div class="row">
+								<div class="col me-2 pe-3">
+									<div class="float-end">
+										<p><small>${board.commentCnt }<br>답변</small></p>
+										<p><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</div>	
+	</div>
+</div>
+
+
+
+
 <!-- 글쓰기 모달창 -->
 <div class="modal fade" id="writeBoardModal" tabindex="-1" role="dialog" aria-labelledby="writeBoardLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
@@ -86,27 +130,8 @@
 	</div>
 </div>
 </div>
-		<!-- 질문답변글 전체출력 -->
-	<c:forEach var="board" items="${boardLists}">
-		<a href="/community/detail?boardNo=${board.boardNo}">
-			<div class="row border-top border-1 ">
-				<div class=" col-8 mt-3">
-					<h3>${board.title }</h3>
-					<p>${board.content}</p>
-					<ul class="nav">
-						<li class="nav-item"><p><small>${board.name }</small></p></li>
-						<li class="nav-item"><p><small> / ${board.createdDate }</small></p></li>
-						<li class="nav-item"><p><small> / ${board.classTitle }</small></p></li>
-					</ul>
-				</div>
-				<div class="col-4 mt-3">
-					<p><small>${board.commentCnt }<br>답변</small></p>
-					<p><small><i class="bi bi-suit-heart-fill"></i> ${board.likeCnt }</small></p>
-				</div>
-			</div>
-		</a>
-	</c:forEach>
 
+</div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 
 <script>

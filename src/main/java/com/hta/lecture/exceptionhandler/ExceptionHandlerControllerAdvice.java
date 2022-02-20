@@ -1,15 +1,21 @@
 package com.hta.lecture.exceptionhandler;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.hta.lecture.exception.CartErrorException;
 import com.hta.lecture.exception.CustomException;
 import com.hta.lecture.exception.LoginErrorException;
 import com.hta.lecture.exception.RestLoginErrorException;
+import com.hta.lecture.exception.RestRegisterException;
 import com.hta.lecture.dto.ResponseDto;
 
 /*
@@ -74,6 +80,15 @@ public class ExceptionHandlerControllerAdvice {
 		
 		return response;
 	}
+	@ExceptionHandler(RestRegisterException.class) 
+	public @ResponseBody ResponseDto<?> handleRestRegisterException(RestRegisterException e, Model model){
+		e.printStackTrace();
+		ResponseDto<?> response = new ResponseDto<>();
+		response.setStatus("FAIL");
+		response.setError(e.getMessage());
+		
+		return response;
+	}
 	
 	@ExceptionHandler(LoginErrorException.class) 
 	public String handleLoginErrorException(LoginErrorException e, Model model){
@@ -85,20 +100,25 @@ public class ExceptionHandlerControllerAdvice {
 	@ExceptionHandler(CustomException.class) 
 	public String handleCustomException(CustomException e) {
 		e.printStackTrace();
-		return "error/customError.jsp";
+		return "error/customError";
 	}
 	
 	@ExceptionHandler(DataAccessException.class)
 	public String handleDataAccessException(DataAccessException e) {
 		e.printStackTrace();
-		return "error/databaseError.jsp";
+		return "error/databaseError";
 	}
 	
 	@ExceptionHandler(Exception.class)
 	public String handleException(Exception e) {
 		e.printStackTrace();
-		return "error/serverError.jsp";
+		return "error/serverError";
 	}
-	
+
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String handle404(NoHandlerFoundException e){
+	return "error/notFound";
+	}	
 
 }

@@ -19,6 +19,14 @@
 			user_coupon_no = #{userCouponNo}
 	</update>
 	
+	<delete id="updatePeriodUserCouponStatus">
+		update final_user_coupon_tb
+		set
+		    user_coupon_deleted_date_yn = 'Y'
+		where
+		    TO_CHAR(coupon_period_date, 'YYYYMMDD') = TO_CHAR(SYSDATE+1,'YYYYMMDD');  
+	</delete>
+
 	<select id="getCouponByUserNo" parameterType="int" resultType="com.hta.lecture.dto.UserCouponDto">
 		select
 			A.user_coupon_no					userCouponNO

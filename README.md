@@ -1,4 +1,8 @@
 # final-project(강의 사이트 제작)
+![image](https://user-images.githubusercontent.com/95058221/154825066-1a8b16ba-78fd-4e02-8e94-24e8c97af04f.png)
+
+![메인화면](https://user-images.githubusercontent.com/95058221/154825095-545720b0-e0ea-4b4b-ba03-b3b767003586.png)
+
 
 ## MVC Model2 기반으로 작업 진행
 ### 작업 환경
@@ -11,6 +15,9 @@
 - 형상관리도구 : Git
 - 백엔드 개발: Java, SQL, JDBC, JSP, Spring Framework, Spring Boot, Mybatis
 - 프론트엔드 개발: HTML, CSS, Javascript, jQuery, bootstrap5
+
+### ERD 설계 (23)
+![image](https://user-images.githubusercontent.com/95058221/154825025-e97b81ab-756f-4d6b-ba47-6019c7bb80c6.png)
 
 ### 작업 내역
 - 3depth 로 구성된 카테고리 리스트 목록 출력 기능

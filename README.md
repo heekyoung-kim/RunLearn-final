@@ -3,6 +3,9 @@
 
 ![메인화면](https://user-images.githubusercontent.com/95058221/154825095-545720b0-e0ea-4b4b-ba03-b3b767003586.png)
 
+* 5명 팀프로젝트
+  *   [업무분담 및 디렉토리구조도](https://github.com/heekyoung-kim/RunLearn-final/files/8104530/_._4.pdf)
+
 
 ## MVC Model2 기반으로 작업 진행
 <img src="https://user-images.githubusercontent.com/95058221/154833957-813644c7-9147-44c0-95b0-23e017acf165.jpg" width="600"/>

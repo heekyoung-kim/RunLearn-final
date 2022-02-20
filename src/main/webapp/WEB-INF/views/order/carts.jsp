@@ -32,7 +32,7 @@
 				<c:forEach var="coupon" items="${coupons}">	
 					<c:choose>
 						<c:when test="${coupon.discountRate eq 0}">					
-							<c:if test="${coupon.useStatus eq 'N'}">
+							<c:if test="${coupon.useStatus eq 'N' && coupon.periodStatus eq 'N'}">
 							<div class="form-check">
 							  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="price" data-discount="${coupon.discountPrice}" value="${coupon.userCouponNo}">
 							  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">
@@ -42,7 +42,7 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<c:if test="${coupon.useStatus eq 'N'}">
+							<c:if test="${coupon.useStatus eq 'N' && coupon.periodStatus eq 'N'}">
 								<div class="form-check">
 								  <input class="form-check-input" type="radio" name="userCoupon" id="coupon-check-${coupon.userCouponNo}" data-coupon-type="rate"data-discount="${coupon.discountRate}" value="${coupon.userCouponNo}">
 								  <label class="form-check-label" for="coupon-check-${coupon.userCouponNo}">

@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class UserCouponService {
 	
 	@Autowired
 	private CouponMapper couponMapper;
-	
+
 	
 	// 쿠폰추가.
 	public void addCouponByUserNoUserCoupon(int couponNo, int userNo) {
@@ -77,6 +78,12 @@ public class UserCouponService {
 	public int totalNoUseCouponCntByUserNo(int userNo) {
 		int totalNoUseCoupon = userCouponMapper.totalNoUseCouponCntByUserNo(userNo);
 		return totalNoUseCoupon;
+	}
+	
+	// 매일 0시 0분 0초 자정
+	@Scheduled(cron="0 0 0 * * *")
+	public void deleteCoupon() {
+		userCouponMapper.updatePeriodUserCouponStatus();
 	}
 	
 }

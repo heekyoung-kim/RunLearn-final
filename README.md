@@ -5,6 +5,8 @@
 
 
 ## MVC Model2 기반으로 작업 진행
+<img src="https://user-images.githubusercontent.com/95058221/154833957-813644c7-9147-44c0-95b0-23e017acf165.jpg" width="600"/>
+
 ### 작업 환경
 - 운영체제: windows 10
 - IDE: eclipse 2021-06 (4.20.0)
@@ -17,7 +19,8 @@
 - 프론트엔드 개발: HTML, CSS, Javascript, jQuery, bootstrap5
 
 ### ERD 설계 (23) - oracle
-![image](https://user-images.githubusercontent.com/95058221/154825025-e97b81ab-756f-4d6b-ba47-6019c7bb80c6.png)
+<img src="https://user-images.githubusercontent.com/95058221/154825025-e97b81ab-756f-4d6b-ba47-6019c7bb80c6.png" width="2000" />
+
 
 ### 작업 내역
 - BootStrap, html5, css 로 맡은 화면 뷰 구현.
